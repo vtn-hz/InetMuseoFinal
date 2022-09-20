@@ -56,7 +56,7 @@
     \*************************************/
   /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
   
-  eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ consumeAPI)\n/* harmony export */ });\n/*To fetch*/\r\n\r\n// API CONSUME //\r\nconst API_URL = 'http://127.0.0.1:5000';\r\nfunction consumeAPI (urlPath, params) {\r\n    return new Promise ((res, rej) => {\r\n        window.fetch(API_URL+urlPath, params)\r\n            .then(response => response.json())  \r\n            .then(json => res(json))   \r\n            .catch(err => rej(err));\r\n    });   \r\n}   \n\n//# sourceURL=webpack://museo/./src/services/api.service.js?");
+  eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ consumeAPI)\n/* harmony export */ });\n/*To fetch*/\r\n\r\n// API CONSUME //\r\nconst API_URL = 'https://museo-inet.herokuapp.com';\r\nfunction consumeAPI (urlPath, params) {\r\n    return new Promise ((res, rej) => {\r\n        window.fetch(API_URL+urlPath, params)\r\n            .then(response => response.json())  \r\n            .then(json => res(json))   \r\n            .catch(err => rej(err));\r\n    });   \r\n}   \n\n//# sourceURL=webpack://museo/./src/services/api.service.js?");
   
   /***/ }),
   

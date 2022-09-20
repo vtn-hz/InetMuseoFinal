@@ -1,0 +1,13 @@
+
+###
+POST http://localhost:5000/InscripcionCreate HTTP/1.1 
+Content-Type: application/json
+
+{
+    "nombre":"pio",
+    "dni": "999999",
+    "apellido": "pablo",
+    "mail": "papa@hola", 
+    "cantPersonas": "5",
+    "idVisitaGuiada": "1"
+}

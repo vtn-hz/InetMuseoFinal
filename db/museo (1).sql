@@ -174,7 +174,7 @@ INSERT INTO `idiomaguia` (`idIdiomaGuia`, `idIdioma`, `idGuia`) VALUES
 
 CREATE TABLE `inscripcion` (
   `idInscripcion` int(11) NOT NULL,
-  `fecha` date NOT NULL DEFAULT current_timestamp(),
+  `fecha` date NOT NULL,
   `estado` tinyint(1) NOT NULL DEFAULT 1,
   `idVisitante` int(11) NOT NULL,
   `idVisitaGuiada` int(11) NOT NULL,
@@ -235,7 +235,7 @@ INSERT INTO `institucion` (`idInstitucion`, `nombre`, `Mapainstalaciones`) VALUE
 
 CREATE TABLE `modificareliminar` (
   `idModificarEliminar` int(11) NOT NULL,
-  `fecha` date NOT NULL DEFAULT current_timestamp(),
+  `fecha` date NOT NULL,
   `idAdministrador` int(11) NOT NULL,
   `idExposicion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

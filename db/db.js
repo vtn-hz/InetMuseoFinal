@@ -5,4 +5,6 @@ const conexion = new Sequelize('sql10520960','sql10520960','M1li5HeQ67',{
     dialect: 'mysql'
 });
 
+/*Hacer local*/ 
+
 export default conexion;

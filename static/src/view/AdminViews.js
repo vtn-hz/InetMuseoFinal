@@ -1,12 +1,12 @@
 import checkSession from '../middleware/checkUser';
 import consumeAPI from '../services/api.service';
 import MuseoRender, {ElementGenerator, ElementManagement, TemplateProvider} from '../services/render.service.js'
-import { deleteSession } from '../controller/Session';
+
+import {SessionController} from '../controller/Session';
+import {FormController}  from '../controller/Form';
 
 
 
-
-import { sendForm } from '../controller/Form';
 
 
 
@@ -126,7 +126,8 @@ export default function AdminViewsController(){
                 allDeleteButtons.forEach (button => {
                     button.addEventListener('click', event => {
                         const urlDelExp = '/cambiarEstadoInscripcion';
-                            sendForm({url: urlDelExp, method:'PATCH' }, {
+                            FormController()
+                            .sendForm({url: urlDelExp, method:'PATCH' }, {
                                 'idInscripcion': event.target.value
                             }, ['', undefined]).then(msg => {
                                 renderFechas();
@@ -228,7 +229,8 @@ export default function AdminViewsController(){
                 allDeleteButtons.forEach (button => {
                     button.addEventListener('click', event => {
                         const urlDelExp = '/cambiarEstadoVisitaGuiada';
-                            sendForm({url: urlDelExp, method:'PATCH' }, {
+                            FormController()
+                            .sendForm({url: urlDelExp, method:'PATCH' }, {
                                 'idVisitaGuiada': event.target.value
                             }, ['', undefined]).then(msg => {
                                 renderFechas();
@@ -259,8 +261,8 @@ export default function AdminViewsController(){
                 const dateVisita = new Date(dataParse[0]);
                 const idGuia = dataParse[1];
 
-                                    
-                sendForm({url: urlPOSTVisita, method:'POST' }, {
+                FormController()                    
+                .sendForm({url: urlPOSTVisita, method:'POST' }, {
                     fecha:`${dateVisita.getFullYear()}-${(dateVisita.getMonth())+1}-${dateVisita.getDate()}`,
                     hora: `${("0" + dateVisita.getHours()).slice(-2)}:${("0" + dateVisita.getMinutes()).slice(-2)}`,
                     idGuia: parseInt(idGuia),
@@ -352,7 +354,8 @@ export default function AdminViewsController(){
                 allDeleteButtons.forEach (button => {
                     button.addEventListener('click', event => {
                         const urlDelExp = '/cambiarEstadoExpo';
-                            sendForm({url: urlDelExp, method:'PATCH' }, {
+                        FormController()
+                            .sendForm({url: urlDelExp, method:'PATCH' }, {
                                 'idExposcion': event.target.value
                             }, ['', undefined]).then(msg => {
                                 renderExposiciones();
@@ -394,8 +397,8 @@ export default function AdminViewsController(){
                 event.preventDefault();
                 const data = new FormData(event.target);
                 const dataParse = [...data.values()]
-
-                sendForm({url: urlPOSTExpo, method:'POST' }, {
+                FormController()
+                .sendForm({url: urlPOSTExpo, method:'POST' }, {
                     'idHabitacion': dataParse[2],
                     'titulo': dataParse[0],
                     'descripcion': dataParse[1]
@@ -485,7 +488,7 @@ export default function AdminViewsController(){
                     button.addEventListener('click', event => {
             
                         const urlDelGuia = '/cambiarEstadoGuia';
-                        sendForm({url: urlDelGuia, method:'POST' }, {
+                        FormController().sendForm({url: urlDelGuia, method:'POST' }, {
                             idGuia: event.target.value
                         }, ['', undefined]).then(msg => {
                             renderGuias();
@@ -539,7 +542,7 @@ export default function AdminViewsController(){
                 const dataParse = [...data.values()]
                 const idiomas = dataParse.splice(3, dataParse.length);
 
-                sendForm({url: urlPOSTGuia, method:'POST' }, {
+                FormController().sendForm({url: urlPOSTGuia, method:'POST' }, {
                     'dni': dataParse[2],
                     'nombre': dataParse[0],
                     'apellido': dataParse[1],
@@ -612,7 +615,7 @@ export default function AdminViewsController(){
                 allDeleteButtons.forEach (button => {
                     button.addEventListener('click', event => {
                         const urlDELSalas = '/cambiarEstadoHabitacion';
-                        sendForm({url: urlDELSalas, method:'PATCH' }, {
+                        FormController().sendForm({url: urlDELSalas, method:'PATCH' }, {
                             'idHabitacion': event.target.value,
                         }, []).then(msg => {
                             renderSalas();
@@ -655,7 +658,7 @@ export default function AdminViewsController(){
                 const dataParse = [...data.values()]
 
                 
-                sendForm({url: urlPOSTSalas, method:'POST' }, {
+                FormController().sendForm({url: urlPOSTSalas, method:'POST' }, {
                     'idInstitucion': 1,
                     'identificador': dataParse[0],
                 }, ['', undefined]).then(msg => {
@@ -671,7 +674,8 @@ export default function AdminViewsController(){
 
 
     const logOut = () => {
-        deleteSession();
+        SessionController()
+        .deleteSession();
         MREnder.startUp();
     }
 

@@ -1,8 +1,8 @@
 import MuseoRender, {ElementGenerator, ElementManagement, TemplateProvider} from '../services/render.service.js'
-import { createSession } from '../controller/Session.js'
 
+import {SessionController} from '../controller/Session.js'
+import {FormController} from '../controller/Form.js';
 
-import { sendForm } from '../controller/Form.js';
 
 
 
@@ -126,7 +126,8 @@ export default function GuestViewsController(){
                 password: document.getElementById('pass').value,
             }
 
-            createSession(body).then(message=> {
+            SessionController()
+            .createSession(body).then(message=> {
                 const MR = new MuseoRender();
                 MR.startUp();
                 alert(message.success);
@@ -210,7 +211,7 @@ export default function GuestViewsController(){
 
 
                         const urlPOSTVisita ='/InscripcionCreate';
-                        sendForm({url: urlPOSTVisita, method:'POST' }, {
+                        FormController().sendForm({url: urlPOSTVisita, method:'POST' }, {
                             idVisitaGuiada: event.target.value,
                             nombre: dataParse[1],
                             apellido: dataParse[2],

@@ -64,7 +64,7 @@ export default function GuestViewsController(){
 
 
         Generator.removeAllElements(Generator.getRoot());
-        Manager.setActiveClass(Object.keys(getDependencies()), 'home');
+ 
         
 
         Generator.getRoot()

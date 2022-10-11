@@ -1,5 +1,5 @@
 
-export function AdminController(){
+export function GuestController(){
     return {
         
     }

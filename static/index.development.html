@@ -21,8 +21,64 @@
     <div id="root"> 
         <!--<div class="img__backgroundmuseo"></div>-->
     </div>
-   
+
+    <template id="card">
+        <form method="POST" class="content-card" action="">
+            <h1  id="card-header" class="card-header"></h1>
+            <button id="card-closer" class="card-close">Cerrar</button>
+            
+            <div id="content-container">
     
+            </div>
+
+            <input type="submit" id="card-submit" name="submit" class="form-submit">
+        </form>
+    </template>
+
+    
+    <template id="card-content">
+        <title>Titulo</title>
+        <div>
+            <input type="text" value="1">
+            <input type="text" value="2">
+        </div>
+    </template>
+
+
+    <template id="nav-guest">
+        <ul class="nav-bar_box">
+            <li id="home" class="nav-bar_element nav-bar_icon">
+                <a href="#">HOME</a>
+            </li>
+            <li  id="guest-reserva" class="nav-bar_element">
+                <a href="#">HACER UNA RESERVA</a>
+            </li>
+            <li id="guest-visitaldigital" class="nav-bar_element">
+                <a href="#">VISITA DIGITAL</a>
+            </li>
+            <li id="guest-accesibilidad" class="nav-bar_element">
+                <a href="#">ACCESIBILIDAD</a>
+            </li>
+            <li id="access" class="nav-bar_element right">
+                <a href="#">ACCEDER</a>
+            </li>
+        </ul>
+    </template>
+    
+    <template id="record-list">
+        <table id="content-table" class="table-date">
+            <thead> 
+                <tr id="record-head">
+    
+                </tr>
+            </thead>
+            <tbody id="record-body">
+    
+            </tbody>
+        </table>
+    </template>
+
+
     <script src="src/dist/build.js"></script>
 </body>
 </html>

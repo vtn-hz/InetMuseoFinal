@@ -1,7 +1,7 @@
 import {Sequelize} from "sequelize";
 
-const conexion = new Sequelize('sql10520960','sql10520960','M1li5HeQ67',{
-    host: 'sql10.freemysqlhosting.net',
+const conexion = new Sequelize('museo','root','',{
+    host: '127.0.0.1',
     dialect: 'mysql'
 });
 

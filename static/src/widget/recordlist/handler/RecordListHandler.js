@@ -28,8 +28,11 @@ function RecordlistHandler (RecordList, APIUrl, {headNames, keys:{primaryKey, pa
                 })
 
                 operationElements.forEach (HTMLNode => {
-                    HTMLNode.value = record[primaryKey];
-                    arrayNodes.push(HTMLNode.cloneNode(true));
+                    const ElementClone = HTMLNode.element.cloneNode(true);
+                    ElementClone.value = record[primaryKey];
+                    ElementClone.addEventListener(HTMLNode.listenEvent, HTMLNode.handlerEvent)
+
+                    arrayNodes.push(ElementClone);
                 })  
 
 
@@ -41,7 +44,7 @@ function RecordlistHandler (RecordList, APIUrl, {headNames, keys:{primaryKey, pa
                 arrayNodes.length = 0;
             })
             bodyTable.appendChild(fragment);
-        });
+        }).catch(e => console.error(e));
     }
 
     this.getRecordlist = () => {

@@ -1,3 +1,4 @@
+import { GuestController } from '../controller/UI/Guest.js';
 import MuseoRender, { ElementGenerator } from '../services/render.service.js';
 import { ElementManagement } from '../services/render.service.js';
 import createCard from '../widget/card/handler/CardHandler.js'
@@ -11,7 +12,16 @@ const Generator = new ElementGenerator ();
 
 
 window.onload = () => {
-   const card = createCard( event => {
+    GuestController('root', 'nav').startUp();
+
+   /*MuseoRender ()
+    .startUp();
+    */
+}
+
+/*
+
+  const card = createCard( event => {
         event.preventDefault();
         console.log('HOLAAA')
     }, document.getElementById('card-content'));
@@ -40,10 +50,5 @@ window.onload = () => {
 
     document.getElementById('root').appendChild(card.getCard())
     document.getElementById('root').appendChild(record.getRecordlist())
-    document.getElementById('nav').appendChild(nav.getNavbar())
-
-   /*MuseoRender ()
-    .startUp();
-    */
-}
+    document.getElementById('nav').appendChild(nav.getNavbar())*/ 
 

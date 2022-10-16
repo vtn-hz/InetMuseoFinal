@@ -1,10 +1,13 @@
+import Application from "../../config/Application";
 import { ElementGenerator, ElementManagement, getClonedView } from "../../services/render.service"
+
 import createCard from "../../widget/card/handler/CardHandler";
-
-
 import createNavbar from "../../widget/navbar/handler/NavHandler";
 import createRecordlist from "../../widget/recordlist/handler/RecordListHandler";
+
+import { FormController } from "../Form";
 import { SessionController } from "../Session";
+
 
 const GuestDomainView = ['home', 'guest-reserva', 'guest-visitaldigital', 'guest-accesibilidad', 'access'];
 
@@ -13,7 +16,7 @@ export function GuestController( DynamicContentRoot, StaticContentRoot){
     const Manager = new ElementManagement ();
 
     const DynamicContentRender = {
-        "renderHome": function (idHomeTemplate) {
+        "renderHome": function (idHomeTemplate = 'guest_view-home') {
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'home');
 
@@ -21,7 +24,7 @@ export function GuestController( DynamicContentRoot, StaticContentRoot){
             document.getElementById(DynamicContentRoot).appendChild(HomeView);
         },
 
-        "renderReserva": function (idReservaTemplate) {
+        "renderReserva": function (idReservaTemplate = 'guest_view-reserva') {
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'guest-reserva');
 
@@ -72,7 +75,7 @@ export function GuestController( DynamicContentRoot, StaticContentRoot){
             document.getElementById(DynamicContentRoot).appendChild(ReservaView);
         },
 
-        "renderDigitalVisit": function(idVisitaDigitalTemplate){
+        "renderDigitalVisit": function(idVisitaDigitalTemplate = 'guest_view-visitadigital'){
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'guest-visitaldigital');
 
@@ -80,7 +83,7 @@ export function GuestController( DynamicContentRoot, StaticContentRoot){
             document.getElementById(DynamicContentRoot).appendChild(VisitaDView);
         },
 
-        "renderAccesibility": function (idAccesibilityTemplate) {
+        "renderAccesibility": function (idAccesibilityTemplate = 'guest_view-accesibilidad') {
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'guest-accesibilidad');
 
@@ -88,7 +91,7 @@ export function GuestController( DynamicContentRoot, StaticContentRoot){
             document.getElementById(DynamicContentRoot).appendChild(AccesibilityView);
         },
 
-        "renderLoggin": function(idLogginTemplate){
+        "renderLoggin": function(idLogginTemplate = 'guest_view-loggin'){
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'access');
             const LogginView = getClonedView(idLogginTemplate);
@@ -104,9 +107,7 @@ export function GuestController( DynamicContentRoot, StaticContentRoot){
     
                 SessionController()
                 .createSession(body).then(message=> {
-                    /*const MR = new MuseoRender();
-                    MR.startUp();
-                    Refresh Aplication*/
+                    Application.refresh();
                     alert(message.success);
                     
                 }).catch(message => alert(message.error))    
@@ -118,16 +119,16 @@ export function GuestController( DynamicContentRoot, StaticContentRoot){
     } 
 
     const StaticContentRender = {
-        "renderNavbar": function () {
+        "renderNavbar": function (idNavbarGuestTemplate = 'nav-guest') {
             const NavBar = createNavbar ({
-                'home': _ => DynamicContentRender.renderHome('guest_view-home'),
-                'guest-reserva': _=>  DynamicContentRender.renderReserva('guest_view-reserva'),
-                'guest-visitaldigital': _=> DynamicContentRender.renderDigitalVisit('guest_view-visitadigital'),
-                'guest-accesibilidad': _=> DynamicContentRender.renderAccesibility('guest_view-accesibilidad'),
-                'access': _=> DynamicContentRender.renderLoggin('guest_view-loggin')
-            }, document.getElementById('nav-guest'));
+                'home': _ => DynamicContentRender.renderHome(),
+                'guest-reserva': _=>  DynamicContentRender.renderReserva(),
+                'guest-visitaldigital': _=> DynamicContentRender.renderDigitalVisit(),
+                'guest-accesibilidad': _=> DynamicContentRender.renderAccesibility(),
+                'access': _=> DynamicContentRender.renderLoggin()
+            }, document.getElementById(idNavbarGuestTemplate));
 
-            Generator.removeAllElements(StaticContentRoot);
+            Generator.removeAllElements(document.getElementById(StaticContentRoot));
             document.getElementById(StaticContentRoot).appendChild(NavBar.getNavbar());
         }
     } 
@@ -135,6 +136,7 @@ export function GuestController( DynamicContentRoot, StaticContentRoot){
     return {
         "startUp": () => {
             StaticContentRender.renderNavbar();
+            DynamicContentRender.renderHome();
         }
     }
 }

@@ -268,6 +268,203 @@
 
     <!---->
 
+
+    <!-- View Admin Nav -->
+
+    <template id="nav-admin">
+        <ul class="nav-bar_box">
+            <li id="home" class="nav-bar_element nav-bar_icon">
+                <a href="#">HOME</a>
+            </li>
+            <li id="admin-fecha" class="nav-bar_element">
+                <a href="#">MANEJAR FECHAS</a>
+            </li>
+            <li id="admin-exposiciones" class="nav-bar_element">
+                <a href="#">MANEJAR EXPOSICIONES</a>
+            </li>
+            <li id="admin-guias" class="nav-bar_element">
+                <a href="#">MANEJAR GUIAS</a>
+            </li>
+            <li id="admin-salas" class="nav-bar_element">
+                <a href="#">MANEJAR SALAS</a>
+            </li>
+            <li id="access" class="nav-bar_element right">
+                <a href="#">SALIR</a>
+            </li>
+        </ul>
+    </template>
+
+    <!---->
+
+    <!-- View Admin Home -->
+
+    <template id="admin_view-home">
+        <article class="article" id="article">
+            <h1 class="display-5">Bienvenido denuevo!</h1>
+            <p>
+                Recuerde que puede administrar los datos de las Visitas Guiadas, 
+                como de los Guias. No olvide revisar los dni de los visitantes.
+            </p>
+        </article>
+        <article class="article" id="article-content">
+            <h2 class="display-3">Listado de Inscriptos</h2>
+            <div class="container">
+                <div  class="row" id="row-1"></div>
+                <div  class="row" id="row-2"></div>
+            </div>
+            <button class="form-edit-xl">Recuperar un Registro</button>
+        </article>
+    </template>
+
+    <!---->
+
+    <!-- View Admin Fechas -->
+
+    <template id="admin_view-fechas">
+        <article class="article" id="article-content">
+            <h1 class="h1-display-table">Fechas de Visita</h1>
+            <div class="container">
+                <div  class="row" id="row-1">
+                    <div id="recordlist-container"></div>
+                    <div class="dashboard-container">
+                        <button id="add-table-button" class="form-submit-xl">Agregar</button>
+                    </div>
+                </div>
+                <div  class="row" id="row-2"></div>
+            </div>
+        </article>
+    
+    
+        <template id="submit-card-content-fecha">
+            <title-card>Generar Visita</title-card>
+            <content-card>
+                <input type="datetime-local" id="card-fecha" name="fecha" class="form-date">
+                <select id="card-guia" name="guia" class="form-select">Guia</select>
+            </content-card>
+        </template>
+    
+        <template id="edit-card-content-fecha">
+            <title-card>Editar Visita</title-card>
+            <content-card>
+                <input type="datetime-local" id="card-fecha" name="fecha" class="form-date">
+                <select id="card-guia" name="guia" class="form-select">Guia</select>
+            </content-card>
+        </template>
+    </template>
+
+    <!---->
+
+    <!-- View Admin Exposicion -->
+
+    <template id="admin_view-exposicion">
+        <article class="article" id="article-content">
+            <h1 class="h1-display-table">Lista de Exposiciones</h1>
+            <div class="container">
+                <div  class="row" id="row-1">
+                    <div id="recordlist-container"></div>
+                    <div class="dashboard-container">
+                        <button id="add-table-button" class="form-submit-xl">Agregar</button>
+                    </div>
+                </div>
+                <div  class="row" id="row-2"></div>
+            </div>
+        </article>
+    
+        <template id="submit-card-content-exposicion">
+            <title-card>Generar Exposicion</title-card>
+            <content-card>
+                <input type="text" id="card-titulo" name="titulo" class="form-text" placeholder="Nombre Exposicion...">
+                <input type="text" id="card-descripcion" name="descripcion" class="form-text" placeholder="Descripcion...">
+                <select id="card-sala" name="sala" class="form-select">Sala</select>
+            </content-card>
+        </template>
+        
+        <template id="edit-card-content-exposicion">
+            <title-card>Editar Exposicion</title-card>
+            <content-card>
+                <input type="text" id="card-titulo" name="titulo" class="form-text" placeholder="Nombre Exposicion...">
+                <input type="text" id="card-descripcion" name="descripcion" class="form-text" placeholder="Descripcion...">
+                <select id="card-sala" name="sala" class="form-select">Sala</select>
+            </content-card>
+        </template>
+    </template>
+
+    <!---->
+
+    <!-- View Admin Guias -->
+
+    <template id="admin_view-guias">
+        <article class="article" id="article-content">
+            <h1 class="h1-display-table">Lista de Guias</h1>
+            <div class="container">
+                <div  class="row" id="row-1">
+                    <div id="recordlist-container"></div>
+                    <div class="dashboard-container">
+                        <button id="add-table-button" class="form-submit-xl">Agregar</button>
+                    </div>
+                </div>
+                <div  class="row" id="row-2"></div>
+            </div>
+        </article>
+    
+        
+        <template id="submit-card-content-guia">
+            <title-card>Añadir Guia</title-card>
+            <content-card>
+                <input type="text" id="card-nombre-guia" name="nombre-guia" class="form-text-inline" placeholder="Nombre...">
+                <input type="text" id="card-apellido-guia" name="apellido-guia" class="form-text-inline" placeholder="Apellido...">
+                <input type="number" id="card-dni-guia" name="dni-guia" class="form-text-full" placeholder="DNI">
+                <div class="container" id="card-idiomas-guia" name="idiomas-guia"></div>
+            </content-card>
+        </template>
+    
+        <template id="edit-card-content-guia">
+            <title-card>Editar Guia</title-card>
+            <content-card>
+                <input type="text" id="card-nombre-guia" name="nombre-guia" class="form-text-inline" placeholder="Nombre...">
+                <input type="text" id="card-apellido-guia" name="apellido-guia" class="form-text-inline" placeholder="Apellido...">
+                <input type="number" id="card-dni-guia" name="dni-guia" class="form-text-full" placeholder="DNI">
+                <div class="container" id="card-idiomas-guia" name="idiomas-guia"></div>
+            </content-card>
+        </template>
+    </template>
+
+    <!---->
+
+    <!-- View Admin Salas -->
+
+    <template id="admin_view-salas">
+        <article class="article" id="article-content">
+            <h1 class="h1-display-table">Lista de Salas del Museo</h1>
+            <div class="container">
+                <div  class="row" id="row-1">
+                    <div id="recordlist-container"></div>
+                    <div class="dashboard-container">
+                        <button id="add-table-button" class="form-submit-xl">Agregar</button>
+                    </div>
+                </div>
+                <div  class="row" id="row-2"></div>
+            </div>
+        </article>
+    
+    
+        <template id="submit-card-content-sala">
+            <title-card>Agregar Sala</title-card>
+            <content-card>
+                <input type="text" id="card-descripcion" name="descripcion" placeholder="Descripcion de Sala..." class="form-text">
+            </content-card>
+        </template>
+    
+        <template id="edit-card-content-sala">
+            <title-card>Editar Sala</title-card>
+            <content-card>
+                <input type="text" id="card-descripcion" name="descripcion" placeholder="Descripcion de Sala..." class="form-text">
+            </content-card>
+        </template>
+    </template>
+
+    <!---->
+
     <script src="src/dist/build.js"></script>
 </body>
 </html>

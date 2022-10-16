@@ -24,6 +24,13 @@ export function SessionController(){
 
         'deleteSession': ()=>{
             localStorage.removeItem('sessionId');
+        },
+
+        'checkSession': () => {
+            const sessionId = localStorage.getItem('sessionId');
+            if (sessionId) {
+                return sessionId;
+            } return false;
         }
     }
 }

@@ -43,11 +43,6 @@ function CardHandler (Card, Content, eventListener) {
         container.appendChild(content);
     }
 
-    // Delete if not usage
-    this.pushContent = ( idCont, content, ElementGeneratorInstance) => {
-        const Card = Card.querySelector(idCont);
-        ElementGeneratorInstance.pushContent(Card, content);
-    }
 
     this.getCard = () => {
         setClose(Card.querySelector(CardButtonClose_ID));

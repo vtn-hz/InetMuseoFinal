@@ -1,0 +1,32 @@
+<template id="admin_view-exposicion">
+    <article class="article" id="article-content">
+        <h1 class="h1-display-table">Lista de Exposiciones</h1>
+        <div class="container">
+            <div  class="row" id="row-1">
+                <div id="recordlist-container"></div>
+                <div class="dashboard-container">
+                    <button id="add-table-button" class="form-submit-xl">Agregar</button>
+                </div>
+            </div>
+            <div  class="row" id="row-2"></div>
+        </div>
+    </article>
+
+    <template id="submit-card-content-exposicion">
+        <title-card>Generar Exposicion</title-card>
+        <content-card>
+            <input type="text" id="card-titulo" name="titulo" class="form-text" placeholder="Nombre Exposicion...">
+            <input type="text" id="card-descripcion" name="descripcion" class="form-text" placeholder="Descripcion...">
+            <select id="card-sala" name="sala" class="form-select">Sala</select>
+        </content-card>
+    </template>
+    
+    <template id="edit-card-content-exposicion">
+        <title-card>Editar Exposicion</title-card>
+        <content-card>
+            <input type="text" id="card-titulo" name="titulo" class="form-text" placeholder="Nombre Exposicion...">
+            <input type="text" id="card-descripcion" name="descripcion" class="form-text" placeholder="Descripcion...">
+            <select id="card-sala" name="sala" class="form-select">Sala</select>
+        </content-card>
+    </template>
+</template>

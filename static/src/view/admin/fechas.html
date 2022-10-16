@@ -1,0 +1,31 @@
+<template id="admin_view-fechas">
+    <article class="article" id="article-content">
+        <h1 class="h1-display-table">Fechas de Visita</h1>
+        <div class="container">
+            <div  class="row" id="row-1">
+                <div id="recordlist-container"></div>
+                <div class="dashboard-container">
+                    <button id="add-table-button" class="form-submit-xl">Agregar</button>
+                </div>
+            </div>
+            <div  class="row" id="row-2"></div>
+        </div>
+    </article>
+
+
+    <template id="submit-card-content-fecha">
+        <title-card>Generar Visita</title-card>
+        <content-card>
+            <input type="datetime-local" id="card-fecha" name="fecha" class="form-date">
+            <select id="card-guia" name="guia" class="form-select">Guia</select>
+        </content-card>
+    </template>
+
+    <template id="edit-card-content-fecha">
+        <title-card>Editar Visita</title-card>
+        <content-card>
+            <input type="datetime-local" id="card-fecha" name="fecha" class="form-date">
+            <select id="card-guia" name="guia" class="form-select">Guia</select>
+        </content-card>
+    </template>
+</template>

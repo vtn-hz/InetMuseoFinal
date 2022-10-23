@@ -1,16 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <link rel="stylesheet" href="css/default.css">
     <link rel="stylesheet" href="css/style.css">
 
-
     <link rel="icon" type="image/x-icon" href="img/icons/favicon.ico">
-
 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <template-container>
+        <div data-include="guest/loggin.html"></div>
+        <div data-include="guest/accesibilidad.html"></div>
+        <div data-include="guest/home.html"></div>
+        <div data-include="guest/reserva.html"></div>
+        <div data-include="guest/visitadigital.html"></div>
+
+        <div data-include="admin/exposiciones.html"></div>
+        <div data-include="admin/fechas.html"></div>
+        <div data-include="admin/guias.html"></div>
+        <div data-include="admin/home.html"></div>
+        <div data-include="admin/salas.html"></div>
+
+
+        <div data-include="card/view/CardTemplate.html"></div>
+        <div data-include="navbar/view/NavTemplate.html"></div>
+        <div data-include="recordlist/view/RecordListTemplate.html"></div>
+    </template-container>
+    
+    
+
     <title>Museo</title>
 </head>
 <body>
@@ -21,8 +41,11 @@
     <div id="root"> 
         <!--<div class="img__backgroundmuseo"></div>-->
     </div>
-   
     
+
+
+   
+
     <script src="build.js"></script>
 </body>
 </html>

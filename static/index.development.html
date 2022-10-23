@@ -21,8 +21,450 @@
     <div id="root"> 
         <!--<div class="img__backgroundmuseo"></div>-->
     </div>
-   
+
+    <template id="card">
+        <form method="POST" class="content-card" action="">
+            <h1  id="card-header" class="card-header"></h1>
+            <button id="card-closer" class="card-close">Cerrar</button>
+            
+            <div id="content-container">
     
+            </div>
+
+            <input type="submit" id="card-submit" name="submit" class="form-submit">
+        </form>
+    </template>
+
+    
+    <template id="card-content">
+        <title>Titulo</title>
+        <div>
+            <input type="text" value="1">
+            <input type="text" value="2">
+        </div>
+    </template>
+
+
+    <template id="nav-guest">
+        <ul class="nav-bar_box">
+            <li id="home" class="nav-bar_element nav-bar_icon">
+                <a href="#">HOME</a>
+            </li>
+            <li  id="guest-reserva" class="nav-bar_element">
+                <a href="#">HACER UNA RESERVA</a>
+            </li>
+            <li id="guest-visitaldigital" class="nav-bar_element">
+                <a href="#">VISITA DIGITAL</a>
+            </li>
+            <li id="guest-accesibilidad" class="nav-bar_element">
+                <a href="#">ACCESIBILIDAD</a>
+            </li>
+            <li id="access" class="nav-bar_element right">
+                <a href="#">ACCEDER</a>
+            </li>
+        </ul>
+    </template>
+    
+    <template id="record-list">
+        <table id="content-table" class="table-date">
+            <thead> 
+                <tr id="record-head">
+    
+                </tr>
+            </thead>
+            <tbody id="record-body">
+    
+            </tbody>
+        </table>
+    </template>
+
+    <!--View Guest Home-->
+    <template id="guest_view-home">
+        <article id="article-index" class="article">
+            <section class="first-section-content">
+                <h1 class="display-5">Bienvenidx, visitantx!</h1>
+            </section>
+            <section class="section-content">
+                    <p>
+                    Bienvenidos al museo de la TEC 2, donde encontrara las mejores obras de la epoca de la hummanidad. 
+                    Podra registrarse a una de nuestras visitas guiadas donde uno de nuestros guias en el idioma que usted
+                    prefiera podra contarle la historias de nuestras obras como de la de nuestro museo. Antes de asisir puede
+                    ver nuestra visita Guiada Digital para hacerse una idea de las obras que podra encontrar. ¿Le gusta el renacentismo? 
+                    ¿Le gusta el classismo o las obra de Leonardo Davinci? Todo esto y mas podra verlo en nuestro museo. Los esperamos!!!!!!
+                    </p>
+            </section>
+            <section id="map-section-content" class="section-content">
+                <h1>Mapa de las Instalaciones</h1>
+                <div class="container">
+                    <div class="img__mapmuseo"></div>
+                    <div>
+                        Aqui a nuestra derecha podra ver un mapa de nuestras instalaciones, La primera habitacion se trata sobre la epoca clasista, una epoca que viene en el arte despues barroco, donde los
+                        artistas quieran volver a un estilo artistico y musical mas apegado a epocas anteriores, por esto el nombre de esta se la considera clasisismo. En la segunda habitacion es dedicada a la Gioconda
+                        y las obras de Leonardo Davinci. Pero no contaremos mas, preferimos que usted vea por su propia cuenta las demas Exposiciones!!!
+                    </div>
+                </div>
+            </section>
+        </article>
+        <footer class="footer-default">Un proyecto para el INET 2022</footer>
+    </template>
+    <!---->
+
+    <!--View Guest Reserva-->
+    <template id="guest_view-reserva">
+        <article>
+            <h1 class="h1-display-table">Fechas de Eventos</h1>
+            <div class="container">
+                <div class="row" id="row-1"></div>
+                <div class="row" id="row-2"></div>
+            </div>
+        </article>
+
+                
+        <template id="card-content-reserva">
+            <title-card>Subscribirse a Visita Guiada</title-card>
+            <content-card>
+                <input type="email" placeholder="Email" id="card-email" class="form-text-full">
+                <input type="text" placeholder="Nombre..." id="card-nombre" class="form-text-inline">
+                <input type="text" placeholder="Apellido..." id="card-apellido" class="form-text-inline">
+                <input type="number" placeholder="DNI" id="card-dni" class="form-text-full">
+                <input type="number" placeholder="Cant. Personas" id="card-cantidad" class="form-text-inline">
+            </content-card>
+        </template>
+    </template>
+
+    <!---->
+
+    <!--View Guest Visita Digital-->
+    <template id="guest_view-visitadigital">
+        <article class="article">
+            <section class="small-container">
+                <div class="content-card">
+                    <h1 class="title-content">La Gioconda</h1>
+                    <p class="content">
+                        El retrato de Lisa Gherardini, esposa de 
+                        Francesco del Giocondo, más conocido como La Gioconda o Monna Lisa, es una obra 
+                        pictórica del polímata renacentista italiano Leonardo da Vinci.
+                    </p>
+                </div>
+                <div class="img-visita-digital-1">
+    
+                </div>
+            </section>
+    
+            <section class="small-container">
+                <div class="img-visita-digital-2">
+    
+                </div>
+                <div class="content-card">
+                    <h1 class="title-content">La noche estrellada</h1>
+                    <p class="content">
+                        La noche estrellada es un óleo sobre lienzo del pintor 
+                        postimpresionista neerlandés Vincent van Gogh. Pintado en junio de 1889,
+                        representa la vista desde la ventana orientada al este de su 
+                        habitación de asilo en Saint-Rémy-de-Provence, 
+                        justo antes del amanecer, con la adición de un pueblo imaginario.
+                    </p>
+                </div>
+            </section>
+    
+            <section class="small-container">
+                <div class="content-card">
+                    <h1 class="title-content">La última cena</h1>
+                    <p class="content">
+                        La última cena es una pintura mural original de 
+                        Leonardo da Vinci ejecutada entre 1495 y 1498.
+                        Se encuentra en la pared sobre la que se pintó
+                        originalmente, en el refectorio del convento 
+                        dominico de Santa Maria delle Grazie, en Milán, 
+                        declarado Patrimonio de la Humanidad por la Unesco 
+                        en 1980.
+                    </p>
+                </div>
+                <div class="img-visita-digital-3">
+    
+                </div>
+            </section>
+            <section class="small-container">
+                <div class="img-visita-digital-4">
+    
+                </div>
+                <div class="content-card">
+                    <h1 class="title-content">Desnudo bajando una escalera nº2</h1>
+                    <p class="content">
+                        Desnudo bajando una escalera nº2 es una pintura de 1912 
+                        por Marcel Duchamp. 
+                        El trabajo es considerado como un clásico modernista y 
+                        se ha convertido en uno de los más famosos de su tiempo.
+                    </p>
+                </div>
+    
+            </section>
+        </article>
+    </template>
+    <!---->
+
+    <!--View Guest Accesibilidad-->
+    <template id="guest_view-accesibilidad">
+        <article class="article">
+            <section class="section-content">
+                <h1 class="display-5">Accesibilidad en Museos</h1>
+            </section>
+            <section class="section-content">
+                <p class="content">
+                    La Guía de Accesibilidad en Museos permite evaluar y proyectar la accesibilidad en distintos 
+                    tipos de instituciones patrimoniales y culturales, 
+                    mediante la presentación de herramientas de acceso tecnologicas.
+                </p>
+            </section>
+    
+            <div class="container">
+                <div class="col">
+                    <h2 class="title-content">Discapacidad Visual</h2>
+                    <div class="icon-blind"></div>
+                    <p class="top-content">
+                        Los problemas de visión son los más comunes en personas adultas. 
+                        Problemas tales como, vista corta (miopía), hipermetropía, astigmatismo 
+                        y presbicia e incluso la ceguera completa pueden llegar a aparecer.  
+                        Estos problemas provocan dificultad para disfrutar las muestras de los museos. 
+                        Por esa razon somos el primer museo de mar de plata que tiene funcionalidades para personas con dificultades 
+                        visuales en todos sus niveles.
+                    </p>
+                </div>
+                <div class="col">
+    
+                </div>
+            </div>
+    
+            <div class="container">
+                <div class="col">
+                    <h2 class="title-content">Discapacidad Motriz</h2>
+                    <div class="icon-chair"></div>
+                    <p class="top-content">
+                        Nuestro museo se encuentra completamente acoplado para personas con 
+                        discapacidades motriz, queremos que el arte pueda llegar a todos y todas,
+                        no importa su condicion. 
+                        Porque el arte es una parte importante del ser humano 
+                        y como seres humanos tenemos que tener el derecho de contemplar y conocer.
+                    </p>
+                </div>
+                <div class="col">
+    
+                </div>
+            </div>
+        </article>
+    </template>
+
+    <!---->
+
+    <!--View Guest Loggin-->
+
+    <template id="guest_view-loggin">
+        <form id="id-form" class="form-container-user" action="" method="POST">
+            <input type="text" placeholder="Nombre..." id="user" name="username" class="form-text-user">
+            <input type="password" placeholder="Contraseña..." id="pass" name="password" class="form-pass-user">
+            <input value="INGRESAR" class="form-submit-user", type="submit">
+        </form>
+    </template>
+
+    <!---->
+
+
+    <!-- View Admin Nav -->
+
+    <template id="nav-admin">
+        <ul class="nav-bar_box">
+            <li id="home" class="nav-bar_element nav-bar_icon">
+                <a href="#">HOME</a>
+            </li>
+            <li id="admin-fecha" class="nav-bar_element">
+                <a href="#">MANEJAR FECHAS</a>
+            </li>
+            <li id="admin-exposiciones" class="nav-bar_element">
+                <a href="#">MANEJAR EXPOSICIONES</a>
+            </li>
+            <li id="admin-guias" class="nav-bar_element">
+                <a href="#">MANEJAR GUIAS</a>
+            </li>
+            <li id="admin-salas" class="nav-bar_element">
+                <a href="#">MANEJAR SALAS</a>
+            </li>
+            <li id="access" class="nav-bar_element right">
+                <a href="#">SALIR</a>
+            </li>
+        </ul>
+    </template>
+
+    <!---->
+
+    <!-- View Admin Home -->
+
+    <template id="admin_view-home">
+        <article class="article" id="article">
+            <h1 class="display-5">Bienvenido denuevo!</h1>
+            <p>
+                Recuerde que puede administrar los datos de las Visitas Guiadas, 
+                como de los Guias. No olvide revisar los dni de los visitantes.
+            </p>
+        </article>
+        <article class="article" id="article-content">
+            <h2 class="display-3">Listado de Inscriptos</h2>
+            <div class="container">
+                <div  class="row" id="row-1"></div>
+                <div  class="row" id="row-2"></div>
+            </div>
+            <button class="form-edit-xl">Recuperar un Registro</button>
+        </article>
+    </template>
+
+    <!---->
+
+    <!-- View Admin Fechas -->
+
+    <template id="admin_view-fechas">
+        <article class="article" id="article-content">
+            <h1 class="h1-display-table">Fechas de Visita</h1>
+            <div class="container">
+                <div  class="row" id="row-1">
+                    <div id="recordlist-container"></div>
+                    <div class="dashboard-container">
+                        <button id="add-table-button" class="form-submit-xl">Agregar</button>
+                    </div>
+                </div>
+                <div  class="row" id="row-2"></div>
+            </div>
+        </article>
+    
+    
+        <template id="submit-card-content-fecha">
+            <title-card>Generar Visita</title-card>
+            <content-card>
+                <input type="datetime-local" id="card-fecha" name="fecha" class="form-date">
+                <select id="card-guia" name="guia" class="form-select">Guia</select>
+            </content-card>
+        </template>
+    
+        <template id="edit-card-content-fecha">
+            <title-card>Editar Visita</title-card>
+            <content-card>
+                <input type="datetime-local" id="card-fecha" name="fecha" class="form-date">
+                <select id="card-guia" name="guia" class="form-select">Guia</select>
+            </content-card>
+        </template>
+    </template>
+
+    <!---->
+
+    <!-- View Admin Exposicion -->
+
+    <template id="admin_view-exposicion">
+        <article class="article" id="article-content">
+            <h1 class="h1-display-table">Lista de Exposiciones</h1>
+            <div class="container">
+                <div  class="row" id="row-1">
+                    <div id="recordlist-container"></div>
+                    <div class="dashboard-container">
+                        <button id="add-table-button" class="form-submit-xl">Agregar</button>
+                    </div>
+                </div>
+                <div  class="row" id="row-2"></div>
+            </div>
+        </article>
+    
+        <template id="submit-card-content-exposicion">
+            <title-card>Generar Exposicion</title-card>
+            <content-card>
+                <input type="text" id="card-titulo" name="titulo" class="form-text" placeholder="Nombre Exposicion...">
+                <input type="text" id="card-descripcion" name="descripcion" class="form-text" placeholder="Descripcion...">
+                <select id="card-sala" name="sala" class="form-select">Sala</select>
+            </content-card>
+        </template>
+        
+        <template id="edit-card-content-exposicion">
+            <title-card>Editar Exposicion</title-card>
+            <content-card>
+                <input type="text" id="card-titulo" name="titulo" class="form-text" placeholder="Nombre Exposicion...">
+                <input type="text" id="card-descripcion" name="descripcion" class="form-text" placeholder="Descripcion...">
+                <select id="card-sala" name="sala" class="form-select">Sala</select>
+            </content-card>
+        </template>
+    </template>
+
+    <!---->
+
+    <!-- View Admin Guias -->
+
+    <template id="admin_view-guias">
+        <article class="article" id="article-content">
+            <h1 class="h1-display-table">Lista de Guias</h1>
+            <div class="container">
+                <div  class="row" id="row-1">
+                    <div id="recordlist-container"></div>
+                    <div class="dashboard-container">
+                        <button id="add-table-button" class="form-submit-xl">Agregar</button>
+                    </div>
+                </div>
+                <div  class="row" id="row-2"></div>
+            </div>
+        </article>
+    
+        
+        <template id="submit-card-content-guia">
+            <title-card>Añadir Guia</title-card>
+            <content-card>
+                <input type="text" id="card-nombre-guia" name="nombre-guia" class="form-text-inline" placeholder="Nombre...">
+                <input type="text" id="card-apellido-guia" name="apellido-guia" class="form-text-inline" placeholder="Apellido...">
+                <input type="number" id="card-dni-guia" name="dni-guia" class="form-text-full" placeholder="DNI">
+                <div class="container" id="card-idiomas-guia" name="idiomas-guia"></div>
+            </content-card>
+        </template>
+    
+        <template id="edit-card-content-guia">
+            <title-card>Editar Guia</title-card>
+            <content-card>
+                <input type="text" id="card-nombre-guia" name="nombre-guia" class="form-text-inline" placeholder="Nombre...">
+                <input type="text" id="card-apellido-guia" name="apellido-guia" class="form-text-inline" placeholder="Apellido...">
+                <input type="number" id="card-dni-guia" name="dni-guia" class="form-text-full" placeholder="DNI">
+                <div class="container" id="card-idiomas-guia" name="idiomas-guia"></div>
+            </content-card>
+        </template>
+    </template>
+
+    <!---->
+
+    <!-- View Admin Salas -->
+
+    <template id="admin_view-salas">
+        <article class="article" id="article-content">
+            <h1 class="h1-display-table">Lista de Salas del Museo</h1>
+            <div class="container">
+                <div  class="row" id="row-1">
+                    <div id="recordlist-container"></div>
+                    <div class="dashboard-container">
+                        <button id="add-table-button" class="form-submit-xl">Agregar</button>
+                    </div>
+                </div>
+                <div  class="row" id="row-2"></div>
+            </div>
+        </article>
+    
+    
+        <template id="submit-card-content-sala">
+            <title-card>Agregar Sala</title-card>
+            <content-card>
+                <input type="text" id="card-descripcion" name="descripcion" placeholder="Descripcion de Sala..." class="form-text">
+            </content-card>
+        </template>
+    
+        <template id="edit-card-content-sala">
+            <title-card>Editar Sala</title-card>
+            <content-card>
+                <input type="text" id="card-descripcion" name="descripcion" placeholder="Descripcion de Sala..." class="form-text">
+            </content-card>
+        </template>
+    </template>
+
+    <!---->
+
     <script src="src/dist/build.js"></script>
 </body>
 </html>

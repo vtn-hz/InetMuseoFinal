@@ -1,0 +1,35 @@
+<template id="admin_view-guias">
+    <article class="article" id="article-content">
+        <h1 class="h1-display-table">Lista de Guias</h1>
+        <div class="container">
+            <div  class="row" id="row-1">
+                <div id="recordlist-container"></div>
+                <div class="dashboard-container">
+                    <button id="add-table-button" class="form-submit-xl">Agregar</button>
+                </div>
+            </div>
+            <div  class="row" id="row-2"></div>
+        </div>
+    </article>
+
+    
+    <template id="submit-card-content-guia">
+        <title-card>Añadir Guia</title-card>
+        <content-card>
+            <input type="text" id="card-nombre-guia" name="nombre-guia" class="form-text-inline" placeholder="Nombre...">
+            <input type="text" id="card-apellido-guia" name="apellido-guia" class="form-text-inline" placeholder="Apellido...">
+            <input type="number" id="card-dni-guia" name="dni-guia" class="form-text-full" placeholder="DNI">
+            <div class="container" id="card-idiomas-guia" name="idiomas-guia"></div>
+        </content-card>
+    </template>
+
+    <template id="edit-card-content-guia">
+        <title-card>Editar Guia</title-card>
+        <content-card>
+            <input type="text" id="card-nombre-guia" name="nombre-guia" class="form-text-inline" placeholder="Nombre...">
+            <input type="text" id="card-apellido-guia" name="apellido-guia" class="form-text-inline" placeholder="Apellido...">
+            <input type="number" id="card-dni-guia" name="dni-guia" class="form-text-full" placeholder="DNI">
+            <div class="container" id="card-idiomas-guia" name="idiomas-guia"></div>
+        </content-card>
+    </template>
+</template>

@@ -23,6 +23,8 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, '/static/src/public')))
 app.use(express.static(path.join(__dirname, '/static/src/dist')))
+app.use(express.static(path.join(__dirname, '/static/src/widget')))
+app.use(express.static(path.join(__dirname, '/static/src/view')))
 app.get('/', function(req, res) {
     res.set('Content-Type', 'text/html');
     res.sendFile(path.join(__dirname+'/static/index.html'));

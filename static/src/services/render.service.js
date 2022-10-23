@@ -76,10 +76,3 @@ export function ElementManagement(){
     }
 }
 
-export function getClonedView ( id ) {
-    return document.getElementById(id).cloneNode(true).content;
-}
-
-/*
-EXPORTS
-*/ 

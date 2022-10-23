@@ -2,7 +2,11 @@
 import Application from "../../config/Application";
 import consumeAPI from "../../services/api.service";
 
-import { ElementGenerator, ElementManagement, getClonedView } from "../../services/render.service"
+import { ElementGenerator, ElementManagement } from "../../services/render.service"
+import viewService from "../../services/view.service";
+
+
+
 
 import createCard from "../../widget/card/handler/CardHandler";
 import createNavbar from "../../widget/navbar/handler/NavHandler";
@@ -24,7 +28,7 @@ export function AdminController( DynamicContentRoot, StaticContentRoot){
         "renderHome": function (idHomeTemplate = 'admin_view-home') {
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(AdminDomainView, 'home');
-            const HomeView = getClonedView(idHomeTemplate);
+            const HomeView = viewService().getClonedView(idHomeTemplate);
             const RecordListRoot = HomeView.querySelector('#row-1');
 
             const API_ListInscripcion = '/InscripcionView';
@@ -41,7 +45,7 @@ export function AdminController( DynamicContentRoot, StaticContentRoot){
         "renderFechas": function (idFechasTemplate = 'admin_view-fechas') {
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(AdminDomainView, 'admin-fecha');
-            const FechasView = getClonedView(idFechasTemplate);
+            const FechasView =  viewService().getClonedView(idFechasTemplate);
             const RecordListRoot = FechasView.querySelector('#recordlist-container');
             
             const cardEditReference = FechasView.querySelector('#edit-card-content-fecha');
@@ -156,7 +160,7 @@ export function AdminController( DynamicContentRoot, StaticContentRoot){
         "renderExposiciones": function(idExposicionesTemplate = 'admin_view-exposicion'){
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(AdminDomainView, 'admin-exposiciones');
-            const ExposicionesView = getClonedView(idExposicionesTemplate);
+            const ExposicionesView =  viewService().getClonedView(idExposicionesTemplate);
             const RecordListRoot = ExposicionesView.querySelector('#recordlist-container');
             
             const cardEditReference = ExposicionesView.querySelector('#edit-card-content-exposicion');
@@ -268,7 +272,7 @@ export function AdminController( DynamicContentRoot, StaticContentRoot){
         "renderGuias": function (idGuiasTemplate = 'admin_view-guias') {
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(AdminDomainView, 'admin-guias');
-            const GuiasView = getClonedView(idGuiasTemplate);
+            const GuiasView =  viewService().getClonedView(idGuiasTemplate);
             const RecordListRoot = GuiasView.querySelector('#recordlist-container');
             
             const cardEditReference = GuiasView.querySelector('#edit-card-content-guia');
@@ -374,7 +378,7 @@ export function AdminController( DynamicContentRoot, StaticContentRoot){
         "renderSalas": function(idSalasTemplate = 'admin_view-salas'){
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(AdminDomainView, 'admin-salas');
-            const SalasView = getClonedView(idSalasTemplate);
+            const SalasView = viewService().getClonedView(idSalasTemplate);
             const RecordListRoot = SalasView.querySelector('#recordlist-container');
             
             const cardEditReference = SalasView.querySelector('#edit-card-content-sala');

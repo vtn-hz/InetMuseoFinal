@@ -1,5 +1,7 @@
 import Application from "../../config/Application";
-import { ElementGenerator, ElementManagement, getClonedView } from "../../services/render.service"
+import { ElementGenerator, ElementManagement } from "../../services/render.service"
+import viewService from "../../services/view.service";
+
 
 import createCard from "../../widget/card/handler/CardHandler";
 import createNavbar from "../../widget/navbar/handler/NavHandler";
@@ -20,7 +22,7 @@ export function GuestController( DynamicContentRoot, StaticContentRoot){
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'home');
 
-            const HomeView = getClonedView(idHomeTemplate);
+            const HomeView = viewService().getClonedView(idHomeTemplate);
             document.getElementById(DynamicContentRoot).appendChild(HomeView);
         },
 
@@ -28,7 +30,7 @@ export function GuestController( DynamicContentRoot, StaticContentRoot){
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'guest-reserva');
 
-            const ReservaView = getClonedView(idReservaTemplate);
+            const ReservaView = viewService().getClonedView(idReservaTemplate);
             const RecordListRoot = ReservaView.querySelector('#row-1');
             const CardRoot = ReservaView.querySelector('#row-2');
             const CardContent = ReservaView.querySelector('#card-content-reserva');
@@ -79,7 +81,7 @@ export function GuestController( DynamicContentRoot, StaticContentRoot){
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'guest-visitaldigital');
 
-            const VisitaDView = getClonedView(idVisitaDigitalTemplate);
+            const VisitaDView = viewService().getClonedView(idVisitaDigitalTemplate);
             document.getElementById(DynamicContentRoot).appendChild(VisitaDView);
         },
 
@@ -87,14 +89,14 @@ export function GuestController( DynamicContentRoot, StaticContentRoot){
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'guest-accesibilidad');
 
-            const AccesibilityView = getClonedView(idAccesibilityTemplate);
+            const AccesibilityView = viewService().getClonedView(idAccesibilityTemplate);
             document.getElementById(DynamicContentRoot).appendChild(AccesibilityView);
         },
 
         "renderLoggin": function(idLogginTemplate = 'guest_view-loggin'){
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'access');
-            const LogginView = getClonedView(idLogginTemplate);
+            const LogginView = viewService().getClonedView(idLogginTemplate);
 
             LogginView.querySelector('#id-form').addEventListener('submit', event => {
                 event.preventDefault()

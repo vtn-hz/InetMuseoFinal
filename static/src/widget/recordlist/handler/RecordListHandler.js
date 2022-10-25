@@ -20,7 +20,7 @@ function RecordlistHandler (RecordList, APIUrl, {headNames, keys:{primaryKey, pa
         await consumeAPI(APIUrl, {method: 'GET'}).then( records => {
             records.forEach( record => {
                 let tr = Generator.makeElement('tr');
-                let arrayNodes = [];
+                let arrayOperationElements = [];
                 fragment.appendChild(tr);
 
                 partialKeys.forEach(k => {
@@ -28,20 +28,20 @@ function RecordlistHandler (RecordList, APIUrl, {headNames, keys:{primaryKey, pa
                 })
 
                 operationElements.forEach (HTMLNode => {
-                    const ElementClone = HTMLNode.element.cloneNode(true);
-                    ElementClone.value = record[primaryKey];
-                    ElementClone.addEventListener(HTMLNode.listenEvent, HTMLNode.handlerEvent)
+                    const ElementOperation = HTMLNode.element.cloneNode(true);
+                    ElementOperation.value = record[primaryKey];
+                    ElementOperation.addEventListener(HTMLNode.listenEvent, HTMLNode.handlerEvent)
 
-                    arrayNodes.push(ElementClone);
+                    arrayOperationElements.push(ElementOperation);
                 })  
 
 
                 tr.appendChild(Generator.makeElement('td', {}, [
-                    Generator.makeElement('div', {value: record[primaryKey], class: 'dashboard-container'}, arrayNodes)
+                    Generator.makeElement('div', {value: record[primaryKey], class: 'dashboard-container'}, arrayOperationElements)
                 ]))
 
                 
-                arrayNodes.length = 0;
+                arrayOperationElements.length = 0;
             })
             bodyTable.appendChild(fragment);
         }).catch(e => console.error(e));

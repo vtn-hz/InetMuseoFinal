@@ -17,8 +17,8 @@ function RecordlistHandler (RecordList, APIUrl, {headNames, keys:{primaryKey, pa
 
 
 
-        await consumeAPI(APIUrl, {method: 'GET'}).then( records => {
-            records.forEach( record => {
+        await consumeAPI(APIUrl, {method: 'GET'}).then( recordList => {
+            recordList.forEach( record => {
                 let tr = Generator.makeElement('tr');
                 let arrayOperationElements = [];
                 fragment.appendChild(tr);
@@ -58,7 +58,7 @@ function RecordlistHandler (RecordList, APIUrl, {headNames, keys:{primaryKey, pa
 
 export default function createRecordlist (APIUrl, {headNames, keys:{primaryKey, partialKeys}, operationElements } ) {
     const RecordlistClone = document.getElementById(RECORDLIST_ID).cloneNode(1).content.firstElementChild;
-    const Recordlist = new RecordlistHandler(RecordlistClone,
+    const RecordlistHandlerInstance = new RecordlistHandler(RecordlistClone,
         APIUrl, {headNames, keys:{primaryKey, partialKeys}, operationElements } );
-    return Recordlist;
+    return RecordlistHandlerInstance;
 }

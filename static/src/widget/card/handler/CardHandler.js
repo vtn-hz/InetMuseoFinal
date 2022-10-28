@@ -55,8 +55,8 @@ function CardHandler (Card, Content, eventListener) {
 
 export default function createCard ( eventListener, contentReference ) {
     const CardClone = document.getElementById(CARD_ID).cloneNode(1).content.firstElementChild;
-    const contentClone = contentReference.cloneNode(1).content;
+    const contentCardClone = contentReference.cloneNode(1).content;
 
-    const Card = new CardHandler(CardClone, contentClone, eventListener);
-    return Card;
+    const CardHandlerInstance = new CardHandler(CardClone, contentCardClone, eventListener);
+    return CardHandlerInstance;
 }

@@ -125,31 +125,22 @@ export function AdminController( DynamicContentRoot, StaticContentRoot){
             /*Check Out how minimize it*/ 
             const apiUrlGuia = '/ListarGuias';
             consumeAPI (apiUrlGuia, {method: 'GET'}).then(data => {
-                if (data.length >= 1) {
-                    data.forEach( ele => {
-                        cardEditReference.content.querySelector('#card-guia').appendChild(Generator.makeElement('option', 
-                        {class:'', value: `${ele.idGuia}`},  [`${ele.nombre} ${ele.apellido} (${ele.idioma})`]))
+                Generator.removeAllElements(cardEditReference.content.querySelector('#card-guia'));
+                Generator.removeAllElements(cardSubmitReference.content.querySelector('#card-guia'));
+                
 
-                        cardSubmitReference.content.querySelector('#card-guia').appendChild(Generator.makeElement('option', 
-                        {class:'', value: `${ele.idGuia}`},  [`${ele.nombre} ${ele.apellido} (${ele.idioma})`]))
-                    })
-                }else{
+                data.forEach( ele => {
                     cardEditReference.content.querySelector('#card-guia').appendChild(Generator.makeElement('option', 
-                    {class:'', value: ''}, [`No tiene guias`]))
+                    {class:'', value: `${ele.idGuia}`},  [`${ele.nombre} ${ele.apellido} (${ele.idioma})`]))
 
                     cardSubmitReference.content.querySelector('#card-guia').appendChild(Generator.makeElement('option', 
-                    {class:'', value: ''}, [`No tiene guias`]))
-                }
-
+                    {class:'', value: `${ele.idGuia}`},  [`${ele.nombre} ${ele.apellido} (${ele.idioma})`]))
+                })
+                
+                
                 ButtonAdd.addEventListener ('click', buttonAddHandler)
                 RecordListRoot.appendChild(RecordList_Guias.getRecordlist())
             }).catch(_ => {
-                cardEditReference.content.querySelector('#card-guia').appendChild(Generator.makeElement('option', 
-                {class:'', value: ''}, [`No tiene guias`]))
-
-                cardSubmitReference.content.querySelector('#card-guia').appendChild(Generator.makeElement('option', 
-                {class:'', value: ''}, [`No tiene guias`]))
-
                 ButtonAdd.addEventListener ('click', buttonAddHandler)
                 RecordListRoot.appendChild(RecordList_Guias.getRecordlist())
             })
@@ -235,33 +226,22 @@ export function AdminController( DynamicContentRoot, StaticContentRoot){
             /*Check Out how minimize it*/ 
             const apiUrlSalas = '/listarHabitacion';
             consumeAPI (apiUrlSalas, {method: 'GET'}).then(data => {
-                if (data.length >= 1) {
-                    data.forEach( ele => {
-                        cardEditReference.content.querySelector('#card-sala').appendChild(Generator.makeElement('option', 
-                        {class:'', value: `${ele.idHabitacion}`}, [`${ele.identificador}`]))
+                Generator.removeAllElements(cardEditReference.content.querySelector('#card-sala'));
+                Generator.removeAllElements(cardSubmitReference.content.querySelector('#card-sala'));
 
-                        cardSubmitReference.content.querySelector('#card-sala').appendChild(Generator.makeElement('option', 
-                        {class:'', value: `${ele.idHabitacion}`}, [`${ele.identificador}`]))
-                    })
-                }else{
+                
+                data.forEach( ele => {
                     cardEditReference.content.querySelector('#card-sala').appendChild(Generator.makeElement('option', 
-                    {class:'', value: ''}, [`No tiene salas en su museo`]))
+                    {class:'', value: `${ele.idHabitacion}`}, [`${ele.identificador}`]))
 
                     cardSubmitReference.content.querySelector('#card-sala').appendChild(Generator.makeElement('option', 
-                    {class:'', value: ''}, [`No tiene salas en su museo`]))
-                }
-
-
+                    {class:'', value: `${ele.idHabitacion}`}, [`${ele.identificador}`]))
+                })
+                
 
                 ButtonAdd.addEventListener ('click', buttonAddHandler)
                 RecordListRoot.appendChild(RecordList_Exposicion.getRecordlist())
             }).catch(_ => {
-                cardEditReference.content.querySelector('#card-sala').appendChild(Generator.makeElement('option', 
-                {class:'', value: ''}, [`No tiene salas en su museo`]))
-
-                cardSubmitReference.content.querySelector('#card-sala').appendChild(Generator.makeElement('option', 
-                {class:'', value: ''}, [`No tiene salas en su museo`]))
-
                 ButtonAdd.addEventListener ('click', buttonAddHandler)
                 RecordListRoot.appendChild(RecordList_Exposicion.getRecordlist())
             })
@@ -456,19 +436,15 @@ export function AdminController( DynamicContentRoot, StaticContentRoot){
 
     function preventSessionFail () {
         const SESSION_FAIL = false;
+        const SESSION_SUCCESS = true;
+
         try{
             if (SessionController().checkSession()) {
-                return DynamicContentRender;
+                return SESSION_SUCCESS;
             }  throw SESSION_FAIL;
-        }catch(err){
+        }catch(SESSION_FAIL){
             Application.refresh();
-            return {
-                'renderHome': ()=>{},
-                'renderFechas': ()=>{},
-                'renderExposiciones': ()=>{},
-                'renderGuias': ()=>{},
-                'renderSalas': ()=>{}
-            };
+            return SESSION_FAIL;
         }
     }
 
@@ -481,11 +457,11 @@ export function AdminController( DynamicContentRoot, StaticContentRoot){
     const StaticContentRender = {
         "renderNavbar": function ( idNavbarAdminTemplate = 'nav-admin') {
             const NavBar = createNavbar ({
-                'home': _ => preventSessionFail().renderHome(),
-                'admin-fecha': _=>  preventSessionFail().renderFechas(),
-                'admin-exposiciones': _=> preventSessionFail().renderExposiciones(),
-                'admin-guias': _=> preventSessionFail().renderGuias(),
-                'admin-salas': _=> preventSessionFail().renderSalas(),
+                'home': _ => preventSessionFail()? DynamicContentRender.renderHome() : _=>{},
+                'admin-fecha': _=>  preventSessionFail()? DynamicContentRender.renderFechas() : _=>{},
+                'admin-exposiciones': _=> preventSessionFail()? DynamicContentRender.renderExposiciones() : _=>{},
+                'admin-guias': _=> preventSessionFail()? DynamicContentRender.renderGuias() : _=>{},
+                'admin-salas': _=> preventSessionFail()? DynamicContentRender.renderSalas() : _=>{},
                 'access': _=> logOut()
             }, document.getElementById(idNavbarAdminTemplate));
 
@@ -497,7 +473,7 @@ export function AdminController( DynamicContentRoot, StaticContentRoot){
     return {
         "startUp": () => {
             StaticContentRender.renderNavbar();
-            preventSessionFail().renderHome();
+            DynamicContentRender.renderHome();
         }
     }
 }

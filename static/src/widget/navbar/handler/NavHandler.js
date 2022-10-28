@@ -19,6 +19,6 @@ function NavbarHandler (Nav, routeMap) {
 
 export default function createNavbar ( routeMap, navRef ) {
     const NavClone = navRef.cloneNode(1).content.firstElementChild;
-    const Nav = new NavbarHandler(NavClone, routeMap);
-    return Nav;
+    const NavbarHandlerInstance = new NavbarHandler(NavClone, routeMap);
+    return NavbarHandlerInstance;
 }

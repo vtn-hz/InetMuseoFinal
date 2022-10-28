@@ -17,7 +17,7 @@ function RecordlistHandler (RecordList, APIUrl, {headNames, keys:{primaryKey, pa
 
 
 
-        await consumeAPI(APIUrl, {method: 'GET'}).then( recordList => {
+        await consumeAPI(APIUrl, {method: 'POST'}).then( recordList => {
             recordList.forEach( record => {
                 let tr = Generator.makeElement('tr');
                 let arrayOperationElements = [];

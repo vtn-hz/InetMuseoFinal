@@ -23,8 +23,9 @@ const AdminDomainView = ['home', 'admin-fecha', 'admin-exposiciones', 'admin-gui
 export function AdminController( DynamicContentRoot, StaticContentRoot){
     const Generator = new ElementGenerator ();
     const Manager = new ElementManagement ();
-
+    /*Simplify And Segregate Responsabilities*/
     const DynamicContentRender = {
+        // Home View
         "renderHome": function (idHomeTemplate = 'admin_view-home') {
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(AdminDomainView, 'home');
@@ -42,102 +43,104 @@ export function AdminController( DynamicContentRoot, StaticContentRoot){
             document.getElementById(DynamicContentRoot).appendChild(HomeView);
         },
 
+        // Fechas View
         "renderFechas": function (idFechasTemplate = 'admin_view-fechas') {
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(AdminDomainView, 'admin-fecha');
+
             const FechasView =  viewService().getClonedView(idFechasTemplate);
-            const RecordListRoot = FechasView.querySelector('#recordlist-container');
+            const cardRoot = FechasView.querySelector('#row-2');
             
+            // CardHandlerInstance Edit
             const cardEditReference = FechasView.querySelector('#edit-card-content-fecha');
+            const cardEditHandler = createCard ( event => {
+                event.preventDefault();
+                alert('En desarrollo...');
+            }, cardEditReference) 
+
+            // CardHandlerInstance Submit
             const cardSubmitReference = FechasView.querySelector('#submit-card-content-fecha');
+            const cardSubmitHandler = createCard ( event => {
+                event.preventDefault();
+                const data = new FormData(event.target);
+                const dataParse = [...data.values()]
 
-            const CardRoot = FechasView.querySelector('#row-2');
+                const dateVisita = new Date(dataParse[0]);
+                const idGuia = dataParse[1];
 
-            const ButtonAdd = FechasView.querySelector('#add-table-button');
-            const buttonAddHandler = e => {
-                const CardSubmit = createCard (event => {
-                    event.preventDefault();
-                    const data = new FormData(event.target);
-                    const dataParse = [...data.values()]
-
-                    const dateVisita = new Date(dataParse[0]);
-                    const idGuia = dataParse[1];
-
-                    const urlPOSTVisita = '/VisitaGuiadaRegister';
-                    FormController()                    
-                    .sendForm({url: urlPOSTVisita, method:'POST' }, {
-                        fecha:`${dateVisita.getFullYear()}-${(dateVisita.getMonth())+1}-${dateVisita.getDate()}`,
-                        hora: `${("0" + dateVisita.getHours()).slice(-2)}:${("0" + dateVisita.getMinutes()).slice(-2)}`,
-                        idGuia: parseInt(idGuia),
-                        idRecorrido: 1
-                    }, ['', undefined]).then(msg => {
-                        this.renderFechas();
-                        alert(msg.success)
-                    }).catch(msg => alert(msg.error))
-                }, cardSubmitReference)
-
-                Generator.removeAllElements(CardRoot);
-                CardRoot.appendChild(CardSubmit.getCard())
-            }
-
-            const ButtonEdit = Generator.makeElement('button', {id: 'put-table-button', class: 'put-button'}, ['Editar']);
-            const ButtonDelete = Generator.makeElement('button', {id: 'delete-table-button', class: 'delete-button'}, ['Eliminar']);
-           
-            const buttonEditHandler = event => {
-                const CardEditable = createCard(eventSubmit => {
-                    eventSubmit.preventDefault();
-                    alert('En desarrollo...');
-                }, cardEditReference)
-
-                Generator.removeAllElements(CardRoot);
-                CardRoot.appendChild(CardEditable.getCard())
-            }
-
-            const buttonDeleteHandler = event => {
-                const urlDelExp = '/cambiarEstadoVisitaGuiada';
-                FormController()
-                .sendForm({url: urlDelExp, method:'PATCH' }, {
-                    'idVisitaGuiada': event.target.value
-                }, ['', undefined]).then(msg => {
+                const APIPOST_Visita = '/VisitaGuiadaRegister';
+                FormController()                    
+                .sendForm({url: APIPOST_Visita, method:'POST' }, {
+                    fecha:`${dateVisita.getFullYear()}-${(dateVisita.getMonth())+1}-${dateVisita.getDate()}`,
+                    hora: `${("0" + dateVisita.getHours()).slice(-2)}:${("0" + dateVisita.getMinutes()).slice(-2)}`,
+                    idGuia: parseInt(idGuia),
+                    idRecorrido: 1
+                }, ['', undefined, null]).then(msg => {
                     this.renderFechas();
-                    alert(msg.success);
+                    alert(msg.success)
                 }).catch(msg => alert(msg.error))
-            }
+            }, cardSubmitReference)
 
+           
 
-            const API_ListGuias = '/VisitaGuiadaView';
-            const RecordList_Guias = createRecordlist(API_ListGuias, {
+ 
+            const RecordListRoot = FechasView.querySelector('#recordlist-container');
+            const APIGET_ListVisitaGuiada = '/VisitaGuiadaView';
+            const RecordList_Guias = createRecordlist(APIGET_ListVisitaGuiada, {
                 headNames: ['Fecha', 'Hora', 'Idioma', 'Apellido Guia'],
                 keys: {primaryKey: 'idVisitaGuiada', partialKeys: ['fecha', 'hora', 'idioma', 'apellido']},
                 operationElements: [{
-                    element: ButtonEdit,
+                    element: Generator.makeElement('button', {id: 'put-table-button', class: 'put-button'}, ['Editar']),
                     listenEvent: 'click',
-                    handlerEvent: buttonEditHandler
+
+                    handlerEvent: event => {
+                        Generator.removeAllElements(cardRoot);
+                        cardRoot.appendChild(cardEditHandler.getCard())
+                    }
                 }, {
-                    element: ButtonDelete,
+                    element: Generator.makeElement('button', {id: 'delete-table-button', class: 'delete-button'}, ['Eliminar']),
                     listenEvent: 'click',
-                    handlerEvent: buttonDeleteHandler
+
+                    handlerEvent: event => {
+                        const URLPATCH_DeleteVisitaGuiada = '/cambiarEstadoVisitaGuiada';
+                        FormController()
+                        .sendForm({url: URLPATCH_DeleteVisitaGuiada, method:'PATCH' }, {
+                            'idVisitaGuiada': event.target.value
+                        }, ['', undefined, null]).then(msg => {
+                            this.renderFechas();
+                            alert(msg.success);
+                        }).catch(msg => alert(msg.error))
+                    }
                 }]
             });
+
+            
+            const ButtonAdd = FechasView.querySelector('#add-table-button');
+            const buttonAddHandler = e => {
+                Generator.removeAllElements(cardRoot);
+                cardRoot.appendChild(cardSubmitHandler.getCard())
+            }
 
 
             // Push Async Content, and Turn On Event dependencies
             /*Check Out how minimize it*/ 
-            const apiUrlGuia = '/ListarGuias';
-            consumeAPI (apiUrlGuia, {method: 'GET'}).then(data => {
-                Generator.removeAllElements(cardEditReference.content.querySelector('#card-guia'));
-                Generator.removeAllElements(cardSubmitReference.content.querySelector('#card-guia'));
+            const APIGET_ListGuias = '/ListarGuias';
+            consumeAPI (APIGET_ListGuias, {method: 'GET'}).then(data => {
+                cardEditHandler.removeContent('card-guia');
+                cardSubmitHandler.removeContent('card-guia');
                 
+                
+              /*  data.forEach( ele => {
+                    cardEditHandler.pushContent('card-guia', 
+                    Generator.makeElement('option', {class:'', value: `${ele.idGuia}`},  [`${ele.nombre} ${ele.apellido} (${ele.idioma})`]));
 
-                data.forEach( ele => {
-                    cardEditReference.content.querySelector('#card-guia').appendChild(Generator.makeElement('option', 
-                    {class:'', value: `${ele.idGuia}`},  [`${ele.nombre} ${ele.apellido} (${ele.idioma})`]))
 
-                    cardSubmitReference.content.querySelector('#card-guia').appendChild(Generator.makeElement('option', 
-                    {class:'', value: `${ele.idGuia}`},  [`${ele.nombre} ${ele.apellido} (${ele.idioma})`]))
-                })
+                    cardSubmitHandler.pushContent('card-guia', 
+                    Generator.makeElement('option', {class:'', value: `${ele.idGuia}`},  [`${ele.nombre} ${ele.apellido} (${ele.idioma})`]));
+                })*/
                 
-                
+                console.log(cardEditHandler.getCard())
+
                 ButtonAdd.addEventListener ('click', buttonAddHandler)
                 RecordListRoot.appendChild(RecordList_Guias.getRecordlist())
             }).catch(_ => {
@@ -148,84 +151,85 @@ export function AdminController( DynamicContentRoot, StaticContentRoot){
             document.getElementById(DynamicContentRoot).appendChild(FechasView);
         },
 
+        // Fechas Exposiciones
         "renderExposiciones": function(idExposicionesTemplate = 'admin_view-exposicion'){
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(AdminDomainView, 'admin-exposiciones');
+
             const ExposicionesView =  viewService().getClonedView(idExposicionesTemplate);
-            const RecordListRoot = ExposicionesView.querySelector('#recordlist-container');
-            
-            const cardEditReference = ExposicionesView.querySelector('#edit-card-content-exposicion');
-            const cardSubmitReference = ExposicionesView.querySelector('#submit-card-content-exposicion');
-
             const CardRoot = ExposicionesView.querySelector('#row-2');
+            
+          
 
-            const ButtonAdd = ExposicionesView.querySelector('#add-table-button');
-            const buttonAddHandler = e => {
-                const urlPOSTExpo = '/registrarExposicion' ;
-                const CardSubmit = createCard (event => {
-                    event.preventDefault();
-                    const data = new FormData(event.target);
-                    const dataParse = [...data.values()]
-                    FormController()
-                    .sendForm({url: urlPOSTExpo, method:'POST' }, {
-                        'idHabitacion': dataParse[2],
-                        'titulo': dataParse[0],
-                        'descripcion': dataParse[1]
-                    }, ['', undefined]).then(msg => {
-                        this.renderExposiciones();
-                        alert(msg.success);
-                    }).catch(msg => alert(msg.error))
-                }, cardSubmitReference)
+            const cardEditReference = ExposicionesView.querySelector('#edit-card-content-exposicion');
+            const cardEditHandler = createCard ( event => {
+                event.preventDefault();
+                alert('En desarrollo...');
+            }, cardEditReference) 
 
-                Generator.removeAllElements(CardRoot);
-                CardRoot.appendChild(CardSubmit.getCard())
-            }
 
-            const ButtonEdit = Generator.makeElement('button', {id: 'put-table-button', class: 'put-button'}, ['Editar']);
-            const ButtonDelete = Generator.makeElement('button', {id: 'delete-table-button', class: 'delete-button'}, ['Eliminar']);
-           
-            const buttonEditHandler = event => {
-                const CardEditable = createCard(eventSubmit => {
-                    eventSubmit.preventDefault();
-                    alert('En desarrollo...');
-                }, cardEditReference)
-
-                Generator.removeAllElements(CardRoot);
-                CardRoot.appendChild(CardEditable.getCard())
-            }
-
-            const buttonDeleteHandler = event => {
-                const urlDelExp = '/cambiarEstadoExpo';
+            const cardSubmitReference = ExposicionesView.querySelector('#submit-card-content-exposicion');
+            const cardSubmitHandler = createCard (event => {
+                event.preventDefault();
+                const data = new FormData(event.target);
+                const dataParse = [...data.values()];
+                const APIPOST_addExposicion = '/registrarExposicion' ;
                 FormController()
-                    .sendForm({url: urlDelExp, method:'PATCH' }, {
-                        'idExposcion': event.target.value
-                    }, ['', undefined]).then(msg => {
-                        this.renderExposiciones();
-                        alert(msg.success);
+                .sendForm({url: APIPOST_addExposicion, method:'POST' }, {
+                    'idHabitacion': dataParse[2],
+                    'titulo': dataParse[0],
+                    'descripcion': dataParse[1]
+                }, ['', undefined]).then(msg => {
+                    this.renderExposiciones();
+                    alert(msg.success);
                 }).catch(msg => alert(msg.error))
-            }
+            }, cardSubmitReference)
 
+ 
 
-            const API_ListExposition = '/listarExposicion';
-            const RecordList_Exposicion = createRecordlist(API_ListExposition, {
+            const RecordListRoot = ExposicionesView.querySelector('#recordlist-container');
+            const APIGET_listarExposition = '/listarExposicion';
+            const RecordList_Exposicion = createRecordlist(APIGET_listarExposition, {
                 headNames: ['Titulo', 'Descripción', 'Sala'],
                 keys: {primaryKey: 'idExposcion', partialKeys: ['titulo', 'descripcion', 'identificador']},
                 operationElements: [{
-                    element: ButtonEdit,
+                    element: Generator.makeElement('button', {id: 'put-table-button', class: 'put-button'}, ['Editar']),
                     listenEvent: 'click',
-                    handlerEvent: buttonEditHandler
+
+                    handlerEvent: event => {
+                        Generator.removeAllElements(CardRoot);
+                        CardRoot.appendChild(cardEditHandler.getCard())
+                    }
+
                 }, {
-                    element: ButtonDelete,
+                    element: Generator.makeElement('button', {id: 'delete-table-button', class: 'delete-button'}, ['Eliminar']),
                     listenEvent: 'click',
-                    handlerEvent: buttonDeleteHandler
+
+                    handlerEvent: event => {
+                        const APIPATCH_deleteExpocicion = '/cambiarEstadoExpo';
+                        FormController()
+                            .sendForm({url: APIPATCH_deleteExpocicion, method:'PATCH' }, {
+                                'idExposcion': event.target.value
+                            }, ['', undefined]).then(msg => {
+                                this.renderExposiciones();
+                                alert(msg.success);
+                        }).catch(msg => alert(msg.error))
+                    }
                 }]
             });
 
+                      
+            const ButtonAdd = ExposicionesView.querySelector('#add-table-button');
+            const buttonAddHandler = e => {
+                Generator.removeAllElements(CardRoot);
+                CardRoot.appendChild(cardSubmitHandler.getCard())
+            }
 
             // Push Async Content, and Turn On Event dependencies
             /*Check Out how minimize it*/ 
-            const apiUrlSalas = '/listarHabitacion';
-            consumeAPI (apiUrlSalas, {method: 'GET'}).then(data => {
+            
+            const APIGET_listarHabitaciones = '/listarHabitacion';
+            consumeAPI (APIGET_listarHabitaciones, {method: 'GET'}).then(data => {
                 Generator.removeAllElements(cardEditReference.content.querySelector('#card-sala'));
                 Generator.removeAllElements(cardSubmitReference.content.querySelector('#card-sala'));
 
@@ -252,82 +256,81 @@ export function AdminController( DynamicContentRoot, StaticContentRoot){
         "renderGuias": function (idGuiasTemplate = 'admin_view-guias') {
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(AdminDomainView, 'admin-guias');
+
+
             const GuiasView =  viewService().getClonedView(idGuiasTemplate);
+            const CardRoot = GuiasView.querySelector('#row-2');
             const RecordListRoot = GuiasView.querySelector('#recordlist-container');
             
             const cardEditReference = GuiasView.querySelector('#edit-card-content-guia');
+            const cardEditHandler = createCard ( event => {
+                event.preventDefault();
+                alert('En desarrollo...');
+            }, cardEditReference);
+
             const cardSubmitReference = GuiasView.querySelector('#submit-card-content-guia');
+            const cardSubmitHandler = createCard (event => {
+                event.preventDefault();
+                const data = new FormData(event.target);
+                const dataParse = [...data.values()]
+                const idiomas = dataParse.splice(3, dataParse.length);
 
-            const CardRoot = GuiasView.querySelector('#row-2');
-
-            const ButtonAdd = GuiasView.querySelector('#add-table-button');
-            const buttonAddHandler = e => {
-                const urlPOSTGuia = '/GuiaRegister' ;
-                const CardSubmit = createCard (event => {
-                    event.preventDefault();
-                    const data = new FormData(event.target);
-                    const dataParse = [...data.values()]
-                    const idiomas = dataParse.splice(3, dataParse.length);
-    
-                    FormController().sendForm({url: urlPOSTGuia, method:'POST' }, {
-                        'dni': dataParse[2],
-                        'nombre': dataParse[0],
-                        'apellido': dataParse[1],
-                        'IdIdioma': idiomas[0]
-                    }, ['', undefined, NaN]).then(msg => {
-                        this.renderGuias();
-                        alert(msg.success);
-                    }).catch(msg => alert(msg.error))
-                }, cardSubmitReference)
-
-                Generator.removeAllElements(CardRoot);
-                CardRoot.appendChild(CardSubmit.getCard())
-            }
-
-            const ButtonEdit = Generator.makeElement('button', {id: 'put-table-button', class: 'put-button'}, ['Editar']);
-            const ButtonDelete = Generator.makeElement('button', {id: 'delete-table-button', class: 'delete-button'}, ['Eliminar']);
-           
-            const buttonEditHandler = event => {
-                const CardEditable = createCard(eventSubmit => {
-                    eventSubmit.preventDefault();
-                    alert('En desarrollo...');
-                }, cardEditReference)
-
-                Generator.removeAllElements(CardRoot);
-                CardRoot.appendChild(CardEditable.getCard())
-            }
-
-            const buttonDeleteHandler = event => {
-                const urlDelGuia = '/cambiarEstadoGuia';
-                FormController().sendForm({url: urlDelGuia, method:'POST' }, {
-                    idGuia: event.target.value
-                }, ['', undefined]).then(msg => {
+      
+                const APIPOST_GuiaRegister = '/GuiaRegister' ;
+                FormController().sendForm({url: APIPOST_GuiaRegister, method:'POST' }, {
+                    'dni': dataParse[2],
+                    'nombre': dataParse[0],
+                    'apellido': dataParse[1],
+                    'IdIdioma': idiomas[0]
+                }, ['', undefined, NaN]).then(msg => {
                     this.renderGuias();
                     alert(msg.success);
                 }).catch(msg => alert(msg.error))
-            }
+            }, cardSubmitReference)
+
+            
 
 
-            const API_ListGuias = '/ListarGuias';
-            const RecordList_Guias = createRecordlist(API_ListGuias, {
+
+            const APIGET_ListGuias = '/ListarGuias' ;
+            const RecordList_Guias = createRecordlist(APIGET_ListGuias, {
                 headNames: ['Titulo', 'Descripción', 'Sala'],
                 keys: {primaryKey: 'idGuia', partialKeys: ['nombre', 'apellido', 'dni', 'idioma']},
                 operationElements: [{
-                    element: ButtonEdit,
+                    element: Generator.makeElement('button', {id: 'put-table-button', class: 'put-button'}, ['Editar']),
                     listenEvent: 'click',
-                    handlerEvent: buttonEditHandler
+                    handlerEvent: event => {
+                        Generator.removeAllElements(CardRoot);
+                        CardRoot.appendChild(cardEditHandler.getCard())
+                    }
+                    
                 }, {
-                    element: ButtonDelete,
+                    element: Generator.makeElement('button', {id: 'delete-table-button', class: 'delete-button'}, ['Eliminar']),
                     listenEvent: 'click',
-                    handlerEvent: buttonDeleteHandler
+                    handlerEvent: event => {
+                        const APIDEL_DeleteGuia = '/cambiarEstadoGuia';
+                        FormController().sendForm({url: APIDEL_DeleteGuia, method:'POST' }, {
+                            idGuia: event.target.value
+                        }, ['', undefined]).then(msg => {
+                            this.renderGuias();
+                            alert(msg.success);
+                        }).catch(msg => alert(msg.error))
+                    }
                 }]
             });
+
+            
+            const ButtonAdd = GuiasView.querySelector('#add-table-button');
+            const buttonAddHandler = e => {
+                Generator.removeAllElements(CardRoot);
+                CardRoot.appendChild(cardSubmitHandler.getCard())
+            }
 
 
             // Push Async Content, and Turn On Event dependencies
             /*Check Out how minimize it*/ 
-            const urlIdiomasContent = '/listarIdioma';
-            consumeAPI (urlIdiomasContent, {method: 'GET'}).then(data => {
+            const APIGET_ListIdiomas = '/listarIdioma';
+            consumeAPI (APIGET_ListIdiomas, {method: 'GET'}).then(data => {
                 data.forEach(x => {
                     cardEditReference.content.querySelector('#card-idiomas-guia')
                     .appendChild(Generator.makeElement('div', {}, [

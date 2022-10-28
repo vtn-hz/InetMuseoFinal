@@ -126,8 +126,8 @@ export function AdminController( DynamicContentRoot, StaticContentRoot){
             /*Check Out how minimize it*/ 
             const APIGET_ListGuias = '/ListarGuias';
             consumeAPI (APIGET_ListGuias, {method: 'GET'}).then(data => {
-                cardEditHandler.removeContent('card-guia');
-                cardSubmitHandler.removeContent('card-guia');
+                cardSubmitHandler.removeContent('#card-guia');
+               // cardSubmitHandler.removeContent('#card-guia');
                 
                 
               /*  data.forEach( ele => {

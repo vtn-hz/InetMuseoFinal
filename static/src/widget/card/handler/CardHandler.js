@@ -7,8 +7,6 @@ const CardButtonClose_ID = '#card-closer';
 
 
 function CardHandler (Card, Content, eventListener) {
-    const CardHandled = Card;
-
     function setClose (buttonClose) {
         buttonClose.addEventListener('click', event => {
             event.preventDefault()
@@ -47,21 +45,24 @@ function CardHandler (Card, Content, eventListener) {
     }
 
     this.removeContent = ( cardContentContainerId ) => {
-       // const elementContainer = CardHandled.getElementById(cardContentContainerId)
-        console.log(CardHandled.content)
+        const CardToRemove = this.getCard();
+        const elementContainer = CardToRemove.querySelector('#content-container').querySelector('#card-guia');
 
-       /* while (elementContainer.firstChild) {
-            elementContainer.removeChild(elementContainer.lastChild);
+        while (elementContainer.firstElementChild) {
+            elementContainer.removeChild(elementContainer.lastElementChild)
         }
-
-        console.log(CardHandled)*/
     }
 
 
     this.pushContent = ( cardContentContainerId , contentElement ) => {
         /*const cardContainer = Card.querySelector('#'+cardContentContainerId);
-        cardContainer.appendChild(contentElement)*/
+                const CardToRemove = this.getCard();
+        const elementContainer = CardToRemove.querySelector('#content-container').querySelector('#card-guia');
+
+        cardContainer.appendChild(contentElement)
+        Finish This*/
     }
+
 
 
     this.getCard = () => {

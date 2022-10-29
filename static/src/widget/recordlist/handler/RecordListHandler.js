@@ -17,19 +17,19 @@ function RecordlistHandler (RecordList, APIUrl, {headNames, keys:{primaryKey, pa
 
 
 
-        await consumeAPI(APIUrl, {method: 'POST'}).then( recordList => {
-            recordList.forEach( record => {
+        await consumeAPI(APIUrl, {method: 'GET'}).then( recordListData => {
+            recordListData.forEach( dataRecord => {
                 let tr = Generator.makeElement('tr');
                 let arrayOperationElements = [];
                 fragment.appendChild(tr);
 
                 partialKeys.forEach(k => {
-                    tr.appendChild(Generator.makeElement('td', {}, [record[k]]))
+                    tr.appendChild(Generator.makeElement('td', {}, [dataRecord[k]]))
                 })
 
                 operationElements.forEach (HTMLNode => {
                     const ElementOperation = HTMLNode.element.cloneNode(true);
-                    ElementOperation.value = record[primaryKey];
+                    ElementOperation.value = dataRecord[primaryKey];
                     ElementOperation.addEventListener(HTMLNode.listenEvent, HTMLNode.handlerEvent)
 
                     arrayOperationElements.push(ElementOperation);
@@ -37,7 +37,7 @@ function RecordlistHandler (RecordList, APIUrl, {headNames, keys:{primaryKey, pa
 
 
                 tr.appendChild(Generator.makeElement('td', {}, [
-                    Generator.makeElement('div', {value: record[primaryKey], class: 'dashboard-container'}, arrayOperationElements)
+                    Generator.makeElement('div', {value: dataRecord[primaryKey], class: 'dashboard-container'}, arrayOperationElements)
                 ]))
 
                 
@@ -48,12 +48,15 @@ function RecordlistHandler (RecordList, APIUrl, {headNames, keys:{primaryKey, pa
     }
 
     this.getRecordlist = () => {
+        return RecordList;
+    }
+
+    function onCreate () {
         const Generator = new ElementGenerator () ; 
 
         setHeadRecord(Generator);
         asyncSetBodyRecord(Generator);
-        return RecordList;
-    }
+    } onCreate();
 }
 
 export default function createRecordlist (APIUrl, {headNames, keys:{primaryKey, partialKeys}, operationElements } ) {

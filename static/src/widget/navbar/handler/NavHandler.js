@@ -12,9 +12,13 @@ function NavbarHandler (Nav, routeMap) {
     }
 
     this.getNavbar = () => {
-        setRoutes();
         return Nav;
     }
+
+    function onCreate () {
+        setRoutes();
+    } onCreate();
+
 }
 
 export default function createNavbar ( routeMap, navRef ) {

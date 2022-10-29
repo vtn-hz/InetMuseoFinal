@@ -9,11 +9,11 @@ const CardButtonClose_ID = '#card-closer';
 function CardHandler (Card, Content, eventListener) {
     function setClose (buttonClose) {
         buttonClose.addEventListener('click', event => {
-            event.preventDefault()
+            event.preventDefault();
             const cardRef = event.target.parentNode;
-
             cardRef.parentNode
             .removeChild(Card)
+        
         }) 
     }
 
@@ -21,7 +21,7 @@ function CardHandler (Card, Content, eventListener) {
         Card.addEventListener('keypress', event => {
             if (event.key === "Enter") {
                 event.preventDefault();
-                submitButton.click();
+                Card.dispatchEvent(new SubmitEvent('submit'));
             }
         })
 
@@ -46,7 +46,8 @@ function CardHandler (Card, Content, eventListener) {
 
     this.removeContent = ( cardContentContainerId ) => {
         const CardToRemove = this.getCard();
-        const elementContainer = CardToRemove.querySelector('#content-container').querySelector('#card-guia');
+        const elementContainer = CardToRemove.querySelector('#content-container').querySelector(cardContentContainerId);
+
 
         while (elementContainer.firstElementChild) {
             elementContainer.removeChild(elementContainer.lastElementChild)
@@ -55,23 +56,20 @@ function CardHandler (Card, Content, eventListener) {
 
 
     this.pushContent = ( cardContentContainerId , contentElement ) => {
-        /*const cardContainer = Card.querySelector('#'+cardContentContainerId);
-                const CardToRemove = this.getCard();
-        const elementContainer = CardToRemove.querySelector('#content-container').querySelector('#card-guia');
-
-        cardContainer.appendChild(contentElement)
-        Finish This*/
+        const CardToPush = this.getCard();
+        const elementContainer = CardToPush.querySelector('#content-container').querySelector(cardContentContainerId);
+        elementContainer.appendChild(contentElement)
     }
 
-
-
     this.getCard = () => {
+        return Card;
+    }
+    
+    function onCreate () {
         setClose(Card.querySelector(CardButtonClose_ID));
         setSubmit();
         strictPushContent(Card.querySelector(CardContainer_ID));
-
-        return Card;
-    }
+    } onCreate();
 }
 
 export default function createCard ( eventListener, contentReference ) {

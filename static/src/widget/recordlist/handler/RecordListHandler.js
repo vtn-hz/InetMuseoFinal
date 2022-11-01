@@ -17,48 +17,51 @@ function RecordlistHandler (RecordList, APIUrl, {headNames, keys:{primaryKey, pa
 
 
 
-        await consumeAPI(APIUrl, {method: 'GET'}).then( records => {
-            records.forEach( record => {
+        await consumeAPI(APIUrl, {method: 'GET'}).then( recordListData => {
+            recordListData.forEach( dataRecord => {
                 let tr = Generator.makeElement('tr');
-                let arrayNodes = [];
+                let arrayOperationElements = [];
                 fragment.appendChild(tr);
 
                 partialKeys.forEach(k => {
-                    tr.appendChild(Generator.makeElement('td', {}, [record[k]]))
+                    tr.appendChild(Generator.makeElement('td', {}, [dataRecord[k]]))
                 })
 
                 operationElements.forEach (HTMLNode => {
-                    const ElementClone = HTMLNode.element.cloneNode(true);
-                    ElementClone.value = record[primaryKey];
-                    ElementClone.addEventListener(HTMLNode.listenEvent, HTMLNode.handlerEvent)
+                    const ElementOperation = HTMLNode.element.cloneNode(true);
+                    ElementOperation.value = dataRecord[primaryKey];
+                    ElementOperation.addEventListener(HTMLNode.listenEvent, HTMLNode.handlerEvent)
 
-                    arrayNodes.push(ElementClone);
+                    arrayOperationElements.push(ElementOperation);
                 })  
 
 
                 tr.appendChild(Generator.makeElement('td', {}, [
-                    Generator.makeElement('div', {value: record[primaryKey], class: 'dashboard-container'}, arrayNodes)
+                    Generator.makeElement('div', {value: dataRecord[primaryKey], class: 'dashboard-container'}, arrayOperationElements)
                 ]))
 
                 
-                arrayNodes.length = 0;
+                arrayOperationElements.length = 0;
             })
             bodyTable.appendChild(fragment);
         }).catch(e => console.error(e));
     }
 
     this.getRecordlist = () => {
+        return RecordList;
+    }
+
+    function onCreate () {
         const Generator = new ElementGenerator () ; 
 
         setHeadRecord(Generator);
         asyncSetBodyRecord(Generator);
-        return RecordList;
-    }
+    } onCreate();
 }
 
 export default function createRecordlist (APIUrl, {headNames, keys:{primaryKey, partialKeys}, operationElements } ) {
     const RecordlistClone = document.getElementById(RECORDLIST_ID).cloneNode(1).content.firstElementChild;
-    const Recordlist = new RecordlistHandler(RecordlistClone,
+    const RecordlistHandlerInstance = new RecordlistHandler(RecordlistClone,
         APIUrl, {headNames, keys:{primaryKey, partialKeys}, operationElements } );
-    return Recordlist;
+    return RecordlistHandlerInstance;
 }

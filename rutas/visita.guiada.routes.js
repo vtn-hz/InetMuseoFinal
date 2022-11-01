@@ -18,7 +18,7 @@ routerVG.patch('/cambiarEstadoVisitaGuiada',cambiarEstadoVisitaGuiada );
 
 //GET
 //routerVG.get('/', );	
-routerVG.post('/VisitaGuiadaView', VisitaGuiadaView );
+routerVG.get('/VisitaGuiadaView', VisitaGuiadaView );
 
 
 

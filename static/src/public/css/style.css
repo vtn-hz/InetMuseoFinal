@@ -1,0 +1,688 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Prompt&display=swap');
+
+:root{
+    --navbar-color: rgb(143, 0, 0);
+    --hover-color:  rgb(189, 189, 189);
+    --active-color: rgb(255, 255, 255);
+    --footer-color: rgb(68, 68, 68);
+    --post-color: rgb(0, 184, 0); 
+    --delete-color: rgb(150, 0, 0); 
+
+
+    --img-map: url('../img/planisferio.jpg');
+    --img-background: url('../img/museo-nacional-bellas-artes-1500x610-interior.jpg');
+    --img-monalisa: url('../img/Monalisa.jpg');
+
+
+    --img-giocando: url('../img/imgmuestra/gioconda-1.jpg');
+    --img-nocheestrellado: url('../img/imgmuestra/nocheestrellada-2.jpeg');
+    --img-ultimacena: url('../img/imgmuestra/ultimacena-3.jpg');
+    --img-escalera: url('../img/imgmuestra/desnudabajandoescalera-4.jpg');
+}
+
+body{
+    /* overflow: hidden; */
+    overflow-x: hidden;
+}
+
+
+.header-default{
+    margin: 0;
+}
+
+
+.nav-bar{
+    display: block;
+    position: relative;
+    top: 0;
+    width: 100%;
+    height: 50px;
+    background-color: var(--navbar-color);
+    font-family: 'Source Sans Pro', sans-serif;
+    box-shadow: 1px 1px 10px black;
+    opacity: 1;
+}
+
+
+
+.nav-bar_box {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-bar_element{
+    font-size: 13px;
+    margin-left: -3px;
+    display: inline-block;
+    width: 12%;
+    height: 50px;
+    text-align: center;
+}
+
+.nav-bar_element:hover{
+    border-bottom: 4px solid var(--hover-color);
+}
+
+.nav-bar_element:hover > a{
+    color: var(--hover-color);
+}
+
+.right{
+    float: right;
+}
+
+
+.nav-bar_element > a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--active-color);
+    margin-top: 10px;
+}
+
+.nav-bar_icon{
+    width: 150px;
+    height: 50px;
+    margin-right: 5%;
+}
+
+.active{
+   border-bottom: 4px solid var(--active-color);
+}
+
+
+@keyframes swipe {
+    from{
+        top: 0;
+    }
+    to{
+        top: 100%;
+    }
+}
+
+@keyframes hidden {
+    from{
+        opacity: 1;
+    }
+    to{
+        opacity: 0;
+    }
+}
+
+@keyframes show {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+@keyframes blurAnimation {
+    from{
+        filter: blur(0px);
+    }to{
+        filter: blur(10px); 
+    }
+}
+
+
+.img__backgroundmuseo{
+    top: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: var(--img-background);
+    background-size: cover;
+    image-resolution: from-image;
+    z-index: 100;
+    animation: blurAnimation 5s 2s forwards ease-in-out;
+}       
+
+.img__backgroundmuseo::before{
+    position: absolute;
+    top: 70%;
+    left: 70%;
+    content: 'Bienvenido...';
+    font-size: 7vh;
+    color: var(--active-color);
+    font-family: 'Prompt', sans-serif;
+}           
+
+
+.hidden-animation{
+    animation: hidden 2s forwards ease-in-out;
+}
+
+.show-animation {
+    animation: show 1s 5s forwards ease-in-out ;
+}
+
+.article{
+    margin-top: 20px;
+    opacity: 1 /**/;
+}
+
+.swipe-button{
+    position: absolute;
+    top:  70%;
+    left: 40%;
+    color: var(--active-color);
+    filter: none ;
+    z-index: 1000;
+    font-size: 9vh;
+    border: 3px solid var(--active-color);
+    transition: all .5;
+}
+
+
+
+.swipe-button:hover{
+
+    color: var(--hover-color);
+    border: 3px solid var(--hover-color);
+}
+
+
+.img__muestra{
+    position: absolute;
+    top: 0;
+    background-image: var(--img-background);
+    background-repeat: no-repeat;
+
+    background-size: 100% 100%;
+}
+
+
+
+
+.container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    grid-column-gap: 40px;
+    
+    height: auto;
+}
+
+
+.small-container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 300px;
+    grid-column-gap: 40px;
+    height: 330px;
+    margin: 10px 5%;
+}
+
+.footer-default{
+    margin-top: 50px;
+    background-color: var(--footer-color);
+    color: var(--hover-color);
+    text-align: center;
+    height: 100px;  
+    padding-top: 50px;
+    vertical-align: middle;
+    width: 100vw;
+    font-size: 12px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-top: auto;
+}
+
+
+.top-content {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
+.img__mapmuseo{
+    border: 1px solid black;
+    box-shadow: 1px 1px 4px black;
+    height: 400px;
+    margin-bottom: 100px;
+    z-index: 1000;
+}
+
+.img__mapmuseo:hover{
+    cursor: grab;
+}
+
+article{
+    margin: 0 100px;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.display-5{
+    font-size: 32px;
+}
+
+.form-text-inline{
+    display: inline;
+    margin-bottom: 5px;
+    margin-right: 1%;
+    width: 48%;
+}
+
+.form-text{
+    display: block;
+    margin-bottom: 5px;
+    width: 75%;
+}
+
+.form-text-full{
+    display: block;
+    margin-bottom: 5px;
+    width: 97%;
+}
+
+.form-date{
+    margin-top: 5px;
+    display: block;
+}
+
+.form-select{
+    margin-top: 5px;
+    display: block;
+}
+
+.card-close {
+    display: inline-block;
+    background-color: var(--delete-color);
+    border: none;
+    color: var(--active-color);
+    position: absolute;
+    margin-left: auto ;
+    top: 10%;
+    left: 90%;
+
+}
+
+.card-close:hover{
+    cursor: pointer;
+}
+
+.put-button{
+    border: none;
+    border-radius: none;
+    background-color: rgb(184, 107, 0);
+    display: inline-block;
+    margin: 2px;
+    color: var(--active-color);
+}
+ 
+.put-button:hover{
+    cursor: pointer;
+}
+
+.delete-button:hover{
+    cursor: pointer;
+}
+
+.delete-button{
+    border: none;
+    border-radius: none;
+    background-color: rgb(147, 0, 0);
+    display: inline-block;
+    margin: 2px;
+    color: var(--active-color);
+}
+
+.content-card{
+    margin-top: 10px;
+    position: relative;
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
+    box-shadow: 1px 1px 3px black;
+}
+
+.form-submit{
+    display: block;
+    border: none;
+    background-color: var(--post-color);
+    margin-left: auto ;
+    color: var(--active-color);
+}
+.form-submit:hover{
+    cursor: pointer;
+}
+
+.form-submit-xl{
+    display: block;
+    border: none;
+    background-color: var(--post-color);
+    width: 100px;
+    height: 20px;
+    margin: 10px 10px;
+    color: var(--active-color);
+}
+.form-submit-xl:hover{
+    cursor: pointer;
+}
+
+.form-edit-xl{
+    display: block;
+    border: none;
+    background-color: var(--navbar-color);
+    width: 160px;
+    height: 20px;
+    margin: 10px 10px;
+    color: var(--active-color);
+    position: absolute;
+    top: 90%;
+    left: 70%;
+}
+
+.form-edit-xl:hover{
+    cursor: pointer;
+}
+
+.img-visita-digital-1{
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-image: var(--img-giocando);
+    background-repeat: no-repeat;
+    border: none;
+    background-position: left;
+
+}
+
+.img-visita-digital-2{
+    width: 70%;
+    height: 100%;
+    background-position: left;
+    background-size: cover;
+    background: var(--img-nocheestrellado) no-repeat center center; 
+    object-fit: cover;
+    border: none;
+    margin-left: 30%;
+}
+
+.img-visita-digital-3{
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-image: var(--img-ultimacena);
+    background-repeat: no-repeat;
+    border: none;
+}
+
+.img-visita-digital-4{
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-image: var(--img-escalera);
+    background-repeat: no-repeat;
+    border: none;
+    background-position: left;
+}
+
+.center-content{
+    margin: 0 200px;
+}
+
+
+.img__mapmuseo{
+    background-image: var(--img-map);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.img__mapmuseo:active{
+    background-image: var(--img-map);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    top: 5%;
+    left: 5%;
+    box-shadow: 1px 1px 10px black;
+}
+
+.point {
+    display: inline-block;
+    position: relative;
+}
+
+
+
+.form-container-user{
+    padding-top: 10vh;
+    background-color: var(--active-color);
+    box-shadow: 1px 1px 10px var(--hover-color);
+    border-radius: 4px; 
+    margin: 100px auto;
+    width: 30vw;
+    height: 50vh;   
+}
+.form-container-user::before{
+    content: 'Crendenciales';
+    font-size: 24px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    position: relative;
+    top: -20px;
+    left: 50%;
+}
+
+
+.form-text-user{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+
+    width: 70%;
+    font-size: 15px;
+}
+
+.form-pass-user{
+    margin-top: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+
+    width: 70%;
+    font-size: 15px;
+}
+
+
+.form-submit-user{
+    display: block;
+    background-color: var(--navbar-color);
+    border-radius: 0px;
+    border: none;
+    color: rgb(255, 255, 255);
+    margin: 100px auto;
+    width: 100px;
+    height: 22px;
+    transition: width .5s;
+}
+
+
+
+.form-submit-user:hover{
+    cursor: pointer;
+    width: 150px;
+
+}
+
+
+.col{
+    position: relative;
+    margin-top: 10px;
+}
+
+
+.icon-blind{
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-image: url('../img/icons/blind_FILL0_wght400_GRAD0_opsz48.png');
+    position: absolute;
+    top: 0px;
+    left: 250px;
+}
+
+
+.icon-chair{
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-image: url('../img/icons/accessible_FILL0_wght400_GRAD0_opsz48.png');
+    position: absolute;
+    top: 0px;
+    left: 230px;
+}
+
+td{
+    width: 200px;
+}
+
+@media (max-width: 600px) {
+
+
+    article{
+        margin: 0 10px;
+        font-size: 25px;
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+
+
+
+    .header-default{
+        background-color: var(--navbar-color);
+        box-shadow: 1px 1px 5px 0px rgb(126, 126, 126);
+        top: 0;
+        width: 100%;
+        height: 70px;
+    }
+
+    .header-default::before{
+        content: 'Museo';
+        color: var(--active-color);
+        font-family: 'Source Sans Pro', sans-serif;
+        font-size: 24px;
+        position: relative;
+        top: 20px;
+        left: 5px;
+        z-index: 100;
+    }
+
+    .header-default:hover > .nav-bar{
+        visibility: visible;
+    }
+
+    .nav-bar{
+        position: absolute;
+        top: 70px;
+        width: 100%;
+        height: 300px;
+        background-color: var(--footer-color);
+        visibility: hidden;
+        z-index: 1000;
+    }
+
+    .nav-bar_element{
+        margin-bottom: 10px;
+        width: 100%;
+        display: block;
+        background-color: var(--footer-color);
+        border-bottom: 1px solid var(--active-color);
+        font-size: 20px;
+    }
+
+    .right{
+        float: left;
+    }
+
+    .nav-bar_box a{
+        display: block;
+        color: var(--active-color);
+    }
+    .nav-bar_box a:hover{
+        background-color: var(--footer-color);
+    }
+
+    .container{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: auto;
+        grid-column-gap: 0px;
+        height: auto;
+    }
+
+    .footer-default{
+        margin-top: 100px;
+    }
+
+    .img__mapmuseo{
+     
+        border: 1px solid black;
+        box-shadow: 1px 1px 4px black;
+        height: 400px;
+        margin-bottom: 10px;
+        z-index: 1000;
+        
+    }
+
+    .article{
+        margin-top: 0px;
+        opacity: 1 /**/;
+    }
+
+    .small-container{
+        float: left;
+        width: auto;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+        grid-column-gap: auto;
+        height: auto;
+        font-size: 12px;
+    }
+
+    .img-visita-digital-2{
+        width: 90%;
+        height: 100%;
+        background-position: left;
+        background-size: cover;
+        background: var(--img-nocheestrellado) no-repeat center center; 
+        object-fit: cover;
+        border: none;
+        margin-left: 30%;
+    }
+
+    .content-card{
+        position: relative;
+        height: auto;
+        background-color: rgb(255, 255, 255);
+        padding: 5px;
+        box-shadow: 1px 1px 3px black;
+    }
+
+    .form-container-user{
+        padding-top: 10vh;
+        background-color: var(--active-color);
+        box-shadow: 1px 1px 10px var(--hover-color);
+        border-radius: 4px; 
+        margin: 100px auto;
+        width: 300px;
+        height: 50vh;   
+    }
+    
+    
+   
+}   
+
+iframe{
+    position: absolute;
+    display: none;
+}

@@ -1,4 +1,4 @@
-import router from "../Server.js";
+import Router from "./Router.js";
 
 import {
     registrarUsuarioAdmin,
@@ -7,9 +7,13 @@ import {
  } from "../controllers/admin.controller.js";
 
 
+const routerA = Router();
+
 //POST
-router.post('registrarUsuarioAdmin', registrarUsuarioAdmin );
-router.post('confirmarUsuarioAdmin', confirmarUsuarioAdmin);
+routerA.post('registrarUsuarioAdmin', registrarUsuarioAdmin );
+routerA.post('confirmarUsuarioAdmin', confirmarUsuarioAdmin);
 
 //PATCH
-router.patch('cambiarEstadoAdmin', cambiarEstadoAdmin);
+routerA.patch('cambiarEstadoAdmin', cambiarEstadoAdmin);
+
+export default routerA;

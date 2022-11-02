@@ -59,9 +59,9 @@ router.get('listarExposicion', listarExposicion)
 
 
 //RUTAS ADMIN
-router.post('registrarUsuarioAdmin', registrarUsuarioAdmin );
+/*router.post('registrarUsuarioAdmin', registrarUsuarioAdmin );
 router.get('confirmarUsuarioAdmin', confirmarUsuarioAdmin);
-router.patch('cambiarEstadoAdmin', cambiarEstadoAdmin);
+router.patch('cambiarEstadoAdmin', cambiarEstadoAdmin);*/
 
 //RUTAS GUIAS 
 router.post('GuiaRegister', GuiaRegister );
@@ -121,6 +121,9 @@ router.get('socialismo/fernando', (req, res)=>{
 export default router;
 const PORT = 5000;
 
+import routerA from "./rutas/admin.routes.js";
+import { SetRoute } from "./RouterSet.js";
+
 const server = http.createServer(function(req, res) {
   const parsedURL = url.parse(req.url, true);
   let path = parsedURL.pathname;
@@ -133,13 +136,12 @@ const server = http.createServer(function(req, res) {
       req.params = JSON.parse(JSON.stringify(parsedURL.query));
   });
   req.on("end", _ => {
-    const route =
-      typeof router.searchRoute(path, req.method) !== "undefined" 
-      ? router.searchRoute(path, req.method) 
-      : (req, res) => { res.writeHead(404); res.end('NOT FOUND') };
- 
+    const route = SetRoute(route, path);
+    const routeA = SetRoute(routerA, path);
 
     route(req, res);
+    routeA(req, res);
+    console.log(routeA);
   });
 });
 

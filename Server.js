@@ -47,13 +47,10 @@ import {
   listarVisitante,
 } from "./controllers/visitante.contoller.js";
 
-/*import * as Types from './controllers/admin.controller.js'
-console.log(Types)*/
-
 import http from 'http'
 import url from 'url'
 
-export const router = Router();
+const router = Router();
 
 //RUTAS EXPOSICION
 router.post('registrarExposicion', registrarExposicion)
@@ -96,6 +93,7 @@ router.get('VisitaGuiadaView', VisitaGuiadaView );
 router.get('listarVisitante',listarVisitante );
 
 
+/*
 router.post('lol', (req, res)=>{
     let payloadStr = JSON.stringify(req.body);
     res.setHeader("Content-Type", "application/json");
@@ -118,7 +116,9 @@ router.get('socialismo/fernando', (req, res)=>{
   res.write(payloadStr);
   res.end("\n");
 })
+*/
 
+export default router;
 const PORT = 5000;
 
 const server = http.createServer(function(req, res) {
@@ -129,7 +129,7 @@ const server = http.createServer(function(req, res) {
 
   req.on("data", buffer => {
       const strJSON = buffer.toString('utf-8')
-      req.body = JSON.parse(strJSON)
+      req.body = req.method == 'GET'? JSON.parse(JSON.stringify(strJSON)) : JSON.parse(strJSON)
       req.params = JSON.parse(JSON.stringify(parsedURL.query));
   });
   req.on("end", _ => {

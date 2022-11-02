@@ -16,7 +16,7 @@ Content-Type: application/json
 {
     "idHabitacion": "1",
     "titulo": "HOLA",
-    "descripcion": "pablo 2",
+    "descripcion": "pablo 5",
     "idAdministrador": "1"
 }
 
@@ -31,7 +31,7 @@ POST http://localhost:5000/registrarUsuarioAdmin HTTP/1.1
 Content-Type: application/json
 
 {
-    "dni": "44867992",
+    "dni": "9934303492953",
     "nombre": "Esteban",
     "apellido": "pablo 2",
     "username": "luquinuts",
@@ -130,7 +130,6 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/VisitaGuiadaView HTTP/1.1 
-//no funciona
 
 --------------------------------------------------------
 

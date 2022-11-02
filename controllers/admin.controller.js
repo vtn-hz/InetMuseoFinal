@@ -4,6 +4,7 @@ export const registrarUsuarioAdmin = async(req, res) =>{
     try {
         /************************************************************/
         let IdUsuario= null;
+        console.log(req.body.dni)
         const [response] = await conexion.query("SELECT `idUsuario` FROM `usuario` WHERE `dni`=(?)",
         {
             replacements: [req.body.dni],

@@ -37,7 +37,7 @@ export const registrarUsuarioAdmin = async(req, res) =>{
         res.setHeader("Content-Type", "application/json");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.writeHead(200);
-        res.end("\n");
+        res.end(JSON.stringify(response, null,1));
     } catch (error) {
         console.log(error.message);
     }
@@ -47,13 +47,14 @@ export const confirmarUsuarioAdmin = async(req, res) =>{
     try {
         const [response]= await conexion.query("SELECT  `token` FROM `administrador` WHERE `username`=(?) AND `password`=(?)",
         {
-            replacements: [[req.body.username],[req.body.password]],
+            replacements: [req.body.username,req.body.password],
         });
+        
+
         res.setHeader("Content-Type", "application/json");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.writeHead(200);
-        res.end("\n");
-        console.log(JSON.stringify(response, null,1))
+        res.end(JSON.stringify(response, null,1));
 
     } catch (error) {
         console.log(error.message);
@@ -78,6 +79,8 @@ export const cambiarEstadoAdmin = async(req, res) =>{
             } else {
                 estado = 0;
             }
+
+            
         } catch (error) {
             console.log(error.message);
         }
@@ -87,11 +90,9 @@ export const cambiarEstadoAdmin = async(req, res) =>{
     {
         replacements: [[estado], [IdAdministrador]],
     });
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.writeHead(200);
-    res.end("\n");
-    
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.writeHead(200);
     }
     catch (error) {
     console.log(error.message);

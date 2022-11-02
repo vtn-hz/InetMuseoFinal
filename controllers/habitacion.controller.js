@@ -13,7 +13,7 @@ export const registrarHabitacion = async(req,res)=>{
         res.setHeader("Content-Type", "application/json");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.writeHead(200);
-        res.end("\n");
+        res.end(JSON.stringify(response, null,1));
     } catch (error) {
         console.log(error.message);
     }
@@ -27,7 +27,6 @@ export const editarHabitacion = async(req, res) =>{
         res.setHeader("Content-Type", "application/json");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.writeHead(200);
-        res.end("\n");
     } catch (error) {
         console.log(error.message);
     }
@@ -63,7 +62,7 @@ export const cambiarEstadoHabitacion = async(req, res) =>{
     res.setHeader("Content-Type", "application/json");
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.writeHead(200);
-    res.end("\n");
+    res.end(JSON.stringify({msg: 'State changed'}, null,1));
     
     }
     catch (error) {
@@ -77,8 +76,7 @@ export const listarHabitacion = async(req,res)=>{
         res.setHeader("Content-Type", "application/json");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.writeHead(200);
-        res.end("\n");
-        console.log(JSON.stringify(response, null,1))
+        res.end(JSON.stringify(response, null,1));
     } catch (error) {
         console.log(error.message);
     }

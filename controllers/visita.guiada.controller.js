@@ -12,7 +12,7 @@ export const VisitaGuiadaRegister = async(req, res) =>{
         res.setHeader("Content-Type", "application/json");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.writeHead(200);
-        res.end("\n");
+        res.end("");
         /************************************************************/
     } catch (error) {
         console.log(error.message);
@@ -23,13 +23,14 @@ export const VisitaGuiadaView = async(req, res) =>{
     try {
         /************************************************************/
         const [response]= await conexion.query("SELECT VG.idVisitaGuiada, VG.fecha, VG.hora, U.nombre, U.apellido,I.idioma FROM `visitaguiada` VG LEFT OUTER JOIN `guia` G ON VG.idGuia=G.idGuia LEFT OUTER JOIN `usuario` U ON G.idUsuario=U.idUsuario LEFT OUTER JOIN `idiomaguia` IG ON G.idGuia=IG.idGuia LEFT OUTER JOIN `idioma` I ON IG.idIdioma=I.idIdioma WHERE VG.estado=1 ")
-		res.setHeader("Content-Type", "application/json");
+       
+        res.setHeader("Content-Type", "application/json");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.writeHead(200);
-        res.end("\n");
-        console.log(JSON.stringify(response, null,1))
+        res.end(JSON.stringify(response, null,1));
         /************************************************************/
     } catch (error) {
+        res.end();
         console.log(error.message);
     }
 }
@@ -61,10 +62,16 @@ export const cambiarEstadoVisitaGuiada = async(req, res) =>{
     {
         replacements: [[estado], [IdVisitaGuiada]],
     });
-    res.status(200).json({msg: "State Updated"});
+;
+ 
+    res.writeHead(200);
+    res.end();
+
     
     }
     catch (error) {
-    console.log(error.message);
+        console.log(error.message);
+        res.writeHead(500);
+        res.end();
     }
 }

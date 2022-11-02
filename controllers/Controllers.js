@@ -8,7 +8,9 @@ export const registrar = async(req,res)=>{
         await conexion.query("INSERT INTO ``( ``, ``) VALUES (?,?)",{
             replacements:[req.body, req.body],
         });
-        res.status(201).json({msg:"+"});
+        res.writeHead(200);
+        res.end(JSON.stringify({msg:"+"}, null,1));
+
     } catch (error) {
         console.log(error.message);
     }
@@ -34,7 +36,8 @@ export const registrarConTablaDeConexion = async(req, res) =>{
         {
             replacements: [Id, ID],
         })
-        res.status(201).json({msg: "+"});
+        res.writeHead(200);
+        res.end(JSON.stringify({msg:"+"}, null,1));
         /************************************************************/
     } catch (error) {
         console.log(error.message);
@@ -45,8 +48,8 @@ export const registrarConTablaDeConexion = async(req, res) =>{
 export const listar = async(req,res)=>{
     try {
         const [response]= await conexion.query("SELECT * FROM ");
-        res.status(200).json(response);
-        console.log(JSON.stringify(response, null,1))
+        res.writeHead(200);
+        res.end(JSON.stringify(response, null,1));
     } catch (error) {
         console.log(error.message);
     }
@@ -59,7 +62,8 @@ export const getById = async(req, res) =>{
         {
             replacements: [req.params],
         });
-        res.status(200).json(response);
+        res.writeHead(200);
+        res.end(JSON.stringify(response, null,1));
         console.log(JSON.stringify(response, null,1))
 
     } catch (error) {
@@ -73,7 +77,9 @@ export const edit = async(req, res) =>{
         await conexion.query("UPDATE  SET  WHERE ",{  
             replacements: [[req.body],[req.body],[req.params]],
         });
-        res.status(200).json({msg: "Categoria Updated"});
+
+        res.writeHead(200);
+        res.end(JSON.stringify({msg: "Categoria Updated"}, null,1));
     } catch (error) {
         console.log(error.message);
     }
@@ -107,8 +113,10 @@ export const cambiarEstado = async(req, res) =>{
     {
         replacements: [[estado], [id]],
     });
-    res.status(200).json({msg: "State Updated"});
-    
+
+    res.writeHead(200);
+    res.end(JSON.stringify({msg: "State Updated"}, null,1));
+
     }
     catch (error) {
     console.log(error.message);

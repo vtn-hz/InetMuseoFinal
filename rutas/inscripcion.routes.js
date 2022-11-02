@@ -1,4 +1,4 @@
-import router from "../Server.js";
+import router from "../r.js";
 import {
     InscripcionCreate,
     InscripcionView,

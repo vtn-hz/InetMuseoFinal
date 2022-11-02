@@ -49,7 +49,8 @@ export const GuiaRegister = async(req, res) =>{
         res.setHeader("Content-Type", "application/json");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.writeHead(200);
-        res.end("\n");
+        res.end(JSON.stringify({msg: 'register pushed'}, null,1));
+        
     } catch (error) {
         console.log(error.message);
     }
@@ -82,7 +83,8 @@ export const cambiarEstadoGuia = async(req, res) =>{
     {
         replacements: [[estado], [IdGuia]],
     });
-    res.status(200).json({msg: "State Updated"});
+    res.writeHead(200);
+    res.end(JSON.stringify({msg: 'state updated'}, null,1));
     
     }
     catch (error) {
@@ -96,10 +98,11 @@ export const ListarGuias = async(req,res)=>{
         res.setHeader("Content-Type", "application/json");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.writeHead(200);
-        res.end("\n");
-        console.log(JSON.stringify(response, null,1))
+        res.end(JSON.stringify(response, null,1));
+
     } catch (error) {
         console.log(error.message);
+        res.end();
     }
 }
 

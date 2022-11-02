@@ -45,19 +45,20 @@ import {
 
 import {
   listarVisitante,
+  cambiarEstadoVisitante,
+  VisitanteRegister
 } from "./controllers/visitante.contoller.js";
 
-export const router = Router();
+const router = Router();
 
 //RUTAS EXPOSICION
 router.post('registrarExposicion', registrarExposicion)
 router.patch('editarExposicion', editarExposicion)
 router.get('listarExposicion', listarExposicion)
 
-
 //RUTAS ADMIN
 router.post('registrarUsuarioAdmin', registrarUsuarioAdmin );
-router.get('confirmarUsuarioAdmin', confirmarUsuarioAdmin);
+router.post('confirmarUsuarioAdmin', confirmarUsuarioAdmin);
 router.patch('cambiarEstadoAdmin', cambiarEstadoAdmin);
 
 //RUTAS GUIAS 
@@ -79,7 +80,7 @@ router.get('listarIdioma', listarIdioma);
 //RUTAS INCRIPCION
 router.post('inscripcionCreate', InscripcionCreate );
 router.patch('cambiarEstadoInscripcion', cambiarEstadoInscripcion);
-router.get('inscripcionView', InscripcionView );
+router.get('InscripcionView', InscripcionView );
 
 //RUTAS VISITAS GUIADAS
 router.post('VisitaGuiadaRegister', VisitaGuiadaRegister );
@@ -88,3 +89,7 @@ router.get('VisitaGuiadaView', VisitaGuiadaView );
 
 //RUTAS VISITANTE
 router.get('listarVisitante',listarVisitante );
+router.patch('cambiarEstadoVisitante',cambiarEstadoVisitante);
+router.post('VisitanteRegister', VisitanteRegister);
+
+export default router;

@@ -8,6 +8,7 @@ export const registrarExposicion = async(req,res)=>{
         res.setHeader("Content-Type", "application/json");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.writeHead(200);
+        
     
     } catch (error) {
         console.log(error.message);
@@ -39,7 +40,7 @@ export const listarExposicion = async(req,res)=>{
         res.setHeader("Content-Type", "application/json");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.writeHead(200);
-        console.log(JSON.stringify(response, null,1))
+        res.end(JSON.stringify(response, null,1));
     } catch (error) {
         console.log(error.message);
     }

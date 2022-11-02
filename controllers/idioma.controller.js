@@ -10,9 +10,10 @@ export const IdiomaRegister = async(req, res) =>{
         res.setHeader("Content-Type", "application/json");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.writeHead(200);
-        res.end("\n");
         /************************************************************/
     } catch (error) {
+        res.writeHead(500);
+        res.end();
         console.log(error.message);
     }
 }
@@ -24,9 +25,11 @@ export const listarIdioma = async(req,res)=>{
         res.setHeader("Content-Type", "application/json");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.writeHead(200);
-        res.end("\n");
-        console.log(JSON.stringify(response, null,1))
+        res.end(JSON.stringify(response, null,1));
+  
     } catch (error) {
+        res.writeHead(500);
+        res.end();
         console.log(error.message);
     }
 }
@@ -50,6 +53,8 @@ export const cambiarEstadoIdioma = async(req, res) =>{
                 estado = 0;
             }
         } catch (error) {
+            res.writeHead(500);
+            res.end();
             console.log(error.message);
         }
         /************************************************************/
@@ -61,10 +66,11 @@ export const cambiarEstadoIdioma = async(req, res) =>{
     res.setHeader("Content-Type", "application/json");
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.writeHead(200);
-    res.end("\n");
     
     }
     catch (error) {
-    console.log(error.message);
+        res.writeHead(500);
+        res.end();
+        console.log(error.message);
     }
 }

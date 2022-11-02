@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <link rel="stylesheet" href="css/default.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="src/public/css/default.css">
+    <link rel="stylesheet" href="src/public/css/style.css">
 
-    <link rel="icon" type="image/x-icon" href="img/icons/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="src/public/img/icons/favicon.ico">
 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <template-container>
-        <div data-include="guest/loggin.html"></div>
-        <div data-include="guest/accesibilidad.html"></div>
-        <div data-include="guest/home.html"></div>
-        <div data-include="guest/reserva.html"></div>
-        <div data-include="guest/visitadigital.html"></div>
+        <div data-include="src/view/guest/loggin.html"></div>
+        <div data-include="src/view/guest/accesibilidad.html"></div>
+        <div data-include="src/view/guest/home.html"></div>
+        <div data-include="src/view/guest/reserva.html"></div>
+        <div data-include="src/view/guest/visitadigital.html"></div>
 
-        <div data-include="admin/exposiciones.html"></div>
-        <div data-include="admin/fechas.html"></div>
-        <div data-include="admin/guias.html"></div>
-        <div data-include="admin/home.html"></div>
-        <div data-include="admin/salas.html"></div>
+        <div data-include="src/view/admin/exposiciones.html"></div>
+        <div data-include="src/view/admin/fechas.html"></div>
+        <div data-include="src/view/admin/guias.html"></div>
+        <div data-include="src/view/admin/home.html"></div>
+        <div data-include="src/view/admin/salas.html"></div>
 
 
-        <div data-include="card/view/CardTemplate.html"></div>
-        <div data-include="navbar/view/NavTemplate.html"></div>
-        <div data-include="recordlist/view/RecordListTemplate.html"></div>
+        <div data-include="src/widget/card/view/CardTemplate.html"></div>
+        <div data-include="src/widget/navbar/view/NavTemplate.html"></div>
+        <div data-include="src/widget/recordlist/view/RecordListTemplate.html"></div>
     </template-container>
     
     
@@ -46,6 +46,6 @@
 
    
 
-    <script src="build.js"></script>
+    <script src="src/dist/build.js"></script>
 </body>
 </html>

@@ -45,8 +45,7 @@ export const listarVisitante = async(req,res)=>{
         res.setHeader("Content-Type", "application/json");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.writeHead(200);
-        res.end("\n");
-        console.log(JSON.stringify(response, null,1))
+        res.end(JSON.stringify(response, null,1));
          /************************************************************/
     } catch (error) {
         console.log(error.message);
@@ -80,7 +79,8 @@ export const cambiarEstadoVisitante = async(req, res) =>{
     {
         replacements: [[estado], [IdVisitante]],
     });
-    res.status(200).json({msg: "State Updated"});
+    res.writeHead(200);
+    res.end(JSON.stringify({msg: 'Museo updated'}, null,1));
     
     }
     catch (error) {

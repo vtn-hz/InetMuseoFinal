@@ -24,6 +24,7 @@ function RecordlistHandler (RecordList, APIUrl, {headNames, keys:{primaryKey, pa
                 fragment.appendChild(tr);
 
                 partialKeys.forEach(k => {
+                    record[k] =  record[k] === null? '' : record[k];
                     tr.appendChild(Generator.makeElement('td', {}, [record[k]]))
                 })
 

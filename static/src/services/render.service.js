@@ -45,7 +45,7 @@ export function ElementGenerator (){
     }
 
     const pushContent = (HTMLElement, content) => {
-        if (content !== undefined) {
+        if (content !== undefined && content !== null) {
             for (const iterator of content) {
                 if (iterator.nodeName !== undefined) {
                     HTMLElement.appendChild (iterator);

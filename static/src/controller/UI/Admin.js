@@ -317,7 +317,7 @@ export function AdminController( DynamicContentRoot, StaticContentRoot){
                     listenEvent: 'click',
                     handlerEvent: event => {
                         const APIDEL_DeleteGuia = '/cambiarEstadoGuia';
-                        FormController().sendForm({url: APIDEL_DeleteGuia, method:'POST' }, {
+                        FormController().sendForm({url: APIDEL_DeleteGuia, method:'PATCH' }, {
                             idGuia: event.target.value
                         }, ['', undefined]).then(msg => {
                             this.renderGuias();

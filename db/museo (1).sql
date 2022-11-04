@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-09-2022 a las 02:04:30
+-- Tiempo de generación: 02-11-2022 a las 16:26:09
 -- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.4.10
+-- Versión de PHP: 7.4.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -92,7 +92,8 @@ INSERT INTO `guia` (`idGuia`, `estado`, `idUsuario`) VALUES
 (5, 0, 7),
 (6, 0, 8),
 (7, 0, 9),
-(8, 1, 11);
+(8, 1, 11),
+(9, 1, 14);
 
 -- --------------------------------------------------------
 
@@ -117,7 +118,8 @@ INSERT INTO `habitacion` (`idHabitacion`, `identificador`, `estado`, `idInstituc
 (3, '123', 1, 1),
 (4, '123123123', 0, 1),
 (5, '11111111111', 0, 1),
-(6, 'Sala de Star', 1, 1);
+(6, 'Sala de Star', 1, 1),
+(7, 'agua 2', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -137,7 +139,8 @@ CREATE TABLE `idioma` (
 
 INSERT INTO `idioma` (`idIdioma`, `idioma`, `estado`) VALUES
 (1, 'Español', 1),
-(2, 'Ingles', 1);
+(2, 'Ingles', 1),
+(3, 'tailandes', 1);
 
 -- --------------------------------------------------------
 
@@ -174,21 +177,12 @@ INSERT INTO `idiomaguia` (`idIdiomaGuia`, `idIdioma`, `idGuia`) VALUES
 
 CREATE TABLE `inscripcion` (
   `idInscripcion` int(11) NOT NULL,
-  `fecha` date NOT NULL,
+  `fecha` date NOT NULL DEFAULT current_timestamp(),
   `estado` tinyint(1) NOT NULL DEFAULT 1,
   `idVisitante` int(11) NOT NULL,
   `idVisitaGuiada` int(11) NOT NULL,
   `idInscriptor` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `inscripcion`
---
-
-INSERT INTO `inscripcion` (`idInscripcion`, `fecha`, `estado`, `idVisitante`, `idVisitaGuiada`, `idInscriptor`) VALUES
-(2, '2022-09-18', 0, 4, 1, 4),
-(3, '2022-09-18', 1, 5, 8, 4),
-(4, '2022-09-18', 1, 6, 14, 4);
 
 -- --------------------------------------------------------
 
@@ -235,7 +229,7 @@ INSERT INTO `institucion` (`idInstitucion`, `nombre`, `Mapainstalaciones`) VALUE
 
 CREATE TABLE `modificareliminar` (
   `idModificarEliminar` int(11) NOT NULL,
-  `fecha` date NOT NULL,
+  `fecha` date NOT NULL DEFAULT current_timestamp(),
   `idAdministrador` int(11) NOT NULL,
   `idExposicion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -277,7 +271,8 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`idUsuario`, `dni`, `nombre`, `apellido`, `estado`) VALUES
-(2, 123456789, 'Valen', 'Gordo', 1),
+(1, 5555, 'hola', 'pablo', 1),
+(2, 123456789, 'Valen', '', 1),
 (3, 123, '123', '123', 1),
 (4, 123123, '123', '123', 1),
 (5, 999999, 'pio', 'pablo', 1),
@@ -287,7 +282,16 @@ INSERT INTO `usuario` (`idUsuario`, `dni`, `nombre`, `apellido`, `estado`) VALUE
 (9, 123123, 'qweqew', '123', 1),
 (10, 44543343, '123', '123', 1),
 (11, 1234123, '123', '123', 1),
-(12, 457213, '123@gnailsad', '123', 1);
+(12, 457213, '123@gnailsad', '123', 1),
+(13, 44867992, 'Esteban', 'pablo 2', 1),
+(14, 13, 'Leandro', 'Yanni', 1),
+(15, 2147483647, 'juan', 'cartel', 1),
+(16, 2147483647, 'juan', 'cartel', 1),
+(17, 2147483647, 'juan', 'cartel', 1),
+(18, 2147483647, 'Esteban', 'pablo 2', 1),
+(19, 2147483647, 'Esteban', 'pablo 2', 1),
+(20, 2147483647, 'Esteban', 'pablo 2', 1),
+(21, 2147483647, 'Esteban', 'pablo 2', 1);
 
 -- --------------------------------------------------------
 
@@ -309,22 +313,10 @@ CREATE TABLE `visitaguiada` (
 --
 
 INSERT INTO `visitaguiada` (`idVisitaGuiada`, `fecha`, `hora`, `estado`, `idGuia`, `idRecorrido`) VALUES
-(1, '2022-09-06', '09:46:11', 0, 1, 1),
-(2, '2022-09-20', '16:42:00', 0, 3, 1),
-(3, '0000-00-00', '16:42:00', 0, 2, 1),
-(4, '0000-00-00', '14:40:00', 0, 2, 1),
-(5, '2022-09-18', '20:48:00', 0, 3, 1),
-(6, '2022-09-16', '14:46:00', 0, 3, 1),
-(7, '2022-09-08', '14:47:00', 0, 2, 1),
-(8, '2022-09-23', '14:47:00', 1, 2, 1),
-(9, '2022-09-16', '14:47:00', 1, 2, 1),
-(10, '0000-00-00', '00:00:00', 0, 2, 1),
-(11, '2022-09-23', '14:48:00', 0, 3, 1),
-(12, '2022-08-28', '15:18:00', 1, 2, 1),
-(13, '2022-09-09', '20:23:00', 1, 2, 1),
-(14, '2022-09-15', '20:18:00', 1, 7, 1),
-(15, '2022-08-31', '20:37:00', 0, 2, 1),
-(16, '2022-09-08', '20:36:00', 1, 7, 1);
+(1, '2022-11-01', '15:37:47', 1, 2, 1),
+(2, '2022-11-01', '15:37:51', 1, 2, 1),
+(3, '2022-10-10', '15:00:00', 1, 2, 1),
+(4, '2022-10-10', '15:00:00', 1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -345,6 +337,7 @@ CREATE TABLE `visitante` (
 --
 
 INSERT INTO `visitante` (`idVisitante`, `mail`, `cantPersonas`, `estado`, `idUsuario`) VALUES
+(0, 'juancio@gmail.com', 2, 1, 17),
 (1, 'papa@hola', 5, 1, 5),
 (2, 'papa@hola', 5, 1, 5),
 (3, 'papa@hola', 5, 1, 5),
@@ -426,7 +419,8 @@ ALTER TABLE `institucion`
 ALTER TABLE `modificareliminar`
   ADD PRIMARY KEY (`idModificarEliminar`),
   ADD KEY `idAdministrador` (`idAdministrador`),
-  ADD KEY `idExposicion` (`idExposicion`);
+  ADD KEY `idExposicion` (`idExposicion`),
+  ADD KEY `idExposicion_2` (`idExposicion`);
 
 --
 -- Indices de la tabla `recorrido`
@@ -464,31 +458,31 @@ ALTER TABLE `visitante`
 -- AUTO_INCREMENT de la tabla `administrador`
 --
 ALTER TABLE `administrador`
-  MODIFY `idAdministrador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idAdministrador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `exposicion`
 --
 ALTER TABLE `exposicion`
-  MODIFY `idExposcion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idExposcion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `guia`
 --
 ALTER TABLE `guia`
-  MODIFY `idGuia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idGuia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `habitacion`
 --
 ALTER TABLE `habitacion`
-  MODIFY `idHabitacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idHabitacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `idioma`
 --
 ALTER TABLE `idioma`
-  MODIFY `idIdioma` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idIdioma` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `idiomaguia`
@@ -500,7 +494,7 @@ ALTER TABLE `idiomaguia`
 -- AUTO_INCREMENT de la tabla `inscripcion`
 --
 ALTER TABLE `inscripcion`
-  MODIFY `idInscripcion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idInscripcion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `inscriptor`
@@ -518,7 +512,7 @@ ALTER TABLE `institucion`
 -- AUTO_INCREMENT de la tabla `modificareliminar`
 --
 ALTER TABLE `modificareliminar`
-  MODIFY `idModificarEliminar` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idModificarEliminar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `recorrido`
@@ -530,19 +524,13 @@ ALTER TABLE `recorrido`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `visitaguiada`
 --
 ALTER TABLE `visitaguiada`
-  MODIFY `idVisitaGuiada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT de la tabla `visitante`
---
-ALTER TABLE `visitante`
-  MODIFY `idVisitante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idVisitaGuiada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restricciones para tablas volcadas
@@ -555,6 +543,12 @@ ALTER TABLE `administrador`
   ADD CONSTRAINT `rol_usuario_administrador` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
 
 --
+-- Filtros para la tabla `exposicion`
+--
+ALTER TABLE `exposicion`
+  ADD CONSTRAINT `rol_habitacion_exposicion` FOREIGN KEY (`idHabitacion`) REFERENCES `habitacion` (`idHabitacion`);
+
+--
 -- Filtros para la tabla `guia`
 --
 ALTER TABLE `guia`
@@ -564,35 +558,35 @@ ALTER TABLE `guia`
 -- Filtros para la tabla `habitacion`
 --
 ALTER TABLE `habitacion`
-  ADD CONSTRAINT `Institucion_habitacion` FOREIGN KEY (`idInstitucion`) REFERENCES `institucion` (`idInstitucion`);
+  ADD CONSTRAINT `rol_institucion_habitacion` FOREIGN KEY (`idInstitucion`) REFERENCES `institucion` (`idInstitucion`);
 
 --
 -- Filtros para la tabla `idiomaguia`
 --
 ALTER TABLE `idiomaguia`
-  ADD CONSTRAINT `guia_tiene_idioma` FOREIGN KEY (`idIdioma`) REFERENCES `idioma` (`idIdioma`),
-  ADD CONSTRAINT `idioma_tiene_guia` FOREIGN KEY (`idGuia`) REFERENCES `guia` (`idGuia`);
+  ADD CONSTRAINT `rol_idiomaguia_guia` FOREIGN KEY (`idGuia`) REFERENCES `guia` (`idGuia`),
+  ADD CONSTRAINT `rol_idiomaguia_idioma` FOREIGN KEY (`idIdioma`) REFERENCES `idioma` (`idIdioma`);
 
 --
 -- Filtros para la tabla `inscripcion`
 --
 ALTER TABLE `inscripcion`
-  ADD CONSTRAINT `relacion_inscripcion` FOREIGN KEY (`idInscriptor`) REFERENCES `inscriptor` (`idInscriptor`),
-  ADD CONSTRAINT `relacion_visita` FOREIGN KEY (`idVisitante`) REFERENCES `visitante` (`idVisitante`),
-  ADD CONSTRAINT `relacion_visita_guiada` FOREIGN KEY (`idVisitaGuiada`) REFERENCES `visitaguiada` (`idVisitaGuiada`);
+  ADD CONSTRAINT `rol_inscripcion_inscriptor` FOREIGN KEY (`idInscriptor`) REFERENCES `inscriptor` (`idInscriptor`),
+  ADD CONSTRAINT `rol_inscripcion_visitaguiada` FOREIGN KEY (`idVisitaGuiada`) REFERENCES `visitaguiada` (`idVisitaGuiada`),
+  ADD CONSTRAINT `rol_inscripcion_visitante` FOREIGN KEY (`idVisitante`) REFERENCES `visitante` (`idVisitante`);
 
 --
 -- Filtros para la tabla `inscriptor`
 --
 ALTER TABLE `inscriptor`
-  ADD CONSTRAINT `rol_incriptor_institucion` FOREIGN KEY (`idInstitucion`) REFERENCES `institucion` (`idInstitucion`);
+  ADD CONSTRAINT `rol_institucion_inscriptor` FOREIGN KEY (`idInstitucion`) REFERENCES `institucion` (`idInstitucion`);
 
 --
 -- Filtros para la tabla `modificareliminar`
 --
 ALTER TABLE `modificareliminar`
-  ADD CONSTRAINT `relacion_adminitrador` FOREIGN KEY (`idAdministrador`) REFERENCES `administrador` (`idAdministrador`),
-  ADD CONSTRAINT `relacion_exposicion` FOREIGN KEY (`idExposicion`) REFERENCES `exposicion` (`idExposcion`);
+  ADD CONSTRAINT `rol_modificar_administrador` FOREIGN KEY (`idAdministrador`) REFERENCES `administrador` (`idAdministrador`),
+  ADD CONSTRAINT `rol_modificar_exposicion` FOREIGN KEY (`idExposicion`) REFERENCES `exposicion` (`idExposcion`);
 
 --
 -- Filtros para la tabla `recorrido`
@@ -604,14 +598,14 @@ ALTER TABLE `recorrido`
 -- Filtros para la tabla `visitaguiada`
 --
 ALTER TABLE `visitaguiada`
-  ADD CONSTRAINT `relacion_guia` FOREIGN KEY (`idGuia`) REFERENCES `guia` (`idGuia`),
-  ADD CONSTRAINT `relacion_recorrido` FOREIGN KEY (`idRecorrido`) REFERENCES `recorrido` (`idRecorrido`);
+  ADD CONSTRAINT `rol_visitaguiada_guia` FOREIGN KEY (`idGuia`) REFERENCES `guia` (`idGuia`),
+  ADD CONSTRAINT `rol_visitaguiada_recorrido` FOREIGN KEY (`idRecorrido`) REFERENCES `recorrido` (`idRecorrido`);
 
 --
 -- Filtros para la tabla `visitante`
 --
 ALTER TABLE `visitante`
-  ADD CONSTRAINT `rol_visitante_usuario` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
+  ADD CONSTRAINT `rol_usuario_visitante` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

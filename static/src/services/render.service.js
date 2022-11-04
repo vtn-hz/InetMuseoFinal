@@ -1,3 +1,4 @@
+
 /*
 Es un helper esto, discutir con pimentel o mover en todo caso (dudoso)
 repito, re ver que onda. Es util pero dudo que tenga que estar aca. 
@@ -5,6 +6,7 @@ repito, re ver que onda. Es util pero dudo que tenga que estar aca.
 Ademas verificar donde estan las dependencias del mismo
 
 */ 
+
 export function ElementGenerator (){
     const root = document.getElementById("root");
 

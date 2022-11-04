@@ -30,6 +30,7 @@ export default function viewService () {
         return Promise.all(viewPromises)
     }
 
+
     return {
         'getClonedView': getClonedView,
         'pushViews': pushViews

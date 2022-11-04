@@ -46,8 +46,19 @@ export const GuiaRegister = async(req, res) =>{
         {
             replacements: [IdIdioma, IdGuia],
         })
+<<<<<<< HEAD
         res.status(201).json({msg: "+"});
     } catch (error) {
+=======
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.writeHead(200);
+        res.end(JSON.stringify({msg: 'register pushed'}, null,1));
+        
+    } catch (error) {
+        res.writeHead(500);
+        res.end();
+>>>>>>> without-express
         console.log(error.message);
     }
 }
@@ -79,20 +90,44 @@ export const cambiarEstadoGuia = async(req, res) =>{
     {
         replacements: [[estado], [IdGuia]],
     });
+<<<<<<< HEAD
     res.status(200).json({msg: "State Updated"});
     
     }
     catch (error) {
     console.log(error.message);
+=======
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.writeHead(200);
+        res.end(JSON.stringify({msg: 'state updated'}, null,1));
+    
+    }
+    catch (error) {
+        res.writeHead(500);
+        res.end();
+        console.log(error.message);
+>>>>>>> without-express
     }
 }
 
 export const ListarGuias = async(req,res)=>{
     try {
         const [response]= await conexion.query("SELECT G.idGuia, U.dni, U.nombre, U.apellido, I.idioma FROM `guia` G LEFT OUTER JOIN `usuario` U ON G.idUsuario=U.idUsuario LEFT OUTER JOIN `idiomaguia` IG ON G.idGuia=IG.idGuia LEFT OUTER JOIN `idioma` I ON IG.idIdioma=I.idIdioma WHERE G.estado= 1");
+<<<<<<< HEAD
         res.status(200).json(response);
         console.log(JSON.stringify(response, null,1))
     } catch (error) {
+=======
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.writeHead(200);
+        res.end(JSON.stringify(response, null,1));
+
+    } catch (error) {
+        res.writeHead(500);
+        res.end();
+>>>>>>> without-express
         console.log(error.message);
     }
 }

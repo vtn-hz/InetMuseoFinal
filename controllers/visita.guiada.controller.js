@@ -9,9 +9,20 @@ export const VisitaGuiadaRegister = async(req, res) =>{
         {
             replacements: [ req.body.idRecorrido , req.body.idGuia, req.body.fecha, req.body.hora],
         });
+<<<<<<< HEAD
         res.status(201).json({msg:"Visita Guiada Registrado"});
         /************************************************************/
     } catch (error) {
+=======
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.writeHead(200);
+        res.end(JSON.stringify({msg: 'Visita Registrada'}, null,1));
+        /************************************************************/
+    } catch (error) {
+        res.writeHead(500);
+        res.end();
+>>>>>>> without-express
         console.log(error.message);
     }
 }
@@ -20,9 +31,21 @@ export const VisitaGuiadaView = async(req, res) =>{
     try {
         /************************************************************/
         const [response]= await conexion.query("SELECT VG.idVisitaGuiada, VG.fecha, VG.hora, U.nombre, U.apellido,I.idioma FROM `visitaguiada` VG LEFT OUTER JOIN `guia` G ON VG.idGuia=G.idGuia LEFT OUTER JOIN `usuario` U ON G.idUsuario=U.idUsuario LEFT OUTER JOIN `idiomaguia` IG ON G.idGuia=IG.idGuia LEFT OUTER JOIN `idioma` I ON IG.idIdioma=I.idIdioma WHERE VG.estado=1 ")
+<<<<<<< HEAD
 		res.status(201).json(response);
         /************************************************************/
     } catch (error) {
+=======
+       
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.writeHead(200);
+        res.end(JSON.stringify(response, null,1));
+        /************************************************************/
+    } catch (error) {
+        res.writeHead(500);
+        res.end();
+>>>>>>> without-express
         console.log(error.message);
     }
 }
@@ -54,10 +77,25 @@ export const cambiarEstadoVisitaGuiada = async(req, res) =>{
     {
         replacements: [[estado], [IdVisitaGuiada]],
     });
+<<<<<<< HEAD
     res.status(200).json({msg: "State Updated"});
     
     }
     catch (error) {
     console.log(error.message);
+=======
+
+    res.setHeader("Content-Type", "application/json");
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.writeHead(200);
+    res.end(JSON.stringify({msg: 'Visita GuiaEliminada'}, null,1));
+
+    
+    }
+    catch (error) {
+        res.writeHead(500);
+        res.end();
+        console.log(error.message);
+>>>>>>> without-express
     }
 }

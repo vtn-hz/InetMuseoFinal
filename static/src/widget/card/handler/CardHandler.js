@@ -5,16 +5,15 @@ const CardContainer_ID = '#content-container';
 const CardButtonSubmit_ID = '#card-submit';
 const CardButtonClose_ID = '#card-closer';
 
-// Only Push, without Pop 
-function CardHandler (Card, Content, eventListener) {
 
+function CardHandler (Card, Content, eventListener) {
     function setClose (buttonClose) {
         buttonClose.addEventListener('click', event => {
-            event.preventDefault()
+            event.preventDefault();
             const cardRef = event.target.parentNode;
-
             cardRef.parentNode
             .removeChild(Card)
+        
         }) 
     }
 
@@ -22,12 +21,14 @@ function CardHandler (Card, Content, eventListener) {
         Card.addEventListener('keypress', event => {
             if (event.key === "Enter") {
                 event.preventDefault();
-                submitButton.click();
+                Card.dispatchEvent(new SubmitEvent('submit'));
             }
         })
 
         Card.addEventListener('submit', eventListener)
     }
+
+    
     
     function strictPushContent(container){
         Card.querySelector(CardTitle_ID).textContent = Content.firstElementChild.textContent;
@@ -43,20 +44,38 @@ function CardHandler (Card, Content, eventListener) {
         container.appendChild(content);
     }
 
+    this.removeContent = ( cardContentContainerId ) => {
+        const CardToRemove = this.getCard();
+        const elementContainer = CardToRemove.querySelector('#content-container').querySelector(cardContentContainerId);
+
+
+        while (elementContainer.firstElementChild) {
+            elementContainer.removeChild(elementContainer.lastElementChild)
+        }
+    }
+
+
+    this.pushContent = ( cardContentContainerId , contentElement ) => {
+        const CardToPush = this.getCard();
+        const elementContainer = CardToPush.querySelector('#content-container').querySelector(cardContentContainerId);
+        elementContainer.appendChild(contentElement)
+    }
 
     this.getCard = () => {
+        return Card;
+    }
+    
+    function onCreate () {
         setClose(Card.querySelector(CardButtonClose_ID));
         setSubmit();
         strictPushContent(Card.querySelector(CardContainer_ID));
-
-        return Card;
-    }
+    } onCreate();
 }
 
 export default function createCard ( eventListener, contentReference ) {
     const CardClone = document.getElementById(CARD_ID).cloneNode(1).content.firstElementChild;
-    const contentClone = contentReference.cloneNode(1).content;
+    const contentCardClone = contentReference.cloneNode(1).content;
 
-    const Card = new CardHandler(CardClone, contentClone, eventListener);
-    return Card;
+    const CardHandlerInstance = new CardHandler(CardClone, contentCardClone, eventListener);
+    return CardHandlerInstance;
 }

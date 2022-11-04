@@ -16,16 +16,20 @@
     <template id="submit-card-content-fecha">
         <title-card>Generar Visita</title-card>
         <content-card>
-            <input type="datetime-local" id="card-fecha" name="fecha" class="form-date">
-            <select id="card-guia" name="guia" class="form-select">Guia</select>
+            <input type="datetime-local" id="card-fecha" name="fecha" class="form-date" required>
+            <select id="card-guia" name="guia" class="form-select">
+                <option value="">No tiene guias</option>
+            </select>
         </content-card>
     </template>
 
     <template id="edit-card-content-fecha">
         <title-card>Editar Visita</title-card>
         <content-card>
-            <input type="datetime-local" id="card-fecha" name="fecha" class="form-date">
-            <select id="card-guia" name="guia" class="form-select">Guia</select>
+            <input type="datetime-local" id="card-fecha" name="fecha" class="form-date" required>
+            <select id="card-guia" name="guia" class="form-select">
+                <option value="">No tiene guias</option>
+            </select>
         </content-card>
     </template>
 </template>

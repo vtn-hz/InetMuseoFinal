@@ -10,14 +10,18 @@ import createRecordlist from "../../widget/recordlist/handler/RecordListHandler"
 import { FormController } from "../Form";
 import { SessionController } from "../Session";
 
-
+/*Puntos de Id del NavBar*/ 
 const GuestDomainView = ['home', 'guest-reserva', 'guest-visitaldigital', 'guest-accesibilidad', 'access'];
 
 export function GuestController( DynamicContentRoot, StaticContentRoot){
     const Generator = new ElementGenerator ();
     const Manager = new ElementManagement ();
 
+    /*Simplify And Segregate Responsabilities...*/
+    // Dynamic Content Guest Views
+    /*Contenido que cambia entre vistas*/ 
     const DynamicContentRender = {
+        // Home de Guest
         "renderHome": function (idHomeTemplate = 'guest_view-home') {
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'home');
@@ -26,65 +30,81 @@ export function GuestController( DynamicContentRoot, StaticContentRoot){
             document.getElementById(DynamicContentRoot).appendChild(HomeView);
         },
 
+        // Reservar una visita
         "renderReserva": function (idReservaTemplate = 'guest_view-reserva') {
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'guest-reserva');
 
             const ReservaView = viewService().getClonedView(idReservaTemplate);
-            const RecordListRoot = ReservaView.querySelector('#row-1');
             const CardRoot = ReservaView.querySelector('#row-2');
-            const CardContent = ReservaView.querySelector('#card-content-reserva');
-            const Button = Generator.makeElement('button', { id: 'pop-table-button', class: 'form-submit-xl'}, ['Subscribirme']);  
 
-      
-            const ButtonListener = event  => {
-                const Card = createCard( eventForm => {
-                    eventForm.preventDefault();
-                    //const data = new FormData(event.target);
-                     
-                    /*No track values ???????*/
-                    
-                   /*Without formdata alternative*/ 
-                    const dataParse = []
-                    const Form = eventForm.target;  
-                    Form.querySelectorAll('#content-container > input').forEach(element => {
-                        dataParse.push(element.value);
-                    });
-    
-    
-                    const APIPOST_crearInscripcion ='/InscripcionCreate';
-                    FormController().sendForm({url: APIPOST_crearInscripcion, method:'POST' }, {
-                        idVisitaGuiada: event.target.value,
-                        nombre: dataParse[1],
-                        apellido: dataParse[2],
-                        dni: dataParse[3],
-                        mail: dataParse[0],
-                        cantPersonas: dataParse[4]
-                    }, ['', undefined]).then(msg => {
-                        this.renderReserva();
-                        alert(msg.success)
-                    }).catch(msg => alert(msg.error))
-                }, CardContent)
+            // CardHandlerInstance Submit
+            const cardSubmitReference = ReservaView.querySelector('#card-content-reserva');
+            const cardSubmitHandler = createCard (event => {
+                event.preventDefault();
+                //const data = new FormData(event.target);
+                 
+                /*No track values ???????*/
+                
+               /*Without formdata alternative*/ 
+                const dataParse = []
+                const Form = event.target;  
+                Form.querySelectorAll('#content-container > input').forEach(element => {
+                    dataParse.push(element.value);
+                });
 
+                console.log({
+                    idVisitaGuiada: event.target.getAttribute('idVisitaGuiada'),
+                    nombre: dataParse[1],
+                    apellido: dataParse[2],
+                    dni: dataParse[3],
+                    mail: dataParse[0],
+                    cantPersonas: dataParse[4]
+                })
+
+                const APIPOST_crearInscripcion ='/InscripcionCreate';
+                FormController().sendForm({url: APIPOST_crearInscripcion, method:'POST' }, {
+                    idVisitaGuiada: event.target.getAttribute('idVisitaGuiada'),
+                    nombre: dataParse[1],
+                    apellido: dataParse[2],
+                    dni: dataParse[3],
+                    mail: dataParse[0],
+                    cantPersonas: dataParse[4]
+                }, ['', undefined]).then(msg => {
+                    this.renderReserva();
+                    alert(msg.success)
+                }).catch(msg => alert(msg.error))
+            }, cardSubmitReference);
+
+
+            const ButtonAdd = Generator.makeElement('button', { id: 'pop-table-button', class: 'form-submit-xl'}, ['Subscribirme']);  
+            const ButtonAddListener = event  => {
                 Generator.removeAllElements(CardRoot);
-                CardRoot.appendChild(Card.getCard())
-            }
+                const cardSubmitElement = cardSubmitHandler.getCard();
 
-            const urlVisitaGuiada ='/VisitaGuiadaView';
-            const recordList = createRecordlist(urlVisitaGuiada, {headNames: ['Fecha', 'Hora', 'Idioma', 'SUBSCRIBIRME'], 
+                cardSubmitElement.setAttribute('idVisitaGuiada', event.target.value);
+               // console.log(cardSubmitElement)
+
+                CardRoot.appendChild(cardSubmitElement)
+            }
+            // RecordlistInstance
+            const RecordListRoot = ReservaView.querySelector('#row-1');
+            const APIGET_VisitaGuiadaList ='/VisitaGuiadaView';
+            const recordList = createRecordlist(APIGET_VisitaGuiadaList, {headNames: ['Fecha', 'Hora', 'Idioma', 'SUBSCRIBIRME'], 
             keys: {
                 primaryKey: 'idVisitaGuiada',
                 partialKeys:['fecha', 'hora', 'idioma']
             }, operationElements: [{
-                element: Button,
+                element: ButtonAdd,
                 listenEvent: 'click',
-                handlerEvent: ButtonListener
+                handlerEvent: ButtonAddListener
             }]});
 
             RecordListRoot.appendChild(recordList.getRecordlist());
             document.getElementById(DynamicContentRoot).appendChild(ReservaView);
         },
 
+        // Visita Digital
         "renderDigitalVisit": function(idVisitaDigitalTemplate = 'guest_view-visitadigital'){
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'guest-visitaldigital');
@@ -93,6 +113,7 @@ export function GuestController( DynamicContentRoot, StaticContentRoot){
             document.getElementById(DynamicContentRoot).appendChild(VisitaDView);
         },
 
+        // Accesibilidad del Museo
         "renderAccesibility": function (idAccesibilityTemplate = 'guest_view-accesibilidad') {
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'guest-accesibilidad');
@@ -101,6 +122,7 @@ export function GuestController( DynamicContentRoot, StaticContentRoot){
             document.getElementById(DynamicContentRoot).appendChild(AccesibilityView);
         },
 
+        // Loggin de la Admin Account
         "renderLoggin": function(idLogginTemplate = 'guest_view-loggin'){
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'access');
@@ -128,6 +150,8 @@ export function GuestController( DynamicContentRoot, StaticContentRoot){
 
     } 
 
+    // Static Content Guest Views
+    /*Contenido que NO cambia entre vistas*/ 
     const StaticContentRender = {
         "renderNavbar": function (idNavbarGuestTemplate = 'nav-guest') {
             const NavBar = createNavbar ({

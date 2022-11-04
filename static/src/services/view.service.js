@@ -9,27 +9,17 @@ export default function viewService () {
         const viewPromises = [];
     
         const includeHTML = (el, url) => {
-            const xhr = new XMLHttpRequest();
-    
             viewPromises.push(
             new Promise ((res, rej) => {
-                xhr.addEventListener("readystatechange", e=>{
-                    if(xhr.readyState !== 4) return;
-        
-                    if (xhr.status >= 200 && xhr.status < 300) {
-                        el.outerHTML = xhr.responseText;
-                        res(xhr.status);
-                    } else {
-                        const msg = xhr.statusText;
-                        console.error(msg);
-                        rej(xhr.status);
-                    }
+                window.fetch(url)
+                .then(response => response.text())
+                .then(htmlContent => {
+                    el.outerHTML = htmlContent;
+                    res();
+                }).catch(err => {
+                    rej(err);
                 });
             }))
-    
-            xhr.open("GET", url)
-            xhr.setRequestHeader("Content-type", 'text/html;charset=utf-8');
-            xhr.send();
         }
     
         document

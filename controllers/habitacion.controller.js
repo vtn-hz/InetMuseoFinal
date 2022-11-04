@@ -10,10 +10,6 @@ export const registrarHabitacion = async(req,res)=>{
         await conexion.query("INSERT INTO `habitacion`( `idInstitucion`, `identificador`) VALUES (?,?)",{
             replacements:[idInstitucioin, req.body.identificador],
         });
-<<<<<<< HEAD
-        res.status(201).json({msg:"+"});
-    } catch (error) {
-=======
         res.setHeader("Content-Type", "application/json");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.writeHead(200);
@@ -21,7 +17,6 @@ export const registrarHabitacion = async(req,res)=>{
     } catch (error) {
         res.writeHead(500);
         res.end();
->>>>>>> without-express
         console.log(error.message);
     }
 }
@@ -31,10 +26,6 @@ export const editarHabitacion = async(req, res) =>{
         await conexion.query("UPDATE `habitacion` SET `identificador`=(?) WHERE `idHabitacion`=(?)",{  
             replacements: [[req.body.identificador],[req.params.idHabitacion]],
         });
-<<<<<<< HEAD
-        res.status(200).json({msg: "Museo Updated"});
-    } catch (error) {
-=======
         res.setHeader("Content-Type", "application/json");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.writeHead(200);
@@ -42,7 +33,6 @@ export const editarHabitacion = async(req, res) =>{
     } catch (error) {
         res.writeHead(500);
         res.end();
->>>>>>> without-express
         console.log(error.message);
     }
 }
@@ -74,13 +64,6 @@ export const cambiarEstadoHabitacion = async(req, res) =>{
     {
         replacements: [[estado], [IdHabitacion]],
     });
-<<<<<<< HEAD
-    res.status(200).json({msg: "State Updated"});
-    
-    }
-    catch (error) {
-    console.log(error.message);
-=======
         res.setHeader("Content-Type", "application/json");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.writeHead(200);
@@ -91,18 +74,12 @@ export const cambiarEstadoHabitacion = async(req, res) =>{
         res.writeHead(500);
         res.end();
         console.log(error.message);
->>>>>>> without-express
     }
 }
 
 export const listarHabitacion = async(req,res)=>{
     try {
         const [response]= await conexion.query("SELECT `idHabitacion`, `idInstitucion`, `identificador` FROM `habitacion`  WHERE `estado` <> 0");
-<<<<<<< HEAD
-        res.status(200).json(response);
-        console.log(JSON.stringify(response, null,1))
-    } catch (error) {
-=======
         res.setHeader("Content-Type", "application/json");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.writeHead(200);
@@ -110,7 +87,6 @@ export const listarHabitacion = async(req,res)=>{
     } catch (error) {
         res.writeHead(500);
         res.end();
->>>>>>> without-express
         console.log(error.message);
     }
 }

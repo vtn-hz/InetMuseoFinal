@@ -6,7 +6,6 @@ const CardButtonSubmit_ID = '#card-submit';
 const CardButtonClose_ID = '#card-closer';
 
 
-
 function CardHandler (Card, Content, eventListener) {
     function setClose (buttonClose) {
         buttonClose.addEventListener('click', event => {
@@ -14,7 +13,7 @@ function CardHandler (Card, Content, eventListener) {
             const cardRef = event.target.parentNode;
             cardRef.parentNode
             .removeChild(Card)
-    
+        
         }) 
     }
 
@@ -29,6 +28,7 @@ function CardHandler (Card, Content, eventListener) {
         Card.addEventListener('submit', eventListener)
     }
 
+    
     
     function strictPushContent(container){
         Card.querySelector(CardTitle_ID).textContent = Content.firstElementChild.textContent;

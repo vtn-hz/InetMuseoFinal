@@ -7,11 +7,6 @@ export const IdiomaRegister = async(req, res) =>{
         {
             replacements: [req.body.idioma],
         });
-<<<<<<< HEAD
-        res.status(201).json({msg:"Idioma Registrado"});
-        /************************************************************/
-    } catch (error) {
-=======
         res.setHeader("Content-Type", "application/json");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.writeHead(200);
@@ -20,7 +15,6 @@ export const IdiomaRegister = async(req, res) =>{
     } catch (error) {
         res.writeHead(500);
         res.end();
->>>>>>> without-express
         console.log(error.message);
     }
 }
@@ -29,11 +23,6 @@ export const IdiomaRegister = async(req, res) =>{
 export const listarIdioma = async(req,res)=>{
     try {
         const [response]= await conexion.query("SELECT `idIdioma`, `idioma` FROM `idioma` WHERE `estado`=1");
-<<<<<<< HEAD
-        res.status(200).json(response);
-        console.log(JSON.stringify(response, null,1))
-    } catch (error) {
-=======
         res.setHeader("Content-Type", "application/json");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.writeHead(200);
@@ -42,7 +31,6 @@ export const listarIdioma = async(req,res)=>{
     } catch (error) {
         res.writeHead(500);
         res.end();
->>>>>>> without-express
         console.log(error.message);
     }
 }
@@ -66,11 +54,8 @@ export const cambiarEstadoIdioma = async(req, res) =>{
                 estado = 0;
             }
         } catch (error) {
-<<<<<<< HEAD
-=======
             res.writeHead(500);
             res.end();
->>>>>>> without-express
             console.log(error.message);
         }
         /************************************************************/
@@ -79,13 +64,6 @@ export const cambiarEstadoIdioma = async(req, res) =>{
     {
         replacements: [[estado], [IdIdioma]],
     });
-<<<<<<< HEAD
-    res.status(200).json({msg: "State Updated"});
-    
-    }
-    catch (error) {
-    console.log(error.message);
-=======
         res.setHeader("Content-Type", "application/json");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.writeHead(200);
@@ -96,6 +74,5 @@ export const cambiarEstadoIdioma = async(req, res) =>{
         res.writeHead(500);
         res.end();
         console.log(error.message);
->>>>>>> without-express
     }
 }

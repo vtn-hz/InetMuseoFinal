@@ -16,8 +16,11 @@ export const InscripcionCreate = async(req, res) =>{
         res.setHeader("Content-Type", "application/json");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.writeHead(200);
+        res.end(JSON.stringify({msg: 'Inscripcion Creada'}, null,1));
         /************************************************************/
     } catch (error) {   
+        res.writeHead(500);
+        res.end();
         console.log(error.message);
     }
 }
@@ -33,6 +36,8 @@ export const InscripcionView = async(req, res) =>{
         res.end(JSON.stringify(response, null,1));
         /************************************************************/
     } catch (error) {
+        res.writeHead(500);
+        res.end();
         console.log(error.message);
     }
 }
@@ -56,6 +61,8 @@ export const cambiarEstadoInscripcion = async(req, res) =>{
                 estado = 0;
             }
         } catch (error) {
+            res.writeHead(500);
+            res.end();
             console.log(error.message);
         }
         /************************************************************/
@@ -64,12 +71,14 @@ export const cambiarEstadoInscripcion = async(req, res) =>{
     {
         replacements: [[estado], [IdInscripcion]],
     });
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.writeHead(200);
-    
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.writeHead(200);
+        res.end(JSON.stringify({msg: 'Inscripcion Eliminada'}, null,1));
     }
     catch (error) {
-    console.log(error.message);
+        res.writeHead(500);
+        res.end();
+        console.log(error.message);
     }
 }

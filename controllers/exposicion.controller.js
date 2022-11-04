@@ -8,9 +8,10 @@ export const registrarExposicion = async(req,res)=>{
         res.setHeader("Content-Type", "application/json");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.writeHead(200);
-        
-    
+        res.end(JSON.stringify({msg: 'Exposicion Registrada'}, null,1));
     } catch (error) {
+        res.writeHead(500);
+        res.end();
         console.log(error.message);
     }
 }
@@ -29,7 +30,10 @@ export const editarExposicion = async(req, res) =>{
         res.setHeader("Content-Type", "application/json");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.writeHead(200);
+        res.end(JSON.stringify({msg: 'Exposicion Editada'}, null,1));
     } catch (error) {
+        res.writeHead(500);
+        res.end();
         console.log(error.message);
     }
 }
@@ -42,6 +46,8 @@ export const listarExposicion = async(req,res)=>{
         res.writeHead(200);
         res.end(JSON.stringify(response, null,1));
     } catch (error) {
+        res.writeHead(500);
+        res.end();
         console.log(error.message);
     }
 }
@@ -74,12 +80,14 @@ export const cambiarEstadoExpo = async(req, res) =>{
     {
         replacements: [[estado], [IdExposcion]],
     });
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.writeHead(200);
-    
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.writeHead(200);
+        res.end(JSON.stringify({msg: 'Exposicion Eliminada'}, null,1));
     }
     catch (error) {
-    console.log(error.message);
+        res.writeHead(500);
+        res.end();
+        console.log(error.message);
     }
 }

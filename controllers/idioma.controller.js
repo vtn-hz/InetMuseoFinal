@@ -10,6 +10,7 @@ export const IdiomaRegister = async(req, res) =>{
         res.setHeader("Content-Type", "application/json");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.writeHead(200);
+        res.end(JSON.stringify({msg: 'Edioma Registrado'}, null,1));
         /************************************************************/
     } catch (error) {
         res.writeHead(500);
@@ -63,9 +64,10 @@ export const cambiarEstadoIdioma = async(req, res) =>{
     {
         replacements: [[estado], [IdIdioma]],
     });
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.writeHead(200);
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.writeHead(200);
+        res.end(JSON.stringify({msg: 'Edioma Eliminado'}, null,1));
     
     }
     catch (error) {

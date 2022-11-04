@@ -11,9 +11,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cors": "^2.8.5",
     "mime-types": "^2.1.35",
     "mysql2": "^2.3.3",
     "sequelize": "^6.21.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }

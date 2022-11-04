@@ -40,13 +40,20 @@ export function GuestController( DynamicContentRoot, StaticContentRoot){
             const ButtonListener = event  => {
                 const Card = createCard( eventForm => {
                     eventForm.preventDefault();
-                    const data = new FormData(eventForm.target);
-                    const dataParse = [...data.values()]
+                    //const data = new FormData(event.target);
+                     
+                    /*No track values ???????*/
+                    
+                   /*Without formdata alternative*/ 
+                    const dataParse = []
+                    const Form = eventForm.target;  
+                    Form.querySelectorAll('#content-container > input').forEach(element => {
+                        dataParse.push(element.value);
+                    });
     
-
-
-                    const urlPOSTVisita ='/InscripcionCreate';
-                    FormController().sendForm({url: urlPOSTVisita, method:'POST' }, {
+    
+                    const APIPOST_crearInscripcion ='/InscripcionCreate';
+                    FormController().sendForm({url: APIPOST_crearInscripcion, method:'POST' }, {
                         idVisitaGuiada: event.target.value,
                         nombre: dataParse[1],
                         apellido: dataParse[2],
@@ -54,10 +61,11 @@ export function GuestController( DynamicContentRoot, StaticContentRoot){
                         mail: dataParse[0],
                         cantPersonas: dataParse[4]
                     }, ['', undefined]).then(msg => {
-                        renderReserva();
+                        this.renderReserva();
                         alert(msg.success)
                     }).catch(msg => alert(msg.error))
                 }, CardContent)
+
                 Generator.removeAllElements(CardRoot);
                 CardRoot.appendChild(Card.getCard())
             }

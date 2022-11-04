@@ -15,6 +15,8 @@ export const registrarHabitacion = async(req,res)=>{
         res.writeHead(200);
         res.end(JSON.stringify(response, null,1));
     } catch (error) {
+        res.writeHead(500);
+        res.end();
         console.log(error.message);
     }
 }
@@ -27,7 +29,10 @@ export const editarHabitacion = async(req, res) =>{
         res.setHeader("Content-Type", "application/json");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.writeHead(200);
+        res.end(JSON.stringify({msg: 'Habitacion Editada'}, null,1));
     } catch (error) {
+        res.writeHead(500);
+        res.end();
         console.log(error.message);
     }
 }
@@ -59,14 +64,16 @@ export const cambiarEstadoHabitacion = async(req, res) =>{
     {
         replacements: [[estado], [IdHabitacion]],
     });
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.writeHead(200);
-    res.end(JSON.stringify({msg: 'State changed'}, null,1));
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.writeHead(200);
+        res.end(JSON.stringify({msg: 'State changed'}, null,1));
     
     }
     catch (error) {
-    console.log(error.message);
+        res.writeHead(500);
+        res.end();
+        console.log(error.message);
     }
 }
 
@@ -78,6 +85,8 @@ export const listarHabitacion = async(req,res)=>{
         res.writeHead(200);
         res.end(JSON.stringify(response, null,1));
     } catch (error) {
+        res.writeHead(500);
+        res.end();
         console.log(error.message);
     }
 }

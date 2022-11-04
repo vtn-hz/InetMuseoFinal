@@ -1,53 +1,54 @@
-import Router from "./rutas/Router.js";
+import Router from "./Router.js";
 
 import  {
   registrarExposicion,
   editarExposicion,
-  listarExposicion
-}  from "./controllers/exposicion.controller.js";
+  listarExposicion,
+  cambiarEstadoExpo
+}  from "../controllers/exposicion.controller.js";
 
 import {
   registrarUsuarioAdmin,
   confirmarUsuarioAdmin,
   cambiarEstadoAdmin
-} from "./controllers/admin.controller.js";
+} from "../controllers/admin.controller.js";
 
 import {
   GuiaRegister,
   cambiarEstadoGuia,
   ListarGuias
-} from "./controllers/guia.controller.js";
+} from "../controllers/guia.controller.js";
 
 import {
   registrarHabitacion,
   editarHabitacion,
   cambiarEstadoHabitacion,
   listarHabitacion
-} from "./controllers/habitacion.controller.js";
+} from "../controllers/habitacion.controller.js";
 
 import {
   IdiomaRegister,
   listarIdioma,
   cambiarEstadoIdioma
-} from "./controllers/idioma.controller.js";
+} from "../controllers/idioma.controller.js";
 
 import {
   InscripcionCreate,
   InscripcionView,
   cambiarEstadoInscripcion
-} from "./controllers/inscripcion.controller.js";
+} from "../controllers/inscripcion.controller.js";
 
 import {
   VisitaGuiadaRegister,
   VisitaGuiadaView,
   cambiarEstadoVisitaGuiada
-} from "./controllers/visita.guiada.controller.js";
+} from "../controllers/visita.guiada.controller.js";
 
 import {
   listarVisitante,
   cambiarEstadoVisitante,
   VisitanteRegister
-} from "./controllers/visitante.contoller.js";
+} from "../controllers/visitante.contoller.js";
 
 const router = Router();
 
@@ -55,6 +56,7 @@ const router = Router();
 router.post('registrarExposicion', registrarExposicion)
 router.patch('editarExposicion', editarExposicion)
 router.get('listarExposicion', listarExposicion)
+router.patch('cambiarEstadoExpo', cambiarEstadoExpo);
 
 //RUTAS ADMIN
 router.post('registrarUsuarioAdmin', registrarUsuarioAdmin );
@@ -78,7 +80,7 @@ router.patch('cambiarEstadoIdioma', cambiarEstadoIdioma);
 router.get('listarIdioma', listarIdioma);
 
 //RUTAS INCRIPCION
-router.post('inscripcionCreate', InscripcionCreate );
+router.post('InscripcionCreate', InscripcionCreate );
 router.patch('cambiarEstadoInscripcion', cambiarEstadoInscripcion);
 router.get('InscripcionView', InscripcionView );
 

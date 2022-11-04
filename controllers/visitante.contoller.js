@@ -48,6 +48,8 @@ export const listarVisitante = async(req,res)=>{
         res.end(JSON.stringify(response, null,1));
          /************************************************************/
     } catch (error) {
+        res.writeHead(500);
+        res.end();
         console.log(error.message);
     }
 }
@@ -79,11 +81,15 @@ export const cambiarEstadoVisitante = async(req, res) =>{
     {
         replacements: [[estado], [IdVisitante]],
     });
+    res.setHeader("Content-Type", "application/json");
+    res.setHeader("Access-Control-Allow-Origin", "*");
     res.writeHead(200);
     res.end(JSON.stringify({msg: 'Museo updated'}, null,1));
     
     }
     catch (error) {
-    console.log(error.message);
+        res.writeHead(500);
+        res.end();
+        console.log(error.message);
     }
 }

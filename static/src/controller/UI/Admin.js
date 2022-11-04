@@ -319,7 +319,7 @@ export function AdminController( DynamicContentRoot, StaticContentRoot){
 
             const buttonDeleteHandler = event => {
                 const urlDelGuia = '/cambiarEstadoGuia';
-                FormController().sendForm({url: urlDelGuia, method:'POST' }, {
+                FormController().sendForm({url: urlDelGuia, method:'PATCH' }, {
                     idGuia: event.target.value
                 }, ['', undefined]).then(msg => {
                     this.renderGuias();

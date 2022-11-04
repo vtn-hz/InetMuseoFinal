@@ -12,9 +12,11 @@ export const VisitaGuiadaRegister = async(req, res) =>{
         res.setHeader("Content-Type", "application/json");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.writeHead(200);
-        res.end("");
+        res.end(JSON.stringify({msg: 'Visita Registrada'}, null,1));
         /************************************************************/
     } catch (error) {
+        res.writeHead(500);
+        res.end();
         console.log(error.message);
     }
 }
@@ -30,6 +32,7 @@ export const VisitaGuiadaView = async(req, res) =>{
         res.end(JSON.stringify(response, null,1));
         /************************************************************/
     } catch (error) {
+        res.writeHead(500);
         res.end();
         console.log(error.message);
     }
@@ -62,16 +65,17 @@ export const cambiarEstadoVisitaGuiada = async(req, res) =>{
     {
         replacements: [[estado], [IdVisitaGuiada]],
     });
-;
- 
+
+    res.setHeader("Content-Type", "application/json");
+    res.setHeader("Access-Control-Allow-Origin", "*");
     res.writeHead(200);
-    res.end();
+    res.end(JSON.stringify({msg: 'Visita GuiaEliminada'}, null,1));
 
     
     }
     catch (error) {
-        console.log(error.message);
         res.writeHead(500);
         res.end();
+        console.log(error.message);
     }
 }

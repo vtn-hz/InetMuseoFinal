@@ -50,5 +50,5 @@ const server = http.createServer(function(req, res) {
 });
 
 server.listen(PORT, _ => {
-  console.log(`API SERVER LISTEN ON PORT ${PORT}`);
+  console.log(`API Server on PORT ${PORT}`);
 });

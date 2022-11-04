@@ -3,16 +3,21 @@ import { AdminController } from "../controller/UI/Admin"
 import { GuestController } from "../controller/UI/Guest"
 import viewService from "../services/view.service";
 
+import defineButtonClose from "../widget/closebutton/handler/CloseButtonHandler";
+import defineButtonSubmit from "../widget/submitbutton/handler/SubmitButtonHandler";
 
 
 
 function Application () {
     function start () {
         viewService().pushViews().then(status => {
+            defineButtonClose ();
+            defineButtonSubmit();
+
             SessionController().checkSession()
             ? AdminController('root', 'nav').startUp() 
             : GuestController('root', 'nav').startUp()
-        }).catch(_ => console.error('Application Error...'))
+        }).catch(e => console.error('Application Error...\n' + e))
     }
 
     function refresh () {

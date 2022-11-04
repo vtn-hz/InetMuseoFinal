@@ -1,17 +1,19 @@
-import Application from "../../config/Application";
 import { ElementGenerator, ElementManagement } from "../../services/render.service"
-import viewService from "../../services/view.service";
 
 
-import createCard from "../../widget/card/handler/CardHandler";
+import getAccesibilidadView from "../../view/guest/__accesibilidad/accesibilidadview.provider";
+import getHomeView from "../../view/guest/__home/homeview.provider";
+import getLoginView from "../../view/guest/__login/loginview.provider";
+import getReservaView from "../../view/guest/__reserva/reservaview.provider";
+import getVisitadigitalView from "../../view/guest/__visitadigital/visitadigital.provider";
+
+
+
 import createNavbar from "../../widget/navbar/handler/NavHandler";
-import createRecordlist from "../../widget/recordlist/handler/RecordListHandler";
-
-import { FormController } from "../Form";
-import { SessionController } from "../Session";
-
 /*Puntos de Id del NavBar*/ 
 const GuestDomainView = ['home', 'guest-reserva', 'guest-visitaldigital', 'guest-accesibilidad', 'access'];
+
+
 
 export function GuestController( DynamicContentRoot, StaticContentRoot){
     const Generator = new ElementGenerator ();
@@ -22,130 +24,48 @@ export function GuestController( DynamicContentRoot, StaticContentRoot){
     /*Contenido que cambia entre vistas*/ 
     const DynamicContentRender = {
         // Home de Guest
-        "renderHome": function (idHomeTemplate = 'guest_view-home') {
+        "renderHome": function renderHome () {
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'home');
 
-            const HomeView = viewService().getClonedView(idHomeTemplate);
+            const HomeView = getHomeView( renderHome );
             document.getElementById(DynamicContentRoot).appendChild(HomeView);
         },
 
         // Reservar una visita
-        "renderReserva": function (idReservaTemplate = 'guest_view-reserva') {
+        "renderReserva": function renderReserva () {
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'guest-reserva');
-
-            const ReservaView = viewService().getClonedView(idReservaTemplate);
-            const CardRoot = ReservaView.querySelector('#row-2');
-
-            // CardHandlerInstance Submit
-            const cardSubmitReference = ReservaView.querySelector('#card-content-reserva');
-            const cardSubmitHandler = createCard (event => {
-                event.preventDefault();
-                //const data = new FormData(event.target);
-                 
-                /*No track values ???????*/
-                
-               /*Without formdata alternative*/ 
-                const dataParse = []
-                const Form = event.target;  
-                Form.querySelectorAll('#content-container > input').forEach(element => {
-                    dataParse.push(element.value);
-                });
-
-                console.log({
-                    idVisitaGuiada: event.target.getAttribute('idVisitaGuiada'),
-                    nombre: dataParse[1],
-                    apellido: dataParse[2],
-                    dni: dataParse[3],
-                    mail: dataParse[0],
-                    cantPersonas: dataParse[4]
-                })
-
-                const APIPOST_crearInscripcion ='/InscripcionCreate';
-                FormController().sendForm({url: APIPOST_crearInscripcion, method:'POST' }, {
-                    idVisitaGuiada: event.target.getAttribute('idVisitaGuiada'),
-                    nombre: dataParse[1],
-                    apellido: dataParse[2],
-                    dni: dataParse[3],
-                    mail: dataParse[0],
-                    cantPersonas: dataParse[4]
-                }, ['', undefined]).then(msg => {
-                    this.renderReserva();
-                    alert(msg.success)
-                }).catch(msg => alert(msg.error))
-            }, cardSubmitReference);
-
-
-            const ButtonAdd = Generator.makeElement('button', { id: 'pop-table-button', class: 'form-submit-xl'}, ['Subscribirme']);  
-            const ButtonAddListener = event  => {
-                Generator.removeAllElements(CardRoot);
-                const cardSubmitElement = cardSubmitHandler.getCard();
-
-                cardSubmitElement.setAttribute('idVisitaGuiada', event.target.value);
-               // console.log(cardSubmitElement)
-
-                CardRoot.appendChild(cardSubmitElement)
-            }
-            // RecordlistInstance
-            const RecordListRoot = ReservaView.querySelector('#row-1');
-            const APIGET_VisitaGuiadaList ='/VisitaGuiadaView';
-            const recordList = createRecordlist(APIGET_VisitaGuiadaList, {headNames: ['Fecha', 'Hora', 'Idioma', 'SUBSCRIBIRME'], 
-            keys: {
-                primaryKey: 'idVisitaGuiada',
-                partialKeys:['fecha', 'hora', 'idioma']
-            }, operationElements: [{
-                element: ButtonAdd,
-                listenEvent: 'click',
-                handlerEvent: ButtonAddListener
-            }]});
-
-            RecordListRoot.appendChild(recordList.getRecordlist());
+  
+            const ReservaView = getReservaView( renderReserva );
             document.getElementById(DynamicContentRoot).appendChild(ReservaView);
         },
 
         // Visita Digital
-        "renderDigitalVisit": function(idVisitaDigitalTemplate = 'guest_view-visitadigital'){
+        "renderDigitalVisit": function renderDigitalVisit (){
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'guest-visitaldigital');
 
-            const VisitaDView = viewService().getClonedView(idVisitaDigitalTemplate);
+            const VisitaDView = getVisitadigitalView( renderDigitalVisit );
             document.getElementById(DynamicContentRoot).appendChild(VisitaDView);
         },
 
         // Accesibilidad del Museo
-        "renderAccesibility": function (idAccesibilityTemplate = 'guest_view-accesibilidad') {
+        "renderAccesibility": function renderAccesibility () {
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'guest-accesibilidad');
 
-            const AccesibilityView = viewService().getClonedView(idAccesibilityTemplate);
+            const AccesibilityView = getAccesibilidadView( renderAccesibility );
             document.getElementById(DynamicContentRoot).appendChild(AccesibilityView);
         },
 
-        // Loggin de la Admin Account
-        "renderLoggin": function(idLogginTemplate = 'guest_view-loggin'){
+        // Login de la Admin Account
+        "renderLogin": function renderLogin (){
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'access');
-            const LogginView = viewService().getClonedView(idLogginTemplate);
-
-            LogginView.querySelector('#id-form').addEventListener('submit', event => {
-                event.preventDefault()
-                const data = new FormData(event.target);
-                const dataParse = [...data.values()]
-                const body = {
-                    username: dataParse[0],
-                    password: dataParse[1],
-                }
-    
-                SessionController()
-                .createSession(body).then(message=> {
-                    Application.refresh();
-                    alert(message.success);
-                    
-                }).catch(message => alert(message.error))    
-            })
-
-            document.getElementById(DynamicContentRoot).appendChild(LogginView);
+            
+            const LoginView = getLoginView( renderLogin );
+            document.getElementById(DynamicContentRoot).appendChild(LoginView);
         }
 
     } 
@@ -159,7 +79,7 @@ export function GuestController( DynamicContentRoot, StaticContentRoot){
                 'guest-reserva': _=>  DynamicContentRender.renderReserva(),
                 'guest-visitaldigital': _=> DynamicContentRender.renderDigitalVisit(),
                 'guest-accesibilidad': _=> DynamicContentRender.renderAccesibility(),
-                'access': _=> DynamicContentRender.renderLoggin()
+                'access': _=> DynamicContentRender.renderLogin()
             }, document.getElementById(idNavbarGuestTemplate));
 
             Generator.removeAllElements(document.getElementById(StaticContentRoot));

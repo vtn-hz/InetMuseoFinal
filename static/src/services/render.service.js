@@ -45,12 +45,14 @@ export function ElementGenerator (){
     }
 
     const pushContent = (HTMLElement, content) => {
-        if (content !== undefined && content !== null) {
+        if (content !== undefined) {
             for (const iterator of content) {
-                if (iterator.nodeName !== undefined) {
+                if (iterator !== null && 
+                    iterator.nodeName !== undefined) {
                     HTMLElement.appendChild (iterator);
                 } else {
-                    HTMLElement.appendChild (document.createTextNode(iterator));
+                    const contentText = iterator!==null? iterator : '';
+                    HTMLElement.appendChild (document.createTextNode( contentText ));
                 }
                 
             }   

@@ -2,21 +2,9 @@ const CARD_ID = 'card'
 
 const CardTitle_ID = '#card-header';
 const CardContainer_ID = '#content-container';
-const CardButtonSubmit_ID = '#card-submit';
-const CardButtonClose_ID = '#card-closer';
 
 
 function CardHandler (Card, Content, eventListener) {
-    function setClose (buttonClose) {
-        buttonClose.addEventListener('click', event => {
-            event.preventDefault();
-            const cardRef = event.target.parentNode;
-            cardRef.parentNode
-            .removeChild(Card)
-        
-        }) 
-    }
-
     function setSubmit () {
         Card.addEventListener('keypress', event => {
             if (event.key === "Enter") {
@@ -66,7 +54,6 @@ function CardHandler (Card, Content, eventListener) {
     }
     
     function onCreate () {
-        setClose(Card.querySelector(CardButtonClose_ID));
         setSubmit();
         strictPushContent(Card.querySelector(CardContainer_ID));
     } onCreate();

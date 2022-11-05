@@ -18,6 +18,7 @@ function NavbarHandler (Nav, routeMap) {
     function onCreate () {
         setRoutes();
     } onCreate();
+
 }
 
 export default function createNavbar ( routeMap, navRef ) {

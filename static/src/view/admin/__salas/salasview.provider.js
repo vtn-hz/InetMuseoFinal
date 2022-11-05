@@ -21,7 +21,18 @@ function getSalasView ( callerSalasView ) {
     const cardEditReference = SalasView.querySelector('#edit-card-content-sala');
     const cardEditHandler = createCard ( event => {
         event.preventDefault();
-        alert('En desarrollo...');
+        const data = new FormData(event.target);
+        const dataParse = [...data.values()]
+
+        const APIPOST_registrarSalas = '/editarHabitacion/?idHabitacion=' + event.target.getAttribute('idHabitacion');
+        FormController().sendForm({url: APIPOST_registrarSalas, method:'PATCH' }, {
+            'idInstitucion': 1,
+            'identificador': dataParse[0],
+            'idAdministrador': 1
+        }, ['', undefined]).then(msg => {
+            callerSalasView();
+            alert(msg.success);
+        }).catch(msg => alert(msg.error))
         
     }, cardEditReference)
 
@@ -54,7 +65,9 @@ function getSalasView ( callerSalasView ) {
             listenEvent: 'click',
             handlerEvent: event => {
                 Generator.removeAllElements(CardRoot);
-                CardRoot.appendChild(cardEditHandler.getCard())
+                const editCardElement = cardEditHandler.getCard();
+                editCardElement.setAttribute('idHabitacion', event.target.value);
+                CardRoot.appendChild(editCardElement);
             }
         }, {
             element: Generator.makeElement('button', {id: 'delete-table-button', class: 'delete-button'}, ['Eliminar']),

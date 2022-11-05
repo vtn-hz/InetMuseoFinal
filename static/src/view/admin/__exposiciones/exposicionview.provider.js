@@ -23,7 +23,19 @@ function getExposicionView ( callerExposicionView ) {
     const cardEditReference = ExposicionesView.querySelector('#edit-card-content-exposicion');
     const cardEditHandler = createCard ( event => {
         event.preventDefault();
-        alert('En desarrollo...');
+        const data = new FormData(event.target);
+        const dataParse = [...data.values()];
+        const APIPATCH_editExposicion = '/editarExposicion/?idExposicion=' +  event.target.getAttribute('idExposicion');
+        FormController()
+        .sendForm({url: APIPATCH_editExposicion, method:'PATCH' }, {
+            'idHabitacion': dataParse[2],
+            'titulo': dataParse[0],
+            'descripcion': dataParse[1],
+            'idAdministrador': 1
+        }, ['', undefined]).then(msg => {
+            callerExposicionView();
+            alert(msg.success);
+        }).catch(msg => alert(msg.error))
     }, cardEditReference) 
 
 
@@ -58,7 +70,9 @@ function getExposicionView ( callerExposicionView ) {
 
             handlerEvent: event => {
                 Generator.removeAllElements(CardRoot);
-                CardRoot.appendChild(cardEditHandler.getCard())
+                const editCardElement = cardEditHandler.getCard();
+                editCardElement.setAttribute('idExposicion', event.target.value);
+                CardRoot.appendChild(editCardElement);
             }
 
         }, {

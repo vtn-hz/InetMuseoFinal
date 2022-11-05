@@ -1,5 +1,6 @@
 
 ###
+<<<<<<< HEAD
 POST http://localhost:5000/InscripcionCreate HTTP/1.1 
 Content-Type: application/json
 
@@ -11,3 +12,140 @@ Content-Type: application/json
     "cantPersonas": "5",
     "idVisitaGuiada": "1"
 }
+=======
+POST http://localhost:5000/registrarExposicion HTTP/1.1 
+Content-Type: application/json
+
+{
+    "idHabitacion": "1",
+    "titulo": "HOLA",
+    "descripcion": "pablo"
+}
+
+###
+PATCH http://localhost:5000/editarExposicion/?idExposicion=10 HTTP/1.1 
+Content-Type: application/json
+
+{
+    "idHabitacion": "1",
+    "titulo": "HOLA",
+    "descripcion": "pablo 5",
+    "idAdministrador": "1"
+}
+
+###
+GET http://localhost:5000/InscripcionView HTTP/1.1 
+
+
+
+
+###
+POST http://localhost:5000/registrarUsuarioAdmin HTTP/1.1 
+Content-Type: application/json
+
+{
+    "dni": "9934303492953",
+    "nombre": "Esteban",
+    "apellido": "pablo 2",
+    "username": "luquinuts",
+    "password": "12319848912"
+}
+
+###
+POST http://localhost:5000/confirmarUsuarioAdmin HTTP/1.1 
+Content-Type: application/json
+
+{
+    "username": "Admin01",
+    "password": "1234"
+}
+
+
+
+###
+POST http://localhost:5000/GuiaRegister HTTP/1.1 
+Content-Type: application/json
+
+{
+    "dni": "13",
+    "nombre": "Leandro",
+    "apellido": "Yanni"
+}
+
+###
+GET http://localhost:5000/listarIdioma HTTP/1.1 
+
+
+
+###
+POST http://localhost:5000/registrarHabitacion HTTP/1.1 
+Content-Type: application/json
+
+{
+    "identificador": "agua"
+}
+
+###
+PATCH http://localhost:5000/editarHabitacion/?idHabitacion=7 HTTP/1.1 
+Content-Type: application/json
+
+{
+    "identificador": "agua 2"
+}
+
+###
+GET http://localhost:5000/listarHabitacion HTTP/1.1 
+
+
+
+###
+POST http://localhost:5000/idiomaRegister HTTP/1.1 
+Content-Type: application/json
+
+{
+    "idioma": "tailandes"
+}
+
+###
+GET http://localhost:5000/listarIdioma HTTP/1.1 
+
+
+
+###
+GET http://localhost:5000/inscripcionView HTTP/1.1 
+
+###
+POST http://localhost:5000/inscripcionCreate HTTP/1.1 
+Content-Type: application/json
+
+{
+    "idVisitaGuiada": "15",
+    "dni": "84729387482", 
+    "nombre": "juan",
+    "apellido": "cartel",
+    "mail": "juancio@gmail.com",
+    "cantPersonas": "2"
+}
+
+
+
+###
+POST http://localhost:5000/VisitaGuiadaRegister HTTP/1.1 
+Content-Type: application/json
+
+{
+    "idRecorrido": "1",
+    "idGuia": "2",
+    "fecha": "2022-10-10",
+    "hora": "15:00:00"
+}
+
+
+###
+GET http://localhost:5000/VisitaGuiadaView HTTP/1.1 
+
+
+
+###
+GET http://localhost:5000/listarVisitante HTTP/1.1 
+>>>>>>> without-express

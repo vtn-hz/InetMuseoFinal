@@ -7,9 +7,14 @@ export const IdiomaRegister = async(req, res) =>{
         {
             replacements: [req.body.idioma],
         });
-        res.status(201).json({msg:"Idioma Registrado"});
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.writeHead(200);
+        res.end(JSON.stringify({msg: 'Edioma Registrado'}, null,1));
         /************************************************************/
     } catch (error) {
+        res.writeHead(500);
+        res.end();
         console.log(error.message);
     }
 }
@@ -18,9 +23,14 @@ export const IdiomaRegister = async(req, res) =>{
 export const listarIdioma = async(req,res)=>{
     try {
         const [response]= await conexion.query("SELECT `idIdioma`, `idioma` FROM `idioma` WHERE `estado`=1");
-        res.status(200).json(response);
-        console.log(JSON.stringify(response, null,1))
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.writeHead(200);
+        res.end(JSON.stringify(response, null,1));
+  
     } catch (error) {
+        res.writeHead(500);
+        res.end();
         console.log(error.message);
     }
 }
@@ -44,6 +54,8 @@ export const cambiarEstadoIdioma = async(req, res) =>{
                 estado = 0;
             }
         } catch (error) {
+            res.writeHead(500);
+            res.end();
             console.log(error.message);
         }
         /************************************************************/
@@ -52,10 +64,15 @@ export const cambiarEstadoIdioma = async(req, res) =>{
     {
         replacements: [[estado], [IdIdioma]],
     });
-    res.status(200).json({msg: "State Updated"});
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.writeHead(200);
+        res.end(JSON.stringify({msg: 'Edioma Eliminado'}, null,1));
     
     }
     catch (error) {
-    console.log(error.message);
+        res.writeHead(500);
+        res.end();
+        console.log(error.message);
     }
 }

@@ -4,21 +4,25 @@ export const registrarUsuarioAdmin = async(req, res) =>{
     try {
         /************************************************************/
         let IdUsuario= null;
-        const [response] = await conexion.query("SELECT  `idUsuario` FROM `usuario` WHERE `dni`=(?)",
+        console.log(req.body.dni)
+        const [response] = await conexion.query("SELECT `idUsuario` FROM `usuario` WHERE `dni`=(?)",
         {
             replacements: [req.body.dni],
         })
-        IdUsuario = response[0].idUsuario;
-            if(IdUsuario == null){
+        console.log("Primer log:", IdUsuario);
+        IdUsuario = response[0];
+        console.log("Segundo log:",IdUsuario);
+            if(IdUsuario == null || IdUsuario == undefined){
                 await conexion.query("INSERT INTO `usuario`(`dni`, `nombre`, `apellido`) VALUES (?,?,?)",
                 {
                     replacements: [req.body.dni, req.body.nombre, req.body.apellido],
                 })
                 .then(function (idUsuario)
                     {
+                        console.log(idUsuario)
                         IdUsuario = idUsuario[0];
                     }
-                );
+                ).catch( error => {console.log(error)})
                 await conexion.query("INSERT INTO `administrador`(`idUsuario`, `username`, `password`) VALUES (?,?,?)",
                 {
                     replacements: [IdUsuario, req.body.username, req.body.password],
@@ -30,8 +34,13 @@ export const registrarUsuarioAdmin = async(req, res) =>{
                 })
             }
         /************************************************************/
-        res.status(201).json({msg: "+"});
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.writeHead(200);
+        res.end(JSON.stringify(response, null,1));
     } catch (error) {
+        res.writeHead(500);
+        res.end();
         console.log(error.message);
     }
 }
@@ -40,12 +49,18 @@ export const confirmarUsuarioAdmin = async(req, res) =>{
     try {
         const [response]= await conexion.query("SELECT  `token` FROM `administrador` WHERE `username`=(?) AND `password`=(?)",
         {
-            replacements: [[req.body.username],[req.body.password]],
+            replacements: [req.body.username,req.body.password],
         });
-        res.status(200).json(response);
-        console.log(JSON.stringify(response, null,1))
+        
+
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.writeHead(200);
+        res.end(JSON.stringify(response, null,1));
 
     } catch (error) {
+        res.writeHead(500);
+        res.end();
         console.log(error.message);
     }
 }
@@ -68,6 +83,8 @@ export const cambiarEstadoAdmin = async(req, res) =>{
             } else {
                 estado = 0;
             }
+
+            
         } catch (error) {
             console.log(error.message);
         }
@@ -77,10 +94,14 @@ export const cambiarEstadoAdmin = async(req, res) =>{
     {
         replacements: [[estado], [IdAdministrador]],
     });
-    res.status(200).json({msg: "State Updated"});
-    
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.writeHead(200);
+        res.end(JSON.stringify({msg: 'Admin Eliminado'}, null,1));
     }
     catch (error) {
-    console.log(error.message);
+        res.writeHead(500);
+        res.end();
+        console.log(error.message);
     }
 }

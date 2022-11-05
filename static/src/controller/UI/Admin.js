@@ -1,10 +1,6 @@
-
 import Application from "../../config/Application";
-import consumeAPI from "../../services/api.service";
 
 import { ElementGenerator, ElementManagement } from "../../services/render.service"
-import viewService from "../../services/view.service";
-
 
 import safeGetExposicionView from "../../view/admin/__exposiciones/exposicionview.provider";
 import safeGetFechasView from "../../view/admin/__fechas/fechasview.provider";
@@ -12,14 +8,8 @@ import safeGetGuiasView from "../../view/admin/__guias/guiasview.provider";
 import safeGetAdminHomeView from "../../view/admin/__home/homeview.provider";
 import safeGetSalasView from "../../view/admin/__salas/salasview.provider";
 
-
-
-
-import createCard from "../../widget/card/handler/CardHandler";
 import createNavbar from "../../widget/navbar/handler/NavHandler";
-import createRecordlist from "../../widget/recordlist/handler/RecordListHandler";
 
-import { FormController } from "../Form";
 import { SessionController } from "../Session";
 
 

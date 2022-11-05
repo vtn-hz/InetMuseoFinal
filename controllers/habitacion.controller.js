@@ -10,8 +10,13 @@ export const registrarHabitacion = async(req,res)=>{
         await conexion.query("INSERT INTO `habitacion`( `idInstitucion`, `identificador`) VALUES (?,?)",{
             replacements:[idInstitucioin, req.body.identificador],
         });
-        res.status(201).json({msg:"+"});
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.writeHead(200);
+        res.end(JSON.stringify(response, null,1));
     } catch (error) {
+        res.writeHead(500);
+        res.end();
         console.log(error.message);
     }
 }
@@ -21,8 +26,13 @@ export const editarHabitacion = async(req, res) =>{
         await conexion.query("UPDATE `habitacion` SET `identificador`=(?) WHERE `idHabitacion`=(?)",{  
             replacements: [[req.body.identificador],[req.params.idHabitacion]],
         });
-        res.status(200).json({msg: "Museo Updated"});
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.writeHead(200);
+        res.end(JSON.stringify({msg: 'Habitacion Editada'}, null,1));
     } catch (error) {
+        res.writeHead(500);
+        res.end();
         console.log(error.message);
     }
 }
@@ -54,20 +64,29 @@ export const cambiarEstadoHabitacion = async(req, res) =>{
     {
         replacements: [[estado], [IdHabitacion]],
     });
-    res.status(200).json({msg: "State Updated"});
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.writeHead(200);
+        res.end(JSON.stringify({msg: 'State changed'}, null,1));
     
     }
     catch (error) {
-    console.log(error.message);
+        res.writeHead(500);
+        res.end();
+        console.log(error.message);
     }
 }
 
 export const listarHabitacion = async(req,res)=>{
     try {
         const [response]= await conexion.query("SELECT `idHabitacion`, `idInstitucion`, `identificador` FROM `habitacion`  WHERE `estado` <> 0");
-        res.status(200).json(response);
-        console.log(JSON.stringify(response, null,1))
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.writeHead(200);
+        res.end(JSON.stringify(response, null,1));
     } catch (error) {
+        res.writeHead(500);
+        res.end();
         console.log(error.message);
     }
 }

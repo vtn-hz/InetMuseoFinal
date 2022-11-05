@@ -13,9 +13,14 @@ export const InscripcionCreate = async(req, res) =>{
         {
             replacements: [4, idVisitante[0], req.body.idVisitaGuiada, LocalDate],
         });
-        res.status(201).json({msg:"Inscripcion Registrado"});
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.writeHead(200);
+        res.end(JSON.stringify({msg: 'Inscripcion Creada'}, null,1));
         /************************************************************/
     } catch (error) {   
+        res.writeHead(500);
+        res.end();
         console.log(error.message);
     }
 }
@@ -25,10 +30,14 @@ export const InscripcionView = async(req, res) =>{
     try {
   
         const [response] = await conexion.query("SELECT I.idInscripcion,U.dni,V.cantPersonas,VG.fecha,VG.hora, I.fecha as fechaInscripcion  FROM `inscripcion` I LEFT OUTER JOIN `visitante` V ON I.idVisitante=V.idVisitante LEFT OUTER JOIN `visitaguiada` VG ON I.idVisitaGuiada=VG.idVisitaGuiada LEFT OUTER JOIN `usuario` U ON V.idUsuario=U.idUsuario WHERE I.estado=1");
-		console.log(response)
-        res.status(201).json(response);
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.writeHead(200);
+        res.end(JSON.stringify(response, null,1));
         /************************************************************/
     } catch (error) {
+        res.writeHead(500);
+        res.end();
         console.log(error.message);
     }
 }
@@ -52,6 +61,8 @@ export const cambiarEstadoInscripcion = async(req, res) =>{
                 estado = 0;
             }
         } catch (error) {
+            res.writeHead(500);
+            res.end();
             console.log(error.message);
         }
         /************************************************************/
@@ -60,10 +71,14 @@ export const cambiarEstadoInscripcion = async(req, res) =>{
     {
         replacements: [[estado], [IdInscripcion]],
     });
-    res.status(200).json({msg: "State Updated"});
-    
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.writeHead(200);
+        res.end(JSON.stringify({msg: 'Inscripcion Eliminada'}, null,1));
     }
     catch (error) {
-    console.log(error.message);
+        res.writeHead(500);
+        res.end();
+        console.log(error.message);
     }
-}
+}   

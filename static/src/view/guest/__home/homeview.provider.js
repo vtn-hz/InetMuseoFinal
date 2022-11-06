@@ -1,8 +1,6 @@
 import viewService from "../../../services/view.service";
 
-const idNavElement = 'home';
 const idHomeTemplate = 'guest_view-home';
-
-export default function getHomeView () {
+export default function getHomeView ( callerHomeView ) {
     return viewService().getClonedView(idHomeTemplate);;
 }

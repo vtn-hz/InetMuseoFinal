@@ -1,6 +1,7 @@
 import Application from "../../config/Application";
 
 import { ElementGenerator, ElementManagement } from "../../helpers/render.helper"
+import { SessionController } from "../Session";
 
 import safeGetExposicionView from "../../view/admin/__exposiciones/exposicionview.provider";
 import safeGetFechasView from "../../view/admin/__fechas/fechasview.provider";
@@ -10,7 +11,7 @@ import safeGetSalasView from "../../view/admin/__salas/salasview.provider";
 
 import createNavbar from "../../custom/widget/navbar/NavHandler";
 
-import { SessionController } from "../Session";
+
 
 
 /*Puntos de Id del NavBar*/ 

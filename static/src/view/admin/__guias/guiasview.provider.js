@@ -55,7 +55,7 @@ function getGuiasView () {
     const RecordListRoot = GuiasView.querySelector('#recordlist-container');
     const APIGET_ListGuias = '/ListarGuias' ;
     const RecordList_Guias = createRecordlist(APIGET_ListGuias, {
-        headNames: ['Titulo', 'Descripción', 'Sala'],
+        headNames: ['Nombre', 'Apellido', 'DNI', 'Idioma'],
         keys: {primaryKey: 'idGuia', partialKeys: ['nombre', 'apellido', 'dni', 'idioma']},
         operationElements: [{
             element: Generator.makeElement('button', {id: 'put-table-button', class: 'put-button'}, ['Editar']),

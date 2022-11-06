@@ -1,6 +1,6 @@
 import Application from "../../config/Application";
 
-import { ElementGenerator, ElementManagement } from "../../services/render.service"
+import { ElementGenerator, ElementManagement } from "../../helpers/render.helper"
 
 import safeGetExposicionView from "../../view/admin/__exposiciones/exposicionview.provider";
 import safeGetFechasView from "../../view/admin/__fechas/fechasview.provider";
@@ -8,7 +8,7 @@ import safeGetGuiasView from "../../view/admin/__guias/guiasview.provider";
 import safeGetAdminHomeView from "../../view/admin/__home/homeview.provider";
 import safeGetSalasView from "../../view/admin/__salas/salasview.provider";
 
-import createNavbar from "../../widget/navbar/handler/NavHandler";
+import createNavbar from "../../custom/widget/navbar/NavHandler";
 
 import { SessionController } from "../Session";
 
@@ -16,10 +16,12 @@ import { SessionController } from "../Session";
 /*Puntos de Id del NavBar*/ 
 const AdminDomainView = ['home', 'admin-fecha', 'admin-exposiciones', 'admin-guias', 'admin-salas', 'access'];
 
+// Helper to create & manage content (Help to create HTMLElement and Set It)
+const Generator =  ElementGenerator ();
+const Manager =  ElementManagement ();
+
 
 export function AdminController( DynamicContentRoot, StaticContentRoot){
-    const Generator = new ElementGenerator ();
-    const Manager = new ElementManagement ();
     /*Simplify And Segregate Responsabilities*/
     // Dynamic Content Admin Views
     /*Contenido que cambia entre vistas*/ 

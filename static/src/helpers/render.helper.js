@@ -1,14 +1,10 @@
-/*
-Es un helper esto, discutir con pimentel o mover en todo caso (dudoso)
-repito, re ver que onda. Es util pero dudo que tenga que estar aca. 
+/*Ayuda a crear y manejar HTMLElement*/
 
-Ademas verificar donde estan las dependencias del mismo
 
-*/ 
 export function ElementGenerator (){
     const root = document.getElementById("root");
 
-    this.makeElement = ( tag, atrib, content ) => {
+    const makeElement = ( tag, atrib, content ) => {
         const element = document.createElement(tag);
         const elementWithAtrib = pushAttrib (element, atrib); 
         const elementWithContent = pushContent (elementWithAtrib, content); 
@@ -16,16 +12,15 @@ export function ElementGenerator (){
         return elementWithContent;
     }
 
-    this.getRoot = () => {
+    const getRoot = () => {
         return root;
     }
 
-    this.removeAllElements = (rooter) => {
+    const removeAllElements = (rooter) => {
         while (rooter.firstChild) {
             rooter.removeChild(rooter.lastChild);
         }
     }
-
 
     const pushAttrib = ( HTMLElement, attribs ) => {
         if (attribs !== undefined) {
@@ -60,27 +55,39 @@ export function ElementGenerator (){
 
         return HTMLElement;
     }
+
+
+    return {
+        makeElement,
+        getRoot,
+        removeAllElements
+    }
 }
 
 export function ElementManagement(){
-    this.listenerAdder = ( id, event, func ) => {
+    const listenerAdder = ( id, event, func ) => {
         document.getElementById(id).addEventListener(event, func);
     }
     
-    this.classAdder = ( id, className ) => {
+    const classAdder = ( id, className ) => {
         document.getElementById(id).classList.add(className);
     }
 
-    this.classRemover = ( id, className ) => {
+    const classRemover = ( id, className ) => {
         document.getElementById(id).classList.remove(className);
     }
 
-    this.setActiveClass = ( arr, id ) => {
+    const setActiveClass = ( arr, id ) => {
         arr.forEach(idList => {
             document.getElementById(idList).classList.remove('active');
         });
 
         document.getElementById(id).classList.add('active');
+    }
+
+    return {
+        listenerAdder, classAdder, 
+        classRemover, setActiveClass
     }
 }
 

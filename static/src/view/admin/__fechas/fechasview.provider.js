@@ -3,15 +3,15 @@ import { SessionController } from "../../../controller/Session";
 
 import consumeAPI from "../../../services/api.service";
 
-import { ElementGenerator } from "../../../services/render.service";
+import { ElementGenerator } from "../../../helpers/render.helper";
 
 import viewService from "../../../services/view.service";
 
-import createCard from "../../../widget/card/handler/CardHandler";
-import createRecordlist from "../../../widget/recordlist/handler/RecordListHandler";
 
+import createCard from "../../../custom/widget/card/CardHandler";
+import createRecordlist from "../../../custom/widget/recordlist/RecordListHandler";
 
-const Generator = new ElementGenerator();
+const Generator =  ElementGenerator();
 
 const idFechasTemplate = 'admin_view-fechas'
 function getFechasView ( callerFechasView ) {

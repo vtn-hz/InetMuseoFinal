@@ -1,15 +1,15 @@
 import { FormController } from "../../../controller/Form";
 import { SessionController } from "../../../controller/Session";
 
-import { ElementGenerator } from "../../../services/render.service";
+import { ElementGenerator } from "../../../helpers/render.helper";
 
 import viewService from "../../../services/view.service";
 
-import createCard from "../../../widget/card/handler/CardHandler";
-import createRecordlist from "../../../widget/recordlist/handler/RecordListHandler";
+import createCard from "../../../custom/widget/card/CardHandler";
+import createRecordlist from "../../../custom/widget/recordlist/RecordListHandler";
 
+const Generator =  ElementGenerator();
 
-const Generator = new ElementGenerator();
 
 const idSalasTemplate = 'admin_view-salas'
 function getSalasView ( callerSalasView ) {

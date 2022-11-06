@@ -7,7 +7,7 @@ export function FormController () {
     return {
         'sendForm':  ( {url, method}, data, conditionsArray ) => {
             return new Promise((res, rej)=>{
-                const validationInstance = new validationService(conditionsArray);
+                const validationInstance = validationService(conditionsArray);
                 if (validationInstance.validateData(data)) {
                     //console.log({'body': JSON.stringify(data)})
                     consumeAPI(url, 

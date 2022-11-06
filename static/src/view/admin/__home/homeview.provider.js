@@ -1,13 +1,12 @@
 import { SessionController } from "../../../controller/Session";
-
-import { ElementGenerator } from "../../../services/render.service";
+import { ElementGenerator } from "../../../helpers/render.helper";
 
 import viewService from "../../../services/view.service";
 
-import createRecordlist from "../../../widget/recordlist/handler/RecordListHandler";
+import createRecordlist from "../../../custom/widget/recordlist/RecordListHandler";
 
+const Generator =  ElementGenerator();
 
-const Generator = new ElementGenerator();
 
 const idHomeTemplate = 'admin_view-home'
 function getAdminHomeView ( callerHomeView ) {

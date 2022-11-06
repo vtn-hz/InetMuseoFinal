@@ -3,15 +3,16 @@ import { SessionController } from "../../../controller/Session";
 
 import consumeAPI from "../../../services/api.service";
 
-import { ElementGenerator } from "../../../services/render.service";
+import { ElementGenerator } from "../../../helpers/render.helper";
 
 import viewService from "../../../services/view.service";
 
-import createCard from "../../../widget/card/handler/CardHandler";
-import createRecordlist from "../../../widget/recordlist/handler/RecordListHandler";
+import createRecordlist from "../../../custom/widget/recordlist/RecordListHandler";
+import createCard from "../../../custom/widget/card/CardHandler";
 
 
-const Generator = new ElementGenerator();
+
+const Generator = ElementGenerator();
 
 const idExposicionesTemplate = 'admin_view-exposicion'
 function getExposicionView ( callerExposicionView ) {
@@ -82,7 +83,7 @@ function getExposicionView ( callerExposicionView ) {
             handlerEvent: event => {
                 const APIPATCH_deleteExpocicion = '/cambiarEstadoExpo';
                 FormController()
-                    .sendForm({url: APIPATCH_deleteExpocicion, method:'PATCH' }, {
+                .sendForm({url: APIPATCH_deleteExpocicion, method:'PATCH' }, {
                         'idExposcion': event.target.value
                     }, ['', undefined]).then(msg => {
                         callerExposicionView();

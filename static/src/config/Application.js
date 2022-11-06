@@ -1,10 +1,13 @@
 import { SessionController } from "../controller/Session";
+
 import { AdminController } from "../controller/UI/Admin"
 import { GuestController } from "../controller/UI/Guest"
-import viewService from "../services/view.service";
 
-import defineButtonClose from "../widget/closebutton/handler/CloseButtonHandler";
-import defineButtonSubmit from "../widget/submitbutton/handler/SubmitButtonHandler";
+
+import viewService from "../services/view.service"
+
+import defineButtonSubmit from "../custom/HTMLElement/submitbutton/SubmitButtonHandler";
+import defineButtonClose from "../custom/HTMLElement/closebutton/CloseButtonHandler";
 
 
 

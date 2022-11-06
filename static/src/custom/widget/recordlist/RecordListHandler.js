@@ -1,5 +1,5 @@
 import consumeAPI from "../../../services/api.service";
-import { ElementGenerator } from "../../../services/render.service";
+import { ElementGenerator } from "../../../helpers/render.helper";
 
 const RECORDLIST_ID = 'record-list';
 
@@ -30,7 +30,10 @@ function RecordlistHandler (RecordList, APIUrl, {headNames, keys:{primaryKey, pa
                 operationElements.forEach (HTMLNode => {
                     const ElementOperation = HTMLNode.element.cloneNode(true);
                     ElementOperation.value = dataRecord[primaryKey];
-                    ElementOperation.addEventListener(HTMLNode.listenEvent, HTMLNode.handlerEvent)
+                    
+                    if (HTMLNode.listenEvent !== undefined && HTMLNode.handlerEvent !== undefined) {
+                        ElementOperation.addEventListener(HTMLNode.listenEvent, HTMLNode.handlerEvent)
+                    }
 
                     arrayOperationElements.push(ElementOperation);
                 })  
@@ -52,7 +55,7 @@ function RecordlistHandler (RecordList, APIUrl, {headNames, keys:{primaryKey, pa
     }
 
     function onCreate () {
-        const Generator = new ElementGenerator () ; 
+        const Generator =  ElementGenerator () ; 
 
         setHeadRecord(Generator);
         asyncSetBodyRecord(Generator);

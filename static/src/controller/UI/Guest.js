@@ -1,4 +1,4 @@
-import { ElementGenerator, ElementManagement } from "../../services/render.service"
+import { ElementGenerator, ElementManagement } from "../../helpers/render.helper"
 
 
 import getAccesibilidadView from "../../view/guest/__accesibilidad/accesibilidadview.provider";
@@ -8,16 +8,15 @@ import getReservaView from "../../view/guest/__reserva/reservaview.provider";
 import getVisitadigitalView from "../../view/guest/__visitadigital/visitadigital.provider";
 
 
-
-import createNavbar from "../../widget/navbar/handler/NavHandler";
+import createNavbar from "../../custom/widget/navbar/NavHandler";
 /*Puntos de Id del NavBar*/ 
 const GuestDomainView = ['home', 'guest-reserva', 'guest-visitaldigital', 'guest-accesibilidad', 'access'];
 
-
+// Helper to create & manage content (Help to create HTMLElement and Set It)
+const Generator =  ElementGenerator ();
+const Manager =  ElementManagement ();
 
 export function GuestController( DynamicContentRoot, StaticContentRoot){
-    const Generator = new ElementGenerator ();
-    const Manager = new ElementManagement ();
 
     /*Simplify And Segregate Responsabilities...*/
     // Dynamic Content Guest Views

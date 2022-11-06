@@ -1,13 +1,15 @@
-import { ElementGenerator } from "../../../services/render.service";
+import { ElementGenerator } from "../../../helpers/render.helper";
 
 import viewService from "../../../services/view.service";
 
 import { FormController } from "../../../controller/Form";
 
-import createCard from "../../../widget/card/handler/CardHandler";
-import createRecordlist from "../../../widget/recordlist/handler/RecordListHandler";
+import createCard from "../../../custom/widget/card/CardHandler";
+import createRecordlist from "../../../custom/widget/recordlist/RecordListHandler";
 
-const Generator = new ElementGenerator ();
+
+
+const Generator =  ElementGenerator ();
 const idReservaTemplate = 'guest_view-reserva';
 
 export default function getReservaView ( callerReservaView ) {

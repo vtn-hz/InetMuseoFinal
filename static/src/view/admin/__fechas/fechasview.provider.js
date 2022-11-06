@@ -13,8 +13,10 @@ import createRecordlist from "../../../custom/widget/recordlist/RecordListHandle
 
 const Generator =  ElementGenerator();
 
-const idFechasTemplate = 'admin_view-fechas'
-function getFechasView ( callerFechasView ) {
+const idNavElement = 'admin-fecha';
+const idFechasTemplate = 'admin_view-fechas';
+
+function getFechasView () {
     const FechasView =  viewService().getClonedView(idFechasTemplate);
     const cardRoot = FechasView.querySelector('#row-2');
     
@@ -42,7 +44,7 @@ function getFechasView ( callerFechasView ) {
             idGuia: parseInt(idGuia),
             idRecorrido: 1
         }, ['', undefined, null]).then(msg => {
-            callerFechasView();
+            document.getElementById(idNavElement).dispatchEvent(new Event('click'));
             alert(msg.success)
         }).catch(msg => alert(msg.error))
     }, cardSubmitReference)
@@ -65,19 +67,12 @@ function getFechasView ( callerFechasView ) {
                 cardRoot.appendChild(cardEditHandler.getCard())
             }
         }, {
-            element: Generator.makeElement('button', {id: 'delete-table-button', class: 'delete-button'}, ['Eliminar']),
-            listenEvent: 'click',
-
-            handlerEvent: event => {
-                const URLPATCH_DeleteVisitaGuiada = '/cambiarEstadoVisitaGuiada';
-                FormController()
-                .sendForm({url: URLPATCH_DeleteVisitaGuiada, method:'PATCH' }, {
-                    'idVisitaGuiada': event.target.value
-                }, ['', undefined, null]).then(msg => {
-                    callerFechasView();
-                    alert(msg.success);
-                }).catch(msg => alert(msg.error))
-            }
+            element: Generator.makeElement('button-delete', {
+                primaryKey: 'idVisitaGuiada',
+                apiURL: '/cambiarEstadoVisitaGuiada',
+                success: ()=>{ document.getElementById('admin-fecha').dispatchEvent(new Event('click')) },
+                error: ()=>{ alert('La operacion fallo...'); },
+            }, [])
         }]
     });
 
@@ -121,8 +116,8 @@ function getFechasView ( callerFechasView ) {
 }   
 
 
-export default function safeGetFechasView ( callerFechasView ) {
+export default function safeGetFechasView () {
     if(SessionController().checkSession()){
-        return getFechasView( callerFechasView );
+        return getFechasView();
     } return Generator.makeElement('h1', {style: 'color: red; font-size: 24px;'}, ['SESSION FAIL']);
 }

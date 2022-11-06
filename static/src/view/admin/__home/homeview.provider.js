@@ -7,9 +7,10 @@ import createRecordlist from "../../../custom/widget/recordlist/RecordListHandle
 
 const Generator =  ElementGenerator();
 
+const idNavElement = 'home';
+const idHomeTemplate = 'admin_view-home';
 
-const idHomeTemplate = 'admin_view-home'
-function getAdminHomeView ( callerHomeView ) {
+function getAdminHomeView () {
     const HomeView = viewService().getClonedView(idHomeTemplate);
     const RecordListRoot = HomeView.querySelector('#row-1');
 
@@ -25,8 +26,8 @@ function getAdminHomeView ( callerHomeView ) {
 }   
 
 
-export default function safeGetAdminHomeView ( callerHomeView ) {
+export default function safeGetAdminHomeView () {
     if(SessionController().checkSession()){
-        return getAdminHomeView( callerHomeView );
+        return getAdminHomeView();
     } return Generator.makeElement('h1', {style: 'color: red; font-size: 24px;'}, ['SESSION FAIL']);
 }

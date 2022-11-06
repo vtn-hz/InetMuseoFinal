@@ -14,8 +14,10 @@ import createRecordlist from "../../../custom/widget/recordlist/RecordListHandle
 
 const Generator =  ElementGenerator();
 
-const idGuiasTemplate = 'admin_view-guias'
-function getGuiasView ( callerGuiasView ) {
+const idNavElement = 'admin-guias';
+const idGuiasTemplate = 'admin_view-guias';
+
+function getGuiasView () {
     const GuiasView =  viewService().getClonedView(idGuiasTemplate);
     const CardRoot = GuiasView.querySelector('#row-2');
    
@@ -42,7 +44,7 @@ function getGuiasView ( callerGuiasView ) {
             'apellido': dataParse[1],
             'IdIdioma': idiomas[0]
         }, ['', undefined, NaN]).then(msg => {
-            callerGuiasView();
+            document.getElementById(idNavElement).dispatchEvent(new Event('click'));
             alert(msg.success);
         }).catch(msg => alert(msg.error))
     }, cardSubmitReference)
@@ -64,18 +66,14 @@ function getGuiasView ( callerGuiasView ) {
             }
             
         }, {
-            element: Generator.makeElement('button', {id: 'delete-table-button', class: 'delete-button'}, ['Eliminar']),
-            listenEvent: 'click',
-            handlerEvent: event => {
-                const APIDEL_DeleteGuia = '/cambiarEstadoGuia';
-                FormController().sendForm({url: APIDEL_DeleteGuia, method:'PATCH' }, {
-                    idGuia: event.target.value
-                }, ['', undefined]).then(msg => {
-                    callerGuiasView();
-                    alert(msg.success);
-                }).catch(msg => alert(msg.error))
-            }
-        }]
+            element: Generator.makeElement('button-delete', {
+                primaryKey: 'idGuia',
+                apiURL: '/cambiarEstadoGuia',
+                success: ()=>{ document.getElementById('admin-guias').dispatchEvent(new Event('click')) },
+                error: ()=>{ alert('La operacion fallo...'); },
+            }, [])
+        }
+        ]
     });
 
     
@@ -117,8 +115,8 @@ function getGuiasView ( callerGuiasView ) {
 }   
 
 
-export default function safeGetGuiasView ( callerGuiasView ) {
+export default function safeGetGuiasView () {
     if(SessionController().checkSession()){
-        return getGuiasView( callerGuiasView );
+        return getGuiasView();
     } return Generator.makeElement('h1', {style: 'color: red; font-size: 24px;'}, ['SESSION FAIL']);
 }

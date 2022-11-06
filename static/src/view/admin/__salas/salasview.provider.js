@@ -10,8 +10,9 @@ import createRecordlist from "../../../custom/widget/recordlist/RecordListHandle
 
 const Generator =  ElementGenerator();
 
+const idNavElement = 'admin-salas';
+const idSalasTemplate = 'admin_view-salas';
 
-const idSalasTemplate = 'admin_view-salas'
 function getSalasView ( callerSalasView ) {
     const SalasView = viewService().getClonedView(idSalasTemplate);
     const CardRoot = SalasView.querySelector('#row-2');
@@ -30,7 +31,7 @@ function getSalasView ( callerSalasView ) {
             'identificador': dataParse[0],
             'idAdministrador': 1
         }, ['', undefined]).then(msg => {
-            callerSalasView();
+            document.getElementById(idNavElement).dispatchEvent(new Event('click'));
             alert(msg.success);
         }).catch(msg => alert(msg.error))
         
@@ -48,7 +49,7 @@ function getSalasView ( callerSalasView ) {
             'idInstitucion': 1,
             'identificador': dataParse[0],
         }, ['', undefined]).then(msg => {
-            callerSalasView();
+            document.getElementById(idNavElement).dispatchEvent(new Event('click'));
             alert(msg.success);
         }).catch(msg => alert(msg.error))
     }, cardSubmitReference)
@@ -70,17 +71,12 @@ function getSalasView ( callerSalasView ) {
                 CardRoot.appendChild(editCardElement);
             }
         }, {
-            element: Generator.makeElement('button', {id: 'delete-table-button', class: 'delete-button'}, ['Eliminar']),
-            listenEvent: 'click',
-            handlerEvent: event => {
-                const APIDEL_deleteSalas = '/cambiarEstadoHabitacion';
-                FormController().sendForm({url: APIDEL_deleteSalas, method:'PATCH' }, {
-                    'idHabitacion': event.target.value,
-                }, []).then(msg => {
-                    callerSalasView();
-                    alert(msg.success);
-                }).catch(msg => alert(msg.error))
-            }
+            element: Generator.makeElement('button-delete', {
+                primaryKey: 'idHabitacion',
+                apiURL: '/cambiarEstadoHabitacion',
+                success: ()=>{ document.getElementById('admin-salas').dispatchEvent(new Event('click')) },
+                error: ()=>{ alert('La operacion fallo...'); },
+            }, [])
         }]
     });
 
@@ -99,8 +95,8 @@ function getSalasView ( callerSalasView ) {
 }   
 
 
-export default function safeGetSalasView ( callerSalasView ) {
+export default function safeGetSalasView () {
     if(SessionController().checkSession()){
-        return getSalasView( callerSalasView );
+        return getSalasView();
     } return Generator.makeElement('h1', {style: 'color: red; font-size: 24px;'}, ['SESSION FAIL']);
 }

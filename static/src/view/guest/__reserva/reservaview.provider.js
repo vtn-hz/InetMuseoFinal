@@ -10,9 +10,12 @@ import createRecordlist from "../../../custom/widget/recordlist/RecordListHandle
 
 
 const Generator =  ElementGenerator ();
+
+
+const idNavElement = 'guest-reserva';
 const idReservaTemplate = 'guest_view-reserva';
 
-export default function getReservaView ( callerReservaView ) {
+export default function getReservaView () {
     const ReservaView = viewService().getClonedView(idReservaTemplate);
     const CardRoot = ReservaView.querySelector('#row-2');
     
@@ -31,15 +34,6 @@ export default function getReservaView ( callerReservaView ) {
             dataParse.push(element.value);
         });
 
-        console.log({
-            idVisitaGuiada: event.target.getAttribute('idVisitaGuiada'),
-            nombre: dataParse[1],
-            apellido: dataParse[2],
-            dni: dataParse[3],
-            mail: dataParse[0],
-            cantPersonas: dataParse[4]
-        })
-
         const APIPOST_crearInscripcion ='/InscripcionCreate';
         FormController().sendForm({url: APIPOST_crearInscripcion, method:'POST' }, {
             idVisitaGuiada: event.target.getAttribute('idVisitaGuiada'),
@@ -49,7 +43,7 @@ export default function getReservaView ( callerReservaView ) {
             mail: dataParse[0],
             cantPersonas: dataParse[4]
         }, ['', undefined]).then(msg => {
-            callerReservaView();
+            document.getElementById(idNavElement).dispatchEvent(new Event('click'));
             alert(msg.success)
         }).catch(msg => alert(msg.error))
     }, cardSubmitReference);

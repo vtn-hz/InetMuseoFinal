@@ -2,9 +2,10 @@ import viewService from "../../../services/view.service";
 import Application from "../../../config/Application";
 import { SessionController } from "../../../controller/Session";
 
-
+const idNavElement = 'access';
 const idLoginTemplate = 'guest_view-login';
-export default function getLoginView ( callerLoginView ) {
+
+export default function getLoginView () {
     const LoginView = viewService().getClonedView(idLoginTemplate);
 
     LoginView.querySelector('#id-form').addEventListener('submit', event => {

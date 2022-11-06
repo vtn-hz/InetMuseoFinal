@@ -23,47 +23,47 @@ export function GuestController( DynamicContentRoot, StaticContentRoot){
     /*Contenido que cambia entre vistas*/ 
     const DynamicContentRender = {
         // Home de Guest
-        "renderHome": function renderHome () {
+        "renderHome": function() {
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'home');
 
-            const HomeView = getHomeView( renderHome );
+            const HomeView = getHomeView();
             document.getElementById(DynamicContentRoot).appendChild(HomeView);
         },
 
         // Reservar una visita
-        "renderReserva": function renderReserva () {
+        "renderReserva": function() {
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'guest-reserva');
   
-            const ReservaView = getReservaView( renderReserva );
+            const ReservaView = getReservaView();
             document.getElementById(DynamicContentRoot).appendChild(ReservaView);
         },
 
         // Visita Digital
-        "renderDigitalVisit": function renderDigitalVisit (){
+        "renderDigitalVisit": function(){
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'guest-visitaldigital');
 
-            const VisitaDView = getVisitadigitalView( renderDigitalVisit );
+            const VisitaDView = getVisitadigitalView();
             document.getElementById(DynamicContentRoot).appendChild(VisitaDView);
         },
 
         // Accesibilidad del Museo
-        "renderAccesibility": function renderAccesibility () {
+        "renderAccesibility": function() {
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'guest-accesibilidad');
 
-            const AccesibilityView = getAccesibilidadView( renderAccesibility );
+            const AccesibilityView = getAccesibilidadView();
             document.getElementById(DynamicContentRoot).appendChild(AccesibilityView);
         },
 
         // Login de la Admin Account
-        "renderLogin": function renderLogin (){
+        "renderLogin": function(){
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'access');
             
-            const LoginView = getLoginView( renderLogin );
+            const LoginView = getLoginView();
             document.getElementById(DynamicContentRoot).appendChild(LoginView);
         }
 

@@ -27,48 +27,48 @@ export function AdminController( DynamicContentRoot, StaticContentRoot){
     /*Contenido que cambia entre vistas*/ 
     const DynamicContentRender = {
         // Home View
-        "renderHome": function renderHome() {
+        "renderHome": function() {
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(AdminDomainView, 'home');
            
-            const HomeView = safeGetAdminHomeView( renderHome );
+            const HomeView = safeGetAdminHomeView ();
             document.getElementById(DynamicContentRoot).appendChild(HomeView);
         },
 
         // Fechas View
-        "renderFechas": function renderFechas() {
+        "renderFechas": function() {
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(AdminDomainView, 'admin-fecha');
 
-            const FechasView = safeGetFechasView( renderFechas );
+            const FechasView = safeGetFechasView ();
             document.getElementById(DynamicContentRoot).appendChild(FechasView);
         },
 
         // Fechas Exposiciones
-        "renderExposiciones": function renderExposiciones(){
+        "renderExposiciones": function(){
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(AdminDomainView, 'admin-exposiciones');
 
-            const ExposicionesView = safeGetExposicionView ( renderExposiciones ) 
+            const ExposicionesView = safeGetExposicionView (); 
             document.getElementById(DynamicContentRoot).appendChild(ExposicionesView);
         },
 
         // Guias del Museo 
-        "renderGuias": function renderGuias() {
+        "renderGuias": function() {
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(AdminDomainView, 'admin-guias');
 
-            const GuiasView = safeGetGuiasView( renderGuias );
+            const GuiasView = safeGetGuiasView ();
             document.getElementById(DynamicContentRoot).appendChild(GuiasView);
         },
 
         // Salas del Museo 
-        "renderSalas": function renderSalas(){
+        "renderSalas": function(){
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(AdminDomainView, 'admin-salas');
 
             
-            const SalasView = safeGetSalasView( renderSalas );
+            const SalasView = safeGetSalasView ();
             document.getElementById(DynamicContentRoot).appendChild(SalasView);
         }
     } 

@@ -14,8 +14,10 @@ import createCard from "../../../custom/widget/card/CardHandler";
 
 const Generator = ElementGenerator();
 
-const idExposicionesTemplate = 'admin_view-exposicion'
-function getExposicionView ( callerExposicionView ) {
+const idNavElement = 'admin-exposiciones';
+const idExposicionesTemplate = 'admin_view-exposicion';
+
+function getExposicionView () {
     const ExposicionesView =  viewService().getClonedView(idExposicionesTemplate);
     const CardRoot = ExposicionesView.querySelector('#row-2');
     
@@ -34,7 +36,7 @@ function getExposicionView ( callerExposicionView ) {
             'descripcion': dataParse[1],
             'idAdministrador': 1
         }, ['', undefined]).then(msg => {
-            callerExposicionView();
+            document.getElementById(idNavElement).dispatchEvent(new Event('click'));
             alert(msg.success);
         }).catch(msg => alert(msg.error))
     }, cardEditReference) 
@@ -53,7 +55,7 @@ function getExposicionView ( callerExposicionView ) {
             'titulo': dataParse[0],
             'descripcion': dataParse[1]
         }, ['', undefined]).then(msg => {
-            callerExposicionView();
+            document.getElementById(idNavElement).dispatchEvent(new Event('click'));
             alert(msg.success);
         }).catch(msg => alert(msg.error))
     }, cardSubmitReference)
@@ -77,19 +79,12 @@ function getExposicionView ( callerExposicionView ) {
             }
 
         }, {
-            element: Generator.makeElement('button', {id: 'delete-table-button', class: 'delete-button'}, ['Eliminar']),
-            listenEvent: 'click',
-
-            handlerEvent: event => {
-                const APIPATCH_deleteExpocicion = '/cambiarEstadoExpo';
-                FormController()
-                .sendForm({url: APIPATCH_deleteExpocicion, method:'PATCH' }, {
-                        'idExposcion': event.target.value
-                    }, ['', undefined]).then(msg => {
-                        callerExposicionView();
-                        alert(msg.success);
-                }).catch(msg => alert(msg.error))
-            }
+            element: Generator.makeElement('button-delete', {
+                primaryKey: 'idExposcion',
+                apiURL: '/cambiarEstadoExpo',
+                success: ()=>{ document.getElementById('admin-exposiciones').dispatchEvent(new Event('click')) },
+                error: ()=>{ alert('La operacion fallo...'); },
+            }, [])
         }]
     });
 
@@ -130,8 +125,8 @@ function getExposicionView ( callerExposicionView ) {
 }
 
 
-export default function safeGetExposicionView ( callerExposicionView ) {
+export default function safeGetExposicionView () {
     if(SessionController().checkSession()){
-        return getExposicionView( callerExposicionView );
+        return getExposicionView();
     } return Generator.makeElement('h1', {style: 'color: red; font-size: 24px;'}, ['SESSION FAIL']);
 }

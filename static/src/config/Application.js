@@ -3,11 +3,11 @@ import { SessionController } from "../controller/Session";
 import { AdminController } from "../controller/UI/Admin"
 import { GuestController } from "../controller/UI/Guest"
 
-
 import viewService from "../services/view.service"
 
 import defineButtonSubmit from "../custom/HTMLElement/submitbutton/SubmitButtonHandler";
 import defineButtonClose from "../custom/HTMLElement/closebutton/CloseButtonHandler";
+import defineButtonDelete from "../custom/HTMLElement/deletebutton/DeleteButtonHandler";
 
 
 
@@ -16,6 +16,7 @@ function Application () {
         viewService().pushViews().then(status => {
             defineButtonClose ();
             defineButtonSubmit();
+            defineButtonDelete();
 
             SessionController().checkSession()
             ? AdminController('root', 'nav').startUp() 

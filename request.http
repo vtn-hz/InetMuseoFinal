@@ -1,4 +1,4 @@
-
+###
 POST http://localhost:5000/InscripcionCreate HTTP/1.1 
 Content-Type: application/json
 
@@ -11,6 +11,7 @@ Content-Type: application/json
     "idVisitaGuiada": "1"
 }
 
+###
 POST http://localhost:5000/registrarExposicion HTTP/1.1 
 Content-Type: application/json
 

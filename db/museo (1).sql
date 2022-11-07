@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-11-2022 a las 16:26:09
+-- Tiempo de generación: 07-11-2022 a las 02:59:42
 -- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.4.11
+-- Versión de PHP: 7.4.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -62,11 +62,11 @@ CREATE TABLE `exposicion` (
 --
 
 INSERT INTO `exposicion` (`idExposcion`, `titulo`, `descripcion`, `estado`, `idHabitacion`) VALUES
-(1, 'Mona Pisa', 'Master Mind', 0, 1),
+(1, 'Mona Lisa', 'La mona lisa', 0, 1),
 (2, '123', '123', 0, 2),
 (3, 'Nombre', 'Desc', 0, 2),
-(4, 'Nombre', 'Sala de Star', 1, 2),
-(5, 'Expositn', 'Yo', 1, 2);
+(4, 'La Gioconda', 'Leonardo Da Vincci', 1, 2),
+(5, 'La Última Cena', 'Leonardo Da Vincci', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -115,11 +115,11 @@ CREATE TABLE `habitacion` (
 INSERT INTO `habitacion` (`idHabitacion`, `identificador`, `estado`, `idInstitucion`) VALUES
 (1, '123', 0, 1),
 (2, 'Sala de Star', 0, 1),
-(3, '123', 1, 1),
+(3, 'Sala 1', 1, 1),
 (4, '123123123', 0, 1),
 (5, '11111111111', 0, 1),
-(6, 'Sala de Star', 1, 1),
-(7, 'agua 2', 1, 1);
+(6, 'Sala 2', 1, 1),
+(7, 'Sala 3', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -140,7 +140,7 @@ CREATE TABLE `idioma` (
 INSERT INTO `idioma` (`idIdioma`, `idioma`, `estado`) VALUES
 (1, 'Español', 1),
 (2, 'Ingles', 1),
-(3, 'tailandes', 1);
+(3, 'Tailandes', 1);
 
 -- --------------------------------------------------------
 
@@ -273,7 +273,7 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`idUsuario`, `dni`, `nombre`, `apellido`, `estado`) VALUES
 (1, 5555, 'hola', 'pablo', 1),
 (2, 123456789, 'Valen', '', 1),
-(3, 123, '123', '123', 1),
+(3, 20326500, 'Lucas', 'Fernandez', 1),
 (4, 123123, '123', '123', 1),
 (5, 999999, 'pio', 'pablo', 1),
 (6, 123, '123', '123', 1),
@@ -281,17 +281,18 @@ INSERT INTO `usuario` (`idUsuario`, `dni`, `nombre`, `apellido`, `estado`) VALUE
 (8, 44444, 'qweqew', 'qweqweq', 1),
 (9, 123123, 'qweqew', '123', 1),
 (10, 44543343, '123', '123', 1),
-(11, 1234123, '123', '123', 1),
+(11, 30727222, 'Dylan', 'Rodriguez', 1),
 (12, 457213, '123@gnailsad', '123', 1),
 (13, 44867992, 'Esteban', 'pablo 2', 1),
-(14, 13, 'Leandro', 'Yanni', 1),
+(14, 3020222, 'Leandro', 'Yanni', 1),
 (15, 2147483647, 'juan', 'cartel', 1),
 (16, 2147483647, 'juan', 'cartel', 1),
 (17, 2147483647, 'juan', 'cartel', 1),
 (18, 2147483647, 'Esteban', 'pablo 2', 1),
 (19, 2147483647, 'Esteban', 'pablo 2', 1),
 (20, 2147483647, 'Esteban', 'pablo 2', 1),
-(21, 2147483647, 'Esteban', 'pablo 2', 1);
+(21, 2147483647, 'Esteban', 'pablo 2', 1),
+(22, 47626513, 'Valentino', 'Hernandez Pascual', 1);
 
 -- --------------------------------------------------------
 
@@ -313,10 +314,10 @@ CREATE TABLE `visitaguiada` (
 --
 
 INSERT INTO `visitaguiada` (`idVisitaGuiada`, `fecha`, `hora`, `estado`, `idGuia`, `idRecorrido`) VALUES
-(1, '2022-11-01', '15:37:47', 1, 2, 1),
-(2, '2022-11-01', '15:37:51', 1, 2, 1),
+(1, '2022-11-01', '12:30:00', 1, 2, 1),
+(2, '2022-11-01', '12:00:00', 1, 2, 1),
 (3, '2022-10-10', '15:00:00', 1, 2, 1),
-(4, '2022-10-10', '15:00:00', 1, 2, 1);
+(4, '2022-10-11', '15:00:00', 1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -337,13 +338,12 @@ CREATE TABLE `visitante` (
 --
 
 INSERT INTO `visitante` (`idVisitante`, `mail`, `cantPersonas`, `estado`, `idUsuario`) VALUES
-(0, 'juancio@gmail.com', 2, 1, 17),
-(1, 'papa@hola', 5, 1, 5),
-(2, 'papa@hola', 5, 1, 5),
-(3, 'papa@hola', 5, 1, 5),
-(4, 'papa@hola', 5, 1, 5),
-(5, '123@gnailsad', 123123, 1, 4),
-(6, '123@gnailsad', 2, 1, 12);
+(1, 'papa@hola', 5, 0, 5),
+(2, 'papa@hola', 5, 0, 5),
+(3, 'papa@hola', 5, 0, 5),
+(4, 'papa@hola', 5, 0, 5),
+(5, '123@gnailsad', 123123, 0, 4),
+(6, '123@gnailsad', 2, 0, 12);
 
 --
 -- Índices para tablas volcadas
@@ -524,13 +524,19 @@ ALTER TABLE `recorrido`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `visitaguiada`
 --
 ALTER TABLE `visitaguiada`
   MODIFY `idVisitaGuiada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `visitante`
+--
+ALTER TABLE `visitante`
+  MODIFY `idVisitante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas

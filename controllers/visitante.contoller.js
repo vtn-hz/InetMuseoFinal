@@ -10,7 +10,6 @@ export const VisitanteRegister = async(req, res) =>{
             replacements: [req.body.dni],
         })
         IdUsuario = response.length > 0? response[0].idUsuario : null;
-        console.log("Segundo log:",IdUsuario);
             if(IdUsuario == null || IdUsuario == undefined){
                 await conexion.query("INSERT INTO `usuario`(`dni`, `nombre`, `apellido`) VALUES (?,?,?)",
                 {

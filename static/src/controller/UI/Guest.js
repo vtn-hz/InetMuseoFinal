@@ -1,14 +1,22 @@
 import { ElementGenerator, ElementManagement } from "../../helpers/render.helper"
 
 
-import getAccesibilidadView from "../../view/guest/__accesibilidad/accesibilidadview.provider";
-import getHomeView from "../../view/guest/__home/homeview.provider";
-import getLoginView from "../../view/guest/__login/loginview.provider";
-import getReservaView from "../../view/guest/__reserva/reservaview.provider";
-import getVisitadigitalView from "../../view/guest/__visitadigital/visitadigital.provider";
+
+import getAccesibilidadControl from "../../control/guest/__accesibilidad/accesibilidadcontrol.provider";
+import getHomeControl from "../../control/guest/__home/homecontrol.provider";
+import getReservaControl from "../../control/guest/__reserva/reservacontrol.provider";
+import getVisitadigitalControl from "../../control/guest/__visitadigital/visitadigitalcontrol.provider";
+import getLoginControl from "../../control/guest/__login/logincontrol.provider";
 
 
-import createNavbar from "../../custom/widget/navbar/NavHandler";
+
+
+import createNavbar from "../../custom/widget/navbar/NavbarWidget.provider";
+
+
+
+
+
 /*Puntos de Id del NavBar*/ 
 const GuestDomainView = ['home', 'guest-reserva', 'guest-visitaldigital', 'guest-accesibilidad', 'access'];
 
@@ -27,7 +35,7 @@ export function GuestController( DynamicContentRoot, StaticContentRoot){
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'home');
 
-            const HomeView = getHomeView();
+            const HomeView = getHomeControl();
             document.getElementById(DynamicContentRoot).appendChild(HomeView);
         },
 
@@ -36,7 +44,7 @@ export function GuestController( DynamicContentRoot, StaticContentRoot){
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'guest-reserva');
   
-            const ReservaView = getReservaView();
+            const ReservaView = getReservaControl();
             document.getElementById(DynamicContentRoot).appendChild(ReservaView);
         },
 
@@ -45,7 +53,7 @@ export function GuestController( DynamicContentRoot, StaticContentRoot){
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'guest-visitaldigital');
 
-            const VisitaDView = getVisitadigitalView();
+            const VisitaDView = getVisitadigitalControl();
             document.getElementById(DynamicContentRoot).appendChild(VisitaDView);
         },
 
@@ -54,7 +62,7 @@ export function GuestController( DynamicContentRoot, StaticContentRoot){
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'guest-accesibilidad');
 
-            const AccesibilityView = getAccesibilidadView();
+            const AccesibilityView = getAccesibilidadControl();
             document.getElementById(DynamicContentRoot).appendChild(AccesibilityView);
         },
 
@@ -63,7 +71,7 @@ export function GuestController( DynamicContentRoot, StaticContentRoot){
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(GuestDomainView, 'access');
             
-            const LoginView = getLoginView();
+            const LoginView = getLoginControl();
             document.getElementById(DynamicContentRoot).appendChild(LoginView);
         }
 

@@ -3,13 +3,14 @@ import Application from "../../config/Application";
 import { ElementGenerator, ElementManagement } from "../../helpers/render.helper"
 import { SessionController } from "../Session";
 
-import safeGetExposicionView from "../../view/admin/__exposiciones/exposicionview.provider";
-import safeGetFechasView from "../../view/admin/__fechas/fechasview.provider";
-import safeGetGuiasView from "../../view/admin/__guias/guiasview.provider";
-import safeGetAdminHomeView from "../../view/admin/__home/homeview.provider";
-import safeGetSalasView from "../../view/admin/__salas/salasview.provider";
+import safeGetAdminHomeControl from "../../control/admin/__home/homecontrol.provider";
+import safeGetExposicionControl from "../../control/admin/__exposiciones/exposicioncontrol.provider";
+import safeGetFechasControl from "../../control/admin/__fechas/fechascontrol.provider";
+import safeGetGuiasControl from "../../control/admin/__guias/guiascontrol.provider";
+import safeGetSalasControl from "../../control/admin/__salas/salasview.provider";
 
-import createNavbar from "../../custom/widget/navbar/NavHandler";
+
+import createNavbar from "../../custom/widget/navbar/NavbarWidget.provider";
 
 
 
@@ -32,7 +33,7 @@ export function AdminController( DynamicContentRoot, StaticContentRoot){
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(AdminDomainView, 'home');
            
-            const HomeView = safeGetAdminHomeView ();
+            const HomeView = safeGetAdminHomeControl ();
             document.getElementById(DynamicContentRoot).appendChild(HomeView);
         },
 
@@ -41,7 +42,7 @@ export function AdminController( DynamicContentRoot, StaticContentRoot){
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(AdminDomainView, 'admin-fecha');
 
-            const FechasView = safeGetFechasView ();
+            const FechasView = safeGetFechasControl ();
             document.getElementById(DynamicContentRoot).appendChild(FechasView);
         },
 
@@ -50,7 +51,7 @@ export function AdminController( DynamicContentRoot, StaticContentRoot){
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(AdminDomainView, 'admin-exposiciones');
 
-            const ExposicionesView = safeGetExposicionView (); 
+            const ExposicionesView = safeGetExposicionControl (); 
             document.getElementById(DynamicContentRoot).appendChild(ExposicionesView);
         },
 
@@ -59,7 +60,7 @@ export function AdminController( DynamicContentRoot, StaticContentRoot){
             Generator.removeAllElements(document.getElementById(DynamicContentRoot));
             Manager.setActiveClass(AdminDomainView, 'admin-guias');
 
-            const GuiasView = safeGetGuiasView ();
+            const GuiasView = safeGetGuiasControl ();
             document.getElementById(DynamicContentRoot).appendChild(GuiasView);
         },
 
@@ -69,7 +70,7 @@ export function AdminController( DynamicContentRoot, StaticContentRoot){
             Manager.setActiveClass(AdminDomainView, 'admin-salas');
 
             
-            const SalasView = safeGetSalasView ();
+            const SalasView = safeGetSalasControl ();
             document.getElementById(DynamicContentRoot).appendChild(SalasView);
         }
     } 
